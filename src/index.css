@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Pacifico&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 50 40% 93%;
+    --foreground: 0 0% 7%;
+    --card: 50 40% 93%;
+    --card-foreground: 0 0% 7%;
+    --popover: 50 40% 93%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 158 61% 15%;
+    --primary-foreground: 50 40% 93%;
+    --secondary: 158 30% 25%;
+    --secondary-foreground: 50 40% 93%;
+    --muted: 50 20% 85%;
+    --muted-foreground: 158 10% 40%;
+    --accent: 27 79% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 50 15% 78%;
+    --input: 50 15% 78%;
+    --ring: 158 61% 15%;
+    --radius: 0.25rem;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-script: 'Pacifico', cursive;
+    --font-mono: 'JetBrains Mono', monospace;
+    --doty-green: #0D3B2E;
+    --doty-orange: #E07820;
+    --doty-cream: #F5F0D8;
+    --doty-gold: #F5C518;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 40 33% 96%;
+    --card: 0 0% 7%;
+    --card-foreground: 40 33% 96%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 40 33% 96%;
+    --primary: 20 56% 45%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 30 4% 50%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 30 4% 60%;
+    --accent: 20 56% 45%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 20 56% 45%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 40 33% 96%;
+    --sidebar-primary: 20 56% 45%;
+    --sidebar-primary-foreground: 0 0% 7%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 40 33% 96%;
+    --sidebar-border: 0 0% 14.9%;
+    --sidebar-ring: 20 56% 45%;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
