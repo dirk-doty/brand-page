@@ -5,25 +5,25 @@ const PRODUCTS = [
   {
     name: 'The Heritage Tee',
     detail: '220gsm · 100% Organic Cotton · Garment Dyed',
-    image: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/1a390c2e4_generated_c2da3ded.png',
+    image: '/images/product-1.png',
     number: '001',
   },
   {
     name: 'The Field Cap',
     detail: 'Waxed Canvas · Brass Hardware · Adjustable',
-    image: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/1c41385ec_generated_e32b3c4e.png',
+    image: '/images/product-2.png',
     number: '002',
   },
   {
     name: 'The Expedition Pack',
     detail: 'Ripstop Nylon · 32L · Water Resistant',
-    image: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/7bc893d29_generated_d5b11a6e.png',
+    image: '/images/product-3.png',
     number: '003',
   },
   {
     name: 'The Trail Vest',
     detail: 'Recycled Down · 700 Fill · Packable',
-    image: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/c749a91a8_generated_08e95227.png',
+    image: '/images/product-4.png',
     number: '004',
   },
 ];

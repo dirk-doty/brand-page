@@ -3,15 +3,15 @@ import { motion, useInView } from 'framer-motion';
 
 const IMAGES = [
   {
-    url: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/87d358afe_IMG_9645.jpg',
+    url: '/images/gallery-1.jpg',
     label: 'On Set',
   },
   {
-    url: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/843c499a3_IMG_2762.jpg',
+    url: '/images/gallery-2.jpg',
     label: 'Production',
   },
   {
-    url: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/e7d4b37e8_IMG_9649.jpg',
+    url: '/images/gallery-3.jpg',
     label: 'National Parks Hunt',
   },
 ];

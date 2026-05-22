@@ -33,7 +33,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="https://doty.media" className="flex items-center justify-center">
           <img
-            src="https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/14350f243_DOTY_Primary-Logo_1-C_Dark-Pine.png"
+            src="/images/logo-dark.png"
             alt="Dad of the Year"
             width={120}
             style={{ filter: 'brightness(0) invert(1)' }} />

@@ -1,4 +1,4 @@
-const LOGO_URL = 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/6a79c98eb_DOTY_Primary-Logo_1-C_Pine2x.jpg';
+const LOGO_URL = '/images/logo-light.jpg';
 
 const sizes = {
   sm: 100,

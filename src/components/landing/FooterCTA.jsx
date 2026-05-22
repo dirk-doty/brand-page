@@ -3,15 +3,41 @@ import DotyLogo from './DotyLogo';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
+// Sign up at https://formspree.io, create a form, and replace this with your form endpoint.
+// Example: 'https://formspree.io/f/abcdefgh'
+const FORMSPREE_ENDPOINT = '';
+
 export default function FooterCTA() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email.trim()) setSubmitted(true);
+    if (!email.trim()) return;
+
+    if (FORMSPREE_ENDPOINT) {
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        if (res.ok) {
+          setSubmitted(true);
+        } else {
+          setError('Something went wrong. Please try again.');
+        }
+      } catch {
+        setError('Something went wrong. Please try again.');
+      }
+    } else {
+      // Mailto fallback until Formspree endpoint is configured
+      window.location.href = `mailto:dirk@doty.media?subject=DOTY%20List%20Signup&body=Please%20add%20me%20to%20the%20list%3A%20${encodeURIComponent(email)}`;
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -64,6 +90,7 @@ export default function FooterCTA() {
               <p className="font-body text-white/20 text-xs mt-3 tracking-wide">
                 No spam. Just tools, inspiration, and community for dads.
               </p>
+              {error && <p className="font-body text-red-400 text-xs mt-2">{error}</p>}
             </form>
           )}
         </motion.div>
@@ -72,7 +99,7 @@ export default function FooterCTA() {
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="opacity-40">
             <img
-              src="https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/14350f243_DOTY_Primary-Logo_1-C_Dark-Pine.png"
+              src="/images/logo-dark.png"
               alt="Dad of the Year"
               width={140}
               style={{ filter: 'brightness(0) invert(1)' }}

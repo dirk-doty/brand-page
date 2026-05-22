@@ -6,7 +6,7 @@ const SHOWS = [
   title: 'National Parks Hunt',
   tag: 'Flagship Series · Launching 2026',
   desc: 'Fathers & kids team up to complete nature-based challenges in America\'s most stunning national parks. Action, education, and emotional bonding.',
-  image: 'https://media.base44.com/images/public/69c16483a7b91a894b0cd8c7/476d4eea8_Glacier.png',
+  image: '/images/show-glacier.png',
   accent: 'bg-doty-orange',
   comingSoon: false
 },
