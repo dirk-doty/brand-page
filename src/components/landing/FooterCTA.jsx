@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 // Sign up at https://formspree.io, create a form, and replace this with your form endpoint.
 // Example: 'https://formspree.io/f/abcdefgh'
-const FORMSPREE_ENDPOINT = '';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xdajgrkj';
 
 export default function FooterCTA() {
   const [email, setEmail] = useState('');
