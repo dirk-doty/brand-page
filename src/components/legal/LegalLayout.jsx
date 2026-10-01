@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import Navbar from '../landing/Navbar';
 import SiteFooter from '../landing/SiteFooter';
 
-export function LegalSection({ title, children }) {
+export function LegalSection({ id, title, children }) {
   return (
-    <section className="mb-10">
+    <section id={id} className="mb-10 scroll-mt-28">
       <h2 className="font-display text-doty-green text-xl md:text-2xl font-bold mb-3">{title}</h2>
       <div className="font-body text-doty-green/80 leading-relaxed space-y-4 [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-doty-green [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2">
         {children}
@@ -13,6 +14,12 @@ export function LegalSection({ title, children }) {
 }
 
 export default function LegalLayout({ title, effectiveDate, children }) {
+  // The page renders after the browser's own hash scroll, so honour links like /terms#dispute-resolution here.
+  useEffect(() => {
+    const target = window.location.hash && document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    target?.scrollIntoView();
+  }, []);
+
   return (
     <div className="min-h-screen bg-doty-cream">
       <Navbar solid />

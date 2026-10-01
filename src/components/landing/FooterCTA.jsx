@@ -6,12 +6,21 @@ import { ArrowRight } from 'lucide-react';
 // Example: 'https://formspree.io/f/abcdefgh'
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xdajgrkj';
 
+// Sent with each signup so Formspree keeps a record of exactly what the person agreed to, and when.
+// Update these dates whenever the Terms of Use or Privacy Policy effective date changes.
+const CONSENT_RECORD = {
+  consent: 'By joining, you agree to receive emails from Dad of the Year and to our Terms of Use. Unsubscribe anytime. See our Privacy Policy.',
+  terms_effective: '2026-10-01',
+  privacy_effective: '2026-10-01',
+};
+
 export default function FooterCTA() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const ref = useRef(null);
+  const honeypotRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const handleSubmit = async (e) => {
@@ -25,7 +34,8 @@ export default function FooterCTA() {
         const res = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
+          // _gotcha is Formspree's honeypot: bots fill it in and Formspree silently drops the submission.
+          body: JSON.stringify({ email, ...CONSENT_RECORD, _gotcha: honeypotRef.current?.value ?? '' }),
         });
         if (res.ok) {
           setSubmitted(true);
@@ -67,6 +77,10 @@ export default function FooterCTA() {
 
           {!submitted && (
             <form onSubmit={handleSubmit} className="max-w-xl">
+              {/* Spam trap: invisible to people and screen readers, unreachable by keyboard */}
+              <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                <input ref={honeypotRef} type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
+              </div>
               <div className="flex items-center border-b-2 border-white/20 pb-4 gap-4 focus-within:border-doty-orange transition-colors duration-300">
                 <label htmlFor="join-email" className="sr-only">Email address</label>
                 <input
@@ -92,7 +106,9 @@ export default function FooterCTA() {
                 No spam. Just tools, inspiration, and community for dads.
               </p>
               <p className="font-body text-white/60 text-xs mt-2 tracking-wide">
-                By joining, you agree to receive emails from Dad of the Year. Unsubscribe anytime. See our{' '}
+                By joining, you agree to receive emails from Dad of the Year and to our{' '}
+                <a href="/terms" className="underline underline-offset-2 text-white/80 hover:text-white transition-colors">Terms of Use</a>.
+                Unsubscribe anytime. See our{' '}
                 <a href="/privacy" className="underline underline-offset-2 text-white/80 hover:text-white transition-colors">Privacy Policy</a>.
               </p>
             </form>
