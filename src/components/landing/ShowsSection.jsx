@@ -71,7 +71,7 @@ export default function ShowsSection() {
                 <img
                 src={show.image}
                 alt={show.title}
-                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-90 ${show.comingSoon ? 'blur-[2px]' : ''}`} />
+                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-90 ${show.comingSoon ? 'blur-[1px]' : ''}`} />
               </div>
               {/* Accent left border */}
               <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${show.accent}`} />
