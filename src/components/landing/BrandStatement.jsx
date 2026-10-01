@@ -28,7 +28,7 @@ export default function BrandStatement() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <span className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase block mb-4">Our Mission</span>
+            <span className="font-body text-doty-orange-dark text-xs tracking-[0.2em] uppercase block mb-4">Our Mission</span>
             <h2 className="font-display text-doty-green text-4xl md:text-5xl font-bold leading-tight mb-6">
               More Than a<br />Media Brand.
             </h2>
@@ -52,12 +52,12 @@ export default function BrandStatement() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
-                className={`aspect-square flex flex-col justify-center p-6 ${i === 0 ? 'bg-doty-orange' : i === 1 ? 'bg-doty-green' : i === 2 ? 'bg-doty-green' : 'bg-doty-gold'}`}
+                className={`aspect-square flex flex-col justify-center p-6 ${i === 0 ? 'bg-doty-orange-deep' : i === 1 ? 'bg-doty-green' : i === 2 ? 'bg-doty-green' : 'bg-doty-gold'}`}
               >
                 <div className={`font-display font-bold text-4xl md:text-5xl mb-2 ${i === 3 ? 'text-doty-green' : 'text-white'}`}>
                   {stat.number}
                 </div>
-                <div className={`font-body text-sm leading-snug ${i === 3 ? 'text-doty-green/80' : 'text-white/80'}`}>
+                <div className={`font-body text-sm leading-snug ${i === 3 ? 'text-doty-green/80' : i === 0 ? 'text-white' : 'text-white/80'}`}>
                   {stat.label}
                 </div>
               </motion.div>

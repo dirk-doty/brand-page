@@ -28,7 +28,7 @@ export default function CoreValues() {
     <section ref={ref} className="bg-doty-cream py-20 md:py-28">
       <div className="px-6 md:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase block mb-3">Core Values</span>
+          <span className="font-body text-doty-orange-dark text-xs tracking-[0.2em] uppercase block mb-3">Core Values</span>
           <h2 className="font-display text-doty-green text-4xl md:text-5xl font-bold">
             Give Dads a North Star
           </h2>
@@ -52,7 +52,7 @@ export default function CoreValues() {
               transition={{ duration: 0.7, delay: i * 0.15 }}
               className="bg-white p-8 border-t-4 border-doty-orange hover:shadow-lg transition-shadow duration-300"
             >
-              <val.icon className="text-doty-orange w-8 h-8 mb-5" />
+              <val.icon className="text-doty-orange w-8 h-8 mb-5" aria-hidden="true" focusable="false" />
               <h3 className="font-display text-doty-green text-xl font-bold mb-3">{val.title}</h3>
               <p className="font-body text-doty-green/70 leading-relaxed">{val.body}</p>
             </motion.div>

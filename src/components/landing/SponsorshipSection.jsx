@@ -61,7 +61,7 @@ export default function SponsorshipSection() {
       <div className="h-1 bg-doty-orange mb-16" />
       <div className="px-6 md:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase block mb-3">Partner With Us</span>
+          <span className="font-body text-doty-orange-light text-xs tracking-[0.2em] uppercase block mb-3">Partner With Us</span>
           <h2 className="font-display text-doty-gold text-4xl md:text-6xl font-bold leading-tight mb-6">Brand Sponsorships
 
           </h2>
@@ -84,7 +84,7 @@ export default function SponsorshipSection() {
                   Most Popular
                 </div>
             }
-              <tier.icon className={`w-7 h-7 mb-5 ${tier.tagColor}`} />
+              <tier.icon className={`w-7 h-7 mb-5 ${tier.tagColor}`} aria-hidden="true" focusable="false" />
               <span className="font-body text-xs tracking-[0.2em] uppercase mb-2 text-doty-gold">{tier.name}</span>
               <div className="mb-6">
                 <span className="font-display text-white text-3xl font-bold whitespace-nowrap">{tier.price}</span>
@@ -103,7 +103,7 @@ export default function SponsorshipSection() {
               className={`block text-center font-body text-xs tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 ${
               tier.featured ?
               'bg-doty-gold text-doty-green hover:bg-white' :
-              'border border-white/20 text-white hover:border-doty-orange hover:text-doty-orange'}`
+              'border border-white/20 text-white hover:border-doty-orange hover:text-doty-orange-light'}`
               }>
               
                 Get Started
@@ -116,7 +116,7 @@ export default function SponsorshipSection() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center font-body text-white/30 text-xs tracking-wide mt-10">
+          className="text-center font-body text-white/60 text-xs tracking-wide mt-10">
           
           Custom packages available. Contact us to discuss a tailored partnership.
         </motion.p>

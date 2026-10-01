@@ -7,19 +7,23 @@ import ManifestoSection from '../components/landing/ManifestoSection';
 import GalleryStrip from '../components/landing/GalleryStrip';
 import SponsorshipSection from '../components/landing/SponsorshipSection';
 import FooterCTA from '../components/landing/FooterCTA';
+import SiteFooter from '../components/landing/SiteFooter';
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <HeroSection />
-      <BrandStatement />
-      <ManifestoSection />
-      <ShowsSection />
-      <CoreValues />
-      <SponsorshipSection />
-      <GalleryStrip />
-      <FooterCTA />
+      <main id="main" tabIndex={-1} className="focus:outline-none">
+        <HeroSection />
+        <BrandStatement />
+        <ManifestoSection />
+        <ShowsSection />
+        <CoreValues />
+        <SponsorshipSection />
+        <GalleryStrip />
+        <FooterCTA />
+      </main>
+      <SiteFooter />
     </div>
   );
 }
