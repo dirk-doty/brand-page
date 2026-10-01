@@ -6,10 +6,12 @@ import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import TermsOfUse from './pages/TermsOfUse';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import SkipLink from './components/landing/SkipLink';
 
 function App() {
   return (
     <QueryClientProvider client={queryClientInstance}>
+      <SkipLink />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

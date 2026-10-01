@@ -80,7 +80,7 @@ export default function ShowsSection() {
                 <span className="font-body text-doty-orange text-[10px] tracking-[0.2em] uppercase block mb-1">{show.tag}</span>
                 <h3 className="font-display text-white text-xl md:text-2xl font-bold mb-2">"{show.title}"</h3>
                 {show.comingSoon ?
-              <p className="font-body text-white/50 text-sm tracking-[0.2em] uppercase">Coming Soon...</p> :
+              <p className="font-body text-white/70 text-sm tracking-[0.2em] uppercase">Coming Soon...</p> :
               <p className="font-body text-white/70 text-sm leading-relaxed">{show.desc}</p>
               }
               </div>

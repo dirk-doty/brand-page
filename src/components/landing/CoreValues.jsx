@@ -52,7 +52,7 @@ export default function CoreValues() {
               transition={{ duration: 0.7, delay: i * 0.15 }}
               className="bg-white p-8 border-t-4 border-doty-orange hover:shadow-lg transition-shadow duration-300"
             >
-              <val.icon className="text-doty-orange w-8 h-8 mb-5" />
+              <val.icon className="text-doty-orange w-8 h-8 mb-5" aria-hidden="true" focusable="false" />
               <h3 className="font-display text-doty-green text-xl font-bold mb-3">{val.title}</h3>
               <p className="font-body text-doty-green/70 leading-relaxed">{val.body}</p>
             </motion.div>
