@@ -16,8 +16,8 @@ export function LegalSection({ id, title, children }) {
 export default function LegalLayout({ title, effectiveDate, children }) {
   // The page renders after the browser's own hash scroll, so honour links like /terms#dispute-resolution here.
   useEffect(() => {
-    const target = window.location.hash && document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-    target?.scrollIntoView();
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (id) document.getElementById(id)?.scrollIntoView();
   }, []);
 
   return (

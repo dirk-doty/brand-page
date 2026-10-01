@@ -48,7 +48,7 @@ export default function Navbar({ solid = false }) {
 
           </a>
           <a
-            href={anchor('sponsorships')} className="bg-doty-orange-deep text-white font-body text-[11px] tracking-[0.15em] uppercase px-4 py-2 hover:bg-doty-orange-dark transition-colors">BRAND SPONSORSHIPS
+            href={anchor('sponsorships')} className="bg-doty-orange-button text-doty-green font-body text-[11px] tracking-[0.15em] uppercase px-4 py-2 hover:bg-white transition-colors">BRAND SPONSORSHIPS
 
 
 
@@ -56,7 +56,7 @@ export default function Navbar({ solid = false }) {
         </div>
 
         {/* Mobile logo only right side */}
-        <a href={anchor('join')} className="md:hidden bg-doty-orange-deep text-white font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1.5">
+        <a href={anchor('join')} className="md:hidden bg-doty-orange-button text-doty-green font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1.5">
           Join
         </a>
       </nav>
