@@ -22,7 +22,7 @@ const SHOWS = [
   title: "Dad's Roundtable",
   tag: 'Talk Show',
   desc: 'Guest dads, influencers, and experts discussing mental health, relationships, and the realities of modern family life.',
-  image: '/images/show-roundtable.jpg',
+  image: '/images/show-roundtable.webp',
   accent: 'bg-doty-green',
   comingSoon: true
 },
