@@ -16,6 +16,7 @@ export default function SiteFooter() {
             <span className="font-body text-white/60 text-xs tracking-widest uppercase">All Rights Reserved.</span>
             <a href="/terms" className="font-body text-white/60 text-xs tracking-widest uppercase hover:text-white transition-colors">Terms of Use</a>
             <a href="/privacy" className="font-body text-white/60 text-xs tracking-widest uppercase hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/accessibility" className="font-body text-white/60 text-xs tracking-widest uppercase hover:text-white transition-colors">Accessibility</a>
           </div>
         </div>
       </div>

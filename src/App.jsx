@@ -6,6 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import Home from './pages/Home';
 import TermsOfUse from './pages/TermsOfUse';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import AccessibilityStatement from './pages/AccessibilityStatement';
 import SkipLink from './components/landing/SkipLink';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/terms" element={<TermsOfUse />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/accessibility" element={<AccessibilityStatement />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
