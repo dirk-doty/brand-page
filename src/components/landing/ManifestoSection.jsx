@@ -27,7 +27,7 @@ export default function ManifestoSection() {
 
           {/* Left */}
           <div className="md:col-span-5">
-            <span className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase block mb-4">The Movement</span>
+            <span className="font-body text-doty-orange-light text-xs tracking-[0.2em] uppercase block mb-4">The Movement</span>
             <h2 className="font-display text-doty-gold text-4xl md:text-5xl font-bold leading-tight mb-8">
               What We're<br />Building
             </h2>
@@ -61,7 +61,7 @@ export default function ManifestoSection() {
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-8 h-[3px] bg-doty-orange" />
-                  <h3 className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase">{`0${i + 1}`}</h3>
+                  <h3 className="font-body text-doty-orange-light text-xs tracking-[0.2em] uppercase">{`0${i + 1}`}</h3>
                 </div>
                 <h4 className="font-display text-white text-xl font-bold mb-2">{p.title}</h4>
                 <p className="font-body text-white/60 leading-relaxed">{p.body}</p>

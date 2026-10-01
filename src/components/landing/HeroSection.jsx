@@ -91,7 +91,7 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4">
           
           <a
-            href="#sponsorships" className="bg-doty-orange text-white font-body text-sm tracking-[0.15em] uppercase px-8 py-4 hover:bg-white hover:text-doty-green transition-all duration-300">BECOME A SPONSOR
+            href="#sponsorships" className="bg-doty-orange-deep text-white font-body text-sm tracking-[0.15em] uppercase px-8 py-4 hover:bg-white hover:text-doty-green transition-all duration-300">BECOME A SPONSOR
 
 
 

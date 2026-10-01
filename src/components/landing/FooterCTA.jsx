@@ -55,7 +55,7 @@ export default function FooterCTA() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1 }}
         >
-          <span className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase block mb-8">Join the Movement</span>
+          <span className="font-body text-doty-orange-light text-xs tracking-[0.2em] uppercase block mb-8">Join the Movement</span>
 
           <h2 className="font-display text-doty-gold text-5xl md:text-7xl font-bold leading-tight mb-6">
             Let's Help Dads<br />Everywhere Avoid<br />the Pain of Regret.
@@ -83,7 +83,7 @@ export default function FooterCTA() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex items-center gap-2 bg-doty-orange text-white font-body text-sm tracking-[0.1em] uppercase px-5 py-2.5 hover:bg-white hover:text-doty-green transition-all duration-300 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-doty-orange disabled:hover:text-white"
+                  className="flex items-center gap-2 bg-doty-orange-deep text-white font-body text-sm tracking-[0.1em] uppercase px-5 py-2.5 hover:bg-white hover:text-doty-green transition-all duration-300 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-doty-orange-deep disabled:hover:text-white"
                 >
                   Join Free <ArrowRight className="w-4 h-4" aria-hidden="true" focusable="false" />
                 </button>

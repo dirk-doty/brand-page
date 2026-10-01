@@ -20,16 +20,22 @@ export default function PrivacyPolicy() {
             our signup form.
           </p>
           <p>
-            We set no cookies and run no analytics on this site. Like any website, our hosting provider (Vercel)
-            processes standard technical information such as your IP address and browser type in order to deliver
-            pages and keep the service secure.
+            We also collect anonymous, aggregated usage statistics through Vercel Web Analytics, such as which pages
+            are viewed, the referring site, and general device, browser, and country information. It does not use
+            cookies and does not identify you personally or follow you to other websites.
+          </p>
+          <p>
+            We set no cookies on this site. Like any website, our hosting provider processes standard technical
+            information such as your IP address and browser type in order to deliver pages and keep the service
+            secure.
           </p>
         </LegalSection>
 
         <LegalSection title="Why We Collect It">
           <p>
             We use your email address to send you updates about DOTY shows, membership, and community. We do not
-            use it for anything else.
+            use it for anything else. We use the aggregated analytics only to understand how the site is used and
+            to improve it.
           </p>
         </LegalSection>
 
@@ -46,8 +52,7 @@ export default function PrivacyPolicy() {
               video loads.
             </li>
             <li>
-              <strong>Unsplash</strong> hosts some of the images on our home page and receives your IP address and
-              browser information when those images load.
+              <strong>Vercel</strong> hosts this website and provides the analytics described above.
             </li>
           </ul>
           <p>Each of these providers handles information under its own privacy policy.</p>
@@ -86,8 +91,9 @@ export default function PrivacyPolicy() {
           </p>
           <p>
             <strong>Do Not Track.</strong> Some browsers send a &ldquo;Do Not Track&rdquo; (DNT) signal. Because we
-            do not track visitors over time or across third-party websites, and run no analytics or advertising
-            trackers, our site does not change its behavior in response to DNT signals. We do not allow third
+            do not track visitors across third-party websites, and our analytics are anonymous, aggregated, and
+            cookie-free with no advertising trackers, our site does not change its behavior in response to DNT
+            signals. We do not allow third
             parties to collect personal information about your online activities over time and across different
             websites through our site, other than the technical information the providers above receive when their
             content loads.

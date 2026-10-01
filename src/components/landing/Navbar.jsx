@@ -25,10 +25,10 @@ export default function Navbar({ solid = false }) {
       <nav aria-label="Primary" className="flex items-center justify-between px-6 md:px-12 py-4">
         {/* Left nav */}
         <div className="flex-1 flex items-center gap-6 hidden md:flex">
-          <a href={anchor('join')} className="font-body text-[11px] tracking-[0.15em] uppercase text-white/70 hover:text-doty-orange transition-colors">
+          <a href={anchor('join')} className="font-body text-[11px] tracking-[0.15em] uppercase text-white/70 hover:text-doty-orange-light transition-colors">
             Join
           </a>
-          <a href={anchor('mission')} className="font-body text-[11px] tracking-[0.15em] uppercase text-white/70 hover:text-doty-orange transition-colors">
+          <a href={anchor('mission')} className="font-body text-[11px] tracking-[0.15em] uppercase text-white/70 hover:text-doty-orange-light transition-colors">
             Mission
           </a>
         </div>
@@ -44,11 +44,11 @@ export default function Navbar({ solid = false }) {
 
         {/* Right nav */}
         <div className="flex-1 flex items-center justify-end gap-6 hidden md:flex">
-          <a href={anchor('shows')} className="font-body text-[11px] tracking-[0.15em] uppercase text-white/70 hover:text-doty-orange transition-colors">DOTY SHOWS
+          <a href={anchor('shows')} className="font-body text-[11px] tracking-[0.15em] uppercase text-white/70 hover:text-doty-orange-light transition-colors">DOTY SHOWS
 
           </a>
           <a
-            href={anchor('sponsorships')} className="bg-doty-orange text-white font-body text-[11px] tracking-[0.15em] uppercase px-4 py-2 hover:bg-doty-orange/80 transition-colors">BRAND SPONSORSHIPS
+            href={anchor('sponsorships')} className="bg-doty-orange-deep text-white font-body text-[11px] tracking-[0.15em] uppercase px-4 py-2 hover:bg-doty-orange-dark transition-colors">BRAND SPONSORSHIPS
 
 
 
@@ -56,7 +56,7 @@ export default function Navbar({ solid = false }) {
         </div>
 
         {/* Mobile logo only right side */}
-        <a href={anchor('join')} className="md:hidden bg-doty-orange text-white font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1.5">
+        <a href={anchor('join')} className="md:hidden bg-doty-orange-deep text-white font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1.5">
           Join
         </a>
       </nav>

@@ -61,7 +61,7 @@ export default function SponsorshipSection() {
       <div className="h-1 bg-doty-orange mb-16" />
       <div className="px-6 md:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="font-body text-doty-orange text-xs tracking-[0.2em] uppercase block mb-3">Partner With Us</span>
+          <span className="font-body text-doty-orange-light text-xs tracking-[0.2em] uppercase block mb-3">Partner With Us</span>
           <h2 className="font-display text-doty-gold text-4xl md:text-6xl font-bold leading-tight mb-6">Brand Sponsorships
 
           </h2>
@@ -103,7 +103,7 @@ export default function SponsorshipSection() {
               className={`block text-center font-body text-xs tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 ${
               tier.featured ?
               'bg-doty-gold text-doty-green hover:bg-white' :
-              'border border-white/20 text-white hover:border-doty-orange hover:text-doty-orange'}`
+              'border border-white/20 text-white hover:border-doty-orange hover:text-doty-orange-light'}`
               }>
               
                 Get Started

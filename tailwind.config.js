@@ -25,6 +25,10 @@ module.exports = {
   			ring: 'hsl(var(--ring))',
   			'doty-green': '#0D3B2E',
   			'doty-orange': '#E07820',
+  			// AA-safe variants of the brand orange, used only where small text would fail 4.5:1.
+  			'doty-orange-light': '#E69149', // small orange text on doty-green (5.0:1) and over the show-card gradient
+  			'doty-orange-dark': '#A45817', // small orange text on doty-cream (4.6:1)
+  			'doty-orange-deep': '#B25F19', // background behind small white text (4.6:1)
   			'doty-cream': '#F5F0D8',
   			'doty-gold': '#F5C518',
   			chart: {
