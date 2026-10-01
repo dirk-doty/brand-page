@@ -97,7 +97,7 @@ export default function FooterCTA() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex items-center gap-2 bg-doty-orange-deep text-white font-body text-sm tracking-[0.1em] uppercase px-5 py-2.5 hover:bg-white hover:text-doty-green transition-all duration-300 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-doty-orange-deep disabled:hover:text-white"
+                  className="flex items-center gap-2 bg-doty-orange-button text-doty-green font-body text-sm tracking-[0.1em] uppercase px-5 py-2.5 hover:bg-white hover:text-doty-green transition-all duration-300 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-doty-orange-button"
                 >
                   Join Free <ArrowRight className="w-4 h-4" aria-hidden="true" focusable="false" />
                 </button>
