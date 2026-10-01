@@ -71,14 +71,14 @@ export default function ShowsSection() {
                 <img
                 src={show.image}
                 alt={show.title}
-                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-90 ${show.comingSoon ? 'blur-sm' : ''}`} />
+                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-90 ${show.comingSoon ? 'blur-[2px]' : ''}`} />
               </div>
               {/* Accent left border */}
               <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${show.accent}`} />
               <div className="absolute inset-0 bg-gradient-to-t from-doty-green/90 via-doty-green/20 to-transparent" />
               {/* Shade only the strip behind the text so it stays readable without darkening the whole photo */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 pt-24 bg-gradient-to-t from-doty-green via-doty-green/90 via-70% to-transparent">
-                <span className="font-body text-doty-orange-light text-[10px] tracking-[0.2em] uppercase block mb-1">{show.tag}</span>
+              <div className="absolute bottom-0 left-0 right-0 p-6 pt-10 bg-gradient-to-t from-doty-green/85 via-doty-green/60 to-transparent [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]">
+                <span className="font-body text-doty-orange-light text-[10px] tracking-[0.2em] uppercase block mb-1 [text-shadow:0_0_2px_#0D3B2E,0_0_4px_#0D3B2E,0_0_8px_#0D3B2E]">{show.tag}</span>
                 <h3 className="font-display text-white text-xl md:text-2xl font-bold mb-2">"{show.title}"</h3>
                 {show.comingSoon ?
               <p className="font-body text-white/70 text-sm tracking-[0.2em] uppercase">Coming Soon...</p> :
