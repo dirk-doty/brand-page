@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#022822">
+<title>Dad Shift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine:#022822; --canvas:#F5F6E1; --sunrise:#FFB413; --campfire:#FF6B01;
+  --trail:#006C4C; --meadow:#40CF77; --mist:#ACFFCC; --sand:#FFDD68;
+  --serif:"Libre Baskerville",Georgia,serif; --sans:"Inter",-apple-system,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--pine);color:var(--canvas);font-family:var(--sans);overscroll-behavior:none}
+body{display:flex;flex-direction:column;height:100dvh}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 14px) 18px 10px}
+.brand{font-family:var(--serif);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sunrise)}
+.count{font-size:12px;color:rgba(245,246,225,.6);font-variant-numeric:tabular-nums}
+
+/* progress */
+.dots{display:flex;gap:5px;padding:0 18px 8px}
+.dots i{flex:1;height:3px;border-radius:2px;background:rgba(245,246,225,.18);transition:background .25s}
+.dots i.on{background:var(--sunrise)}
+.dots i.done{background:rgba(255,180,19,.45)}
+
+/* stage */
+.stage{position:relative;flex:1;overflow:hidden}
+.track{position:absolute;inset:0;display:flex;transition:transform .32s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.track.drag{transition:none}
+.card{flex:0 0 100%;height:100%;padding:8px 16px calc(env(safe-area-inset-bottom) + 16px);display:flex}
+.inner{flex:1;background:var(--canvas);color:var(--pine);border-radius:22px;padding:28px 24px 24px;display:flex;flex-direction:column;overflow:auto;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.inner.pine{background:var(--pine);color:var(--canvas);border:1.5px solid rgba(255,180,19,.5)}
+.kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--campfire);margin:0 0 14px}
+.inner.pine .kicker{color:var(--sunrise)}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(24px,6.4vw,32px);line-height:1.18;margin:0 0 16px;letter-spacing:-.01em}
+h1.big{font-size:clamp(30px,8.4vw,40px);margin-top:auto}
+p{font-size:clamp(16px,4.3vw,18px);line-height:1.5;margin:0 0 14px}
+p:last-child{margin-bottom:0}
+.say{margin:18px 0 0;padding:16px 18px;border-left:4px solid var(--sunrise);background:rgba(2,40,34,.06);font-family:var(--serif);font-style:italic;font-size:clamp(17px,4.6vw,19px);line-height:1.45;border-radius:0 12px 12px 0}
+.inner.pine .say{background:rgba(245,246,225,.08);color:var(--canvas)}
+.not{margin:14px 0 0;padding:14px 18px;border-left:4px solid #999;color:#555;font-size:15px;line-height:1.45;border-radius:0 12px 12px 0;background:rgba(2,40,34,.04)}
+.not b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#777;margin-bottom:4px}
+.move{margin-top:auto;padding-top:18px;border-top:1.5px solid rgba(2,40,34,.15)}
+.move b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--trail);margin-bottom:6px}
+.move span{font-family:var(--serif);font-size:clamp(17px,4.6vw,20px);line-height:1.4}
+.inner.pine .move{border-top-color:rgba(245,246,225,.2)}
+.inner.pine .move b{color:var(--meadow)}
+.hint{margin-top:auto;font-size:12px;color:rgba(2,40,34,.5);text-align:center;padding-top:14px}
+.inner.pine .hint{color:rgba(245,246,225,.5)}
+
+/* audio */
+.audio{margin-top:auto}
+.play{display:flex;align-items:center;gap:14px;width:100%;border:0;background:var(--sunrise);color:var(--pine);border-radius:999px;padding:14px 18px;font:600 16px var(--sans);cursor:pointer}
+.play .ico{width:34px;height:34px;border-radius:50%;background:var(--pine);display:grid;place-items:center;flex:0 0 34px}
+.play .ico svg{width:14px;height:14px;fill:var(--sunrise);margin-left:2px}
+.play.playing .ico svg{margin-left:0}
+.aprog{height:4px;border-radius:2px;background:rgba(245,246,225,.2);margin:14px 2px 0;overflow:hidden}
+.aprog i{display:block;height:100%;width:0;background:var(--sunrise)}
+.atime{display:flex;justify-content:space-between;font-size:12px;color:rgba(245,246,225,.6);margin-top:6px;font-variant-numeric:tabular-nums}
+
+.card-audio{margin-top:18px}.card-audio .play{background:var(--pine);color:var(--canvas)}.card-audio .play .ico{background:var(--sunrise)}.card-audio .play .ico svg{fill:var(--pine)}.card-audio .aprog{background:rgba(2,40,34,.12)}.card-audio .aprog i{background:var(--trail)}.card-audio .atime{color:rgba(2,40,34,.55)}
+.src{margin-top:14px;font-size:13px;color:#5b6b66}.src summary{cursor:pointer;color:var(--trail);font-weight:600;font-size:12px;letter-spacing:.04em}.src p{font-size:13px;line-height:1.45;margin:8px 0 0}
+/* links / buttons */
+.btn{display:block;text-align:center;text-decoration:none;border-radius:999px;padding:14px 18px;font:600 16px var(--sans);margin-top:10px}
+.btn.gold{background:var(--sunrise);color:var(--pine)}
+.btn.line{border:1.5px solid var(--pine);color:var(--pine)}
+.inner.pine .btn.line{border-color:var(--canvas);color:var(--canvas)}
+.bear{width:84px;height:84px;border-radius:50%;background:var(--sunrise);margin:0 0 18px;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:34px;color:var(--pine)}
+
+/* nav */
+.nav{display:flex;gap:10px;padding:0 16px calc(env(safe-area-inset-bottom) + 14px)}
+.nav button{flex:1;border:0;border-radius:999px;padding:14px;font:600 15px var(--sans);cursor:pointer;background:rgba(245,246,225,.1);color:var(--canvas)}
+.nav button.next{background:var(--sunrise);color:var(--pine)}
+.nav button:disabled{opacity:.3}
+@media (min-width:640px){
+  body{align-items:center}
+  .bar,.dots,.stage,.nav{width:430px}
+  .stage{flex:0 0 auto;height:min(760px,calc(100dvh - 150px))}
+}
+@media (min-width:1024px){
+  .bar,.dots,.stage,.nav{width:540px}
+  .stage{height:min(820px,calc(100dvh - 150px))}
+  h1{font-size:34px} h1.big{font-size:42px} p{font-size:19px} .say{font-size:20px} .move span{font-size:21px}
+}
+</style>
+</head>
+<body>
+<div class="bar"><div class="brand" id="brand">Dad of the Year</div><div class="count" id="count"></div></div>
+<div class="dots" id="dots"></div>
+<div class="stage" id="stage"><div class="track" id="track"></div></div>
+<div class="nav"><button id="prev">Back</button><button id="next" class="next">Next</button></div>
+
+<script>
+/* ============================================================
+   DECK DATA — replace this object per product. Card types:
+   cover   {type:'cover', kicker, title, body}
+   text    {type:'text', kicker, title, body:[...], say?, not?, move?}
+   audio   {type:'audio', kicker, title, body, src, duration}
+   end     {type:'end', kicker, title, body, links:[{label,href,style}]}
+   Placeholder copy below is STRUCTURE ONLY — not in voice yet.
+   ============================================================ */
+const DECK = {
+ "brand": "Dad of the Year",
+ "title": "Dad Shift",
+ "slug": "deck",
+ "cards": [
+  {
+   "type": "cover",
+   "kicker": "Dad Shift",
+   "title": "You've got five minutes. Start here.",
+   "body": "Twelve cards. One at a time. Read them once tonight, then come back the next time you need them."
+  },
+  {
+   "type": "text",
+   "kicker": "1 of 12",
+   "title": "Read this one first",
+   "body": [
+    "Every dad loses it sometimes. The research on parents and kids says they're out of step with each other most of the time. What matters is what happens next. You go back and fix it, and your kid learns that things can be fixed. That's what these cards are for.",
+    "One thing before you start. These are for a normal house on a bad night. If there's more going on than that, call or text 988 or talk to your doctor. There's no shame in it. That's a dad doing his job."
+   ],
+   "audio": "/audio/deck/d01.mp3",
+   "source": "Tronick & Gold, The Power of Discord (2020); Tronick & DiCorcia 2015, Children Australia. The 988 line is the Suicide and Crisis Lifeline; the card points there for anything beyond a normal house."
+  },
+  {
+   "type": "text",
+   "kicker": "2 of 12",
+   "title": "Stop talking",
+   "body": [
+    "Put the phone down. Put the spoon down. Don't say another word yet, because the next one won't be better than the last one. Your body is still going. The stress chemicals peak twenty to forty minutes after whatever set you off. You're not going to feel calm for a while, and you don't need to. You need quiet and about five minutes."
+   ],
+   "audio": "/audio/deck/d02.mp3",
+   "source": "Dickerson & Kemeny 2004, Psychological Bulletin (cortisol peaks 21 to 40 minutes after a stressor). The 20-minute reset is Gottman's clinical rule, not a trial."
+  },
+  {
+   "type": "text",
+   "kicker": "3 of 12",
+   "title": "The breath",
+   "body": [
+    "Two short breaths in through your nose. Then one long breath out through your mouth, like you're fogging a window. Do it three times. Stanford tested this against meditation and it did more for mood and for slowing the body down. It takes about twenty seconds, and nobody has to know you're doing it."
+   ],
+   "audio": "/audio/deck/d03.mp3",
+   "source": "Balban et al. 2023, Cell Reports Medicine (cyclic sighing, five minutes a day for a month; tested as a daily practice, not as a rescue, so this card asks for three rounds and doesn't promise more)."
+  },
+  {
+   "type": "text",
+   "kicker": "4 of 12",
+   "title": "Say what it is",
+   "body": [
+    "Say it in your head or under your breath. I'm angry. I'm tired. I'm embarrassed I yelled. Putting the feeling into a word turns the alarm in your brain down, and it only takes the word. You don't have to fix the feeling. You have to name it so it stops running you."
+   ],
+   "audio": "/audio/deck/d04.mp3",
+   "source": "Lieberman et al. 2007, Psychological Science (affect labeling lowers amygdala activity; one adult fMRI study, the basis for Siegel and Bryson's 'name it to tame it')."
+  },
+  {
+   "type": "text",
+   "kicker": "5 of 12",
+   "title": "The turn",
+   "body": [
+    "Now think about one thing in this house you're grateful for. The kid you yelled at counts. The research says gratitude lifts your mood over days, not seconds, so this isn't a trick. It's a reminder of what you're about to go fix, and why. Most dads find the anger has somewhere to go once they remember that."
+   ],
+   "audio": "/audio/deck/d05.mp3",
+   "source": "Emmons & McCullough 2003, Journal of Personality and Social Psychology (gratitude and positive affect over time). The 'most dads' line is ours, from dads, not from a study."
+  },
+  {
+   "type": "text",
+   "kicker": "6 of 12",
+   "title": "Go find him",
+   "body": [
+    "He's probably in his room or behind the couch. Go to him. Get down to his level, sit on the floor or the edge of the bed, and get your eyes where his are. Don't start with the lesson. Start with him. The connection comes first and the correction comes after, and if you get them backwards he hears none of it."
+   ],
+   "audio": "/audio/deck/d06.mp3",
+   "source": "Siegel & Bryson, No-Drama Discipline (2014), 'connect and redirect'; Tronick on repair as the part that teaches."
+  },
+  {
+   "type": "text",
+   "kicker": "7 of 12",
+   "title": "The apology",
+   "body": [
+    "Three parts, no excuses. Say what you did. Say it was wrong. Say you're sorry. \"I yelled at you about the shoes. That was wrong. I'm sorry.\" Then stop. Don't add \"but you kept ignoring me.\" The research is blunt about this: an apology with an excuse in it did the kid no more good than no apology at all.",
+    "For a four-year-old, those three sentences and your arms open. For a ten-year-old, the same three, and then ask him what it was like for him. Then listen."
+   ],
+   "audio": "/audio/deck/d07.mp3",
+   "source": "Robichaud, Mageau et al. 2025, Journal of Experimental Child Psychology (victim-centered apologies met teens' needs; defensive ones were no better than none); Ruckstaetter et al. 2017, Journal of Counseling & Development."
+  },
+  {
+   "type": "text",
+   "kicker": "8 of 12",
+   "title": "The squeeze",
+   "body": [
+    "Give him a big squeeze, the real kind. A hug after a hard moment lowers the stress hormone and raises the one that makes him feel safe, and it works fast. If he's not ready, don't force it. Sit next to him and wait. Most kids come in on their own inside a minute, and the ones who don't still want you there."
+   ],
+   "audio": "/audio/deck/d08.mp3",
+   "source": "Seltzer, Ziegler & Pollak 2010, Proceedings of the Royal Society B (comfort from a parent after stress lowered cortisol and raised oxytocin in kids 7 to 12); Murphy et al. 2018, PLOS ONE (a hug on conflict days, adults)."
+  },
+  {
+   "type": "text",
+   "kicker": "9 of 12",
+   "title": "The new rule, together",
+   "body": [
+    "Now the thing that started it. Make one rule, and make it with him. \"New rule. Dog water stays in the bowl till after dinner. Deal?\" Shake on it. Kids who help make the rule and hear the reason keep it. Kids who hear it handed down don't, and that's true at four and at twelve. One rule. Not a list."
+   ],
+   "audio": "/audio/deck/d09.mp3",
+   "source": "Bjelland et al. 2015, BMC Public Health (rules delivered in an autonomy-supportive way worked better than controlling delivery, 3,325 kids aged 10 to 12)."
+  },
+  {
+   "type": "text",
+   "kicker": "10 of 12",
+   "title": "Something fun",
+   "body": [
+    "End it with something light. \"Cool, now let's go start our show.\" Race him to the kitchen. Let him stir the pan. The night isn't over, and the last thing he remembers should be the two of you doing something, not the yelling. That's the whole point of the five minutes. He learns that things can be fixed, because he watched you fix one."
+   ],
+   "audio": "/audio/deck/d10.mp3",
+   "source": "Tronick (2024 interview, Norland Educare Research Journal): moving from stressed back to calm is what teaches the child that problems can be fixed; Cummings et al. 1991, Developmental Psychology (kids' distress tracked how unresolved the anger was)."
+  },
+  {
+   "type": "text",
+   "kicker": "11 of 12",
+   "title": "Before bed, not tomorrow",
+   "body": [
+    "If you missed the five minutes, you haven't missed the night. Do it before he sleeps. In one study, kids who watched adults argue calmed down when the adults made up. When they didn't, the kids stayed upset. And sleep locks in whatever feeling the day ended on. So change the ending. Sit on the bed and run cards six through ten. It takes four minutes."
+   ],
+   "audio": "/audio/deck/d11.mp3",
+   "source": "Cummings et al. 1991, Developmental Psychology; Walker & van der Helm 2009, Psychological Bulletin (sleep consolidates emotional memory). No study compares same-hour with next-day repair, so this card rests on the two together."
+  },
+  {
+   "type": "text",
+   "kicker": "12 of 12",
+   "title": "The five hours before",
+   "body": [
+    "It will happen again, and the goal is rarer, not never. Most of it happens before you walk in. Sit in the driveway for two minutes. Phone in the glove box. Then go in and be Dad.",
+    "And know this. He's watching how you handle yourself more than he's listening to what you tell him. Kids copy what they see, down to the words. A dad who gets quiet, comes back and says sorry is teaching the lesson that matters, and he's teaching it every time."
+   ],
+   "audio": "/audio/deck/d12.mp3",
+   "source": "Bandura, Ross & Ross 1961 (kids copy adult aggression, including the words); Morris et al. 2007, Social Development (kids learn regulation by watching parents); Adams-Clark et al. 2022 (a parent's own composure is the gate to a good apology)."
+  },
+  {
+   "type": "end",
+   "kicker": "Done",
+   "title": "That's Dad Shift.",
+   "body": "Keep it on your phone. It's here the next time, and there's always a next time.",
+   "links": [
+    {
+     "label": "Add The Phone Talk, $19",
+     "href": "https://buy.stripe.com/28E9AV7dcaSJ8RB6o1es001",
+     "style": "gold"
+    },
+    {
+     "label": "Send the assessment to a dad",
+     "href": "https://doty.media/assessment",
+     "style": "line"
+    }
+   ]
+  }
+ ]
+};
+
+/* ---------- render ---------- */
+const track = document.getElementById('track'), dots = document.getElementById('dots');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const paras = b => (Array.isArray(b) ? b : [b]).map(x => `<p>${esc(x)}</p>`).join('');
+function card(c, i){
+  const pine = c.type === 'cover' || c.type === 'audio' || c.type === 'end';
+  let h = `<div class="card"><div class="inner ${pine ? 'pine' : ''}">`;
+  if (c.kicker) h += `<div class="kicker">${esc(c.kicker)}</div>`;
+  if (c.type === 'cover'){
+    h += `<div class="bear">B</div><h1 class="big">${esc(c.title)}</h1>${paras(c.body)}<div class="hint">Swipe left, or tap Next</div>`;
+  } else if (c.type === 'text'){
+    h += `<h1>${esc(c.title)}</h1>${paras(c.body)}`;
+    if (c.say) h += `<div class="say">${esc(c.say)}</div>`;
+    if (c.not) h += `<div class="not"><b>Not this</b>${esc(c.not)}</div>`;
+    if (c.move) h += `<div class="move"><b>The move</b><span>${esc(c.move)}</span></div>`;
+    if (c.audio) h += `<div class="audio card-audio"><button class="play" data-src="${esc(c.audio)}"><span class="ico"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg></span><span class="lbl">Hear it</span></button><div class="aprog"><i></i></div><div class="atime"><span class="cur">0:00</span><span></span></div></div>`;
+    if (c.source) h += `<details class="src"><summary>Where this comes from</summary><p>${esc(c.source)}</p></details>`;
+  } else if (c.type === 'audio'){
+    h += `<h1>${esc(c.title)}</h1>${paras(c.body)}
+      <div class="audio"><button class="play" data-src="${esc(c.src)}"><span class="ico"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg></span><span class="lbl">Play</span></button>
+      <div class="aprog"><i></i></div><div class="atime"><span class="cur">0:00</span><span>${esc(c.duration || '')}</span></div></div>`;
+  } else if (c.type === 'end'){
+    h += `<h1 class="big">${esc(c.title)}</h1>${paras(c.body)}<div style="margin-top:auto">` +
+      (c.links || []).map(l => `<a class="btn ${l.style || 'line'}" href="${esc(l.href)}">${esc(l.label)}</a>`).join('') + `</div>`;
+  }
+  return h + `</div></div>`;
+}
+track.innerHTML = DECK.cards.map(card).join('');
+dots.innerHTML = DECK.cards.map(() => '<i></i>').join('');
+document.getElementById('brand').textContent = DECK.brand;
+document.title = DECK.title + ' — ' + DECK.brand;
+
+/* ---------- navigation ---------- */
+let i = 0; const n = DECK.cards.length;
+/* open ping: the welcome email links here with ?s=<Kit subscriber id>; /api/open tags him as opened */
+try { const sid = new URLSearchParams(location.search).get('s'); if (sid && /^\d+$/.test(sid)) { try { localStorage.setItem('doty_sid', sid); } catch(e){} fetch('/api/open?s=' + sid + '&d=' + (DECK.slug || 'deck'), {keepalive:true}).catch(()=>{}); } else { let saved=null; try { saved = localStorage.getItem('doty_sid'); } catch(e){} if (saved) fetch('/api/open?s=' + saved + '&d=' + (DECK.slug || 'deck'), {keepalive:true}).catch(()=>{}); } } catch(e){}
+const prev = document.getElementById('prev'), next = document.getElementById('next'), count = document.getElementById('count');
+function go(k){
+  i = Math.max(0, Math.min(n - 1, k));
+  track.style.transform = `translateX(-${i * 100}%)`;
+  [...dots.children].forEach((d, j) => { d.className = j === i ? 'on' : (j < i ? 'done' : ''); });
+  count.textContent = `${i + 1} / ${n}`;
+  prev.disabled = i === 0; next.textContent = i === n - 1 ? 'Done' : 'Next';
+  try { localStorage.setItem('doty-deck-' + DECK.title, i); } catch (e) {}
+}
+prev.onclick = () => go(i - 1);
+next.onclick = () => { if (i < n - 1) go(i + 1); };
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(i + 1); if (e.key === 'ArrowLeft') go(i - 1); });
+
+/* swipe */
+let sx = 0, sy = 0, dx = 0, dragging = false;
+const stage = document.getElementById('stage');
+stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; dx = 0; dragging = true; track.classList.add('drag'); }, {passive:true});
+stage.addEventListener('touchmove', e => {
+  if (!dragging) return;
+  const mx = e.touches[0].clientX - sx, my = e.touches[0].clientY - sy;
+  if (Math.abs(my) > Math.abs(mx)) return;
+  dx = mx; track.style.transform = `translateX(calc(-${i * 100}% + ${dx}px))`;
+}, {passive:true});
+stage.addEventListener('touchend', () => {
+  dragging = false; track.classList.remove('drag');
+  if (dx < -60) go(i + 1); else if (dx > 60) go(i - 1); else go(i);
+});
+
+/* audio */
+let audio = null;
+document.querySelectorAll('.play').forEach(btn => {
+  const wrap = btn.parentElement, bar = wrap.querySelector('.aprog i'), cur = wrap.querySelector('.cur'), lbl = btn.querySelector('.lbl');
+  btn.onclick = () => {
+    if (!btn.dataset.src) { lbl.textContent = 'Audio coming'; return; }
+    if (!audio || audio.src !== new URL(btn.dataset.src, location.href).href) { if (audio) audio.pause(); audio = new Audio(btn.dataset.src); audio.onerror = () => { lbl.textContent = 'Audio coming'; btn.classList.remove('playing'); }; audio.ontimeupdate = () => { bar.style.width = (audio.currentTime / audio.duration * 100) + '%'; const m = Math.floor(audio.currentTime / 60), s = Math.floor(audio.currentTime % 60); cur.textContent = `${m}:${String(s).padStart(2,'0')}`; }; audio.onended = () => { btn.classList.remove('playing'); lbl.textContent = 'Play again'; }; }
+    if (audio.paused) { audio.play(); btn.classList.add('playing'); lbl.textContent = 'Playing'; } else { audio.pause(); btn.classList.remove('playing'); lbl.textContent = 'Resume'; }
+  };
+});
+
+let start = 0; try { start = parseInt(localStorage.getItem('doty-deck-' + DECK.title) || '0', 10) || 0; } catch (e) {}
+go(start);
+</script>
+</body>
+</html>
