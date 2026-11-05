@@ -1,0 +1,39 @@
+/* DOTY house CSS, launch v0. Lauren's design system replaces this Thursday. */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-normal-latin.woff2') format('woff2')}
+:root{--pine:#022822;--canvas:#F5F6E1;--sunrise:#FFB413;--campfire:#FF6B01;--trail:#006C4C;--meadow:#40CF77;--mist:#ACFFCC;--sand:#FFDD68;--ink:#1b2a26;--muted:#5b6b66;--white:#fff}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.55}
+h1,h2,h3{font-family:'Libre Baskerville',Georgia,serif;color:var(--pine);line-height:1.15;margin:0 0 .5em;text-wrap:balance}
+h1{font-size:clamp(32px,5.2vw,52px)}h2{font-size:clamp(24px,3.4vw,34px)}h3{font-size:22px}
+p{margin:0 0 1em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-family:'Libre Baskerville',serif;font-weight:700;color:var(--pine);text-decoration:none;font-size:20px;letter-spacing:.2px}
+.logo span{color:var(--sunrise)}
+.fold{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:28px 0 56px}
+.fold .sub{font-size:20px;color:var(--ink);max-width:36ch}
+.btn{display:inline-block;background:var(--sunrise);color:var(--pine);font-weight:600;text-decoration:none;padding:16px 28px;border-radius:10px;font-size:19px;border:0;cursor:pointer;box-shadow:0 2px 0 #c98d0a}
+.btn:hover{background:#ffc23a}
+.btn.pine{background:var(--pine);color:#fff;box-shadow:none}
+.btn-note{display:block;margin-top:12px;color:var(--muted);font-size:15px}
+.visual{aspect-ratio:4/5;border-radius:16px;background:linear-gradient(160deg,var(--trail),var(--pine));display:flex;align-items:flex-end;padding:20px;color:#fff;font-size:14px;overflow:hidden;position:relative}
+.visual.wide{aspect-ratio:5/4}
+.visual .tag{background:rgba(0,0,0,.35);padding:6px 10px;border-radius:6px}
+section{padding:48px 0;border-top:1px solid rgba(2,40,34,.1)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.three p{margin:0}
+.three b{display:block;font-family:'Libre Baskerville',serif;color:var(--pine);margin-bottom:6px;font-size:19px}
+.offer{background:var(--white);border-radius:16px;padding:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:start}
+.offer ul{padding-left:20px;margin:0 0 1em}
+.offer li{margin-bottom:10px}
+.price{font-family:'Libre Baskerville',serif;font-size:40px;color:var(--pine);margin:0}
+.price small{font-family:Inter;font-size:16px;color:var(--muted);display:block;margin-top:4px}
+.cred{background:var(--pine);color:#eef3ef;border-radius:16px;padding:36px}
+.cred h2{color:#fff}
+.cred p{max-width:60ch}
+footer{padding:36px 0;color:var(--muted);font-size:14px}
+.qa b{display:block;color:var(--pine);font-family:'Libre Baskerville',serif;font-size:20px;margin-bottom:4px}
+.qa div{margin-bottom:22px;max-width:62ch}
+.ph{background:var(--sand);color:var(--pine);padding:2px 6px;border-radius:4px;font-size:.85em;font-family:Inter}
+@media(max-width:760px){.fold,.three,.offer{grid-template-columns:1fr}.fold{padding:16px 0 40px}.visual{aspect-ratio:4/3}body{font-size:17px}}
