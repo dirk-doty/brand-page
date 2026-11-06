@@ -1,8 +1,31 @@
 {
+  "redirects": [
+    {
+      "source": "/assessment",
+      "destination": "https://dirk-fvqi8bgi.scoreapp.com",
+      "permanent": false
+    }
+  ],
   "rewrites": [
-    { "source": "/assessment", "destination": "/assessment.html" },
-    { "source": "/deck", "destination": "/deck.html" },
-    { "source": "/thanks", "destination": "/thanks.html" },
-    { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
+    {
+      "source": "/deck",
+      "destination": "/deck.html"
+    },
+    {
+      "source": "/thanks",
+      "destination": "/thanks.html"
+    },
+    {
+      "source": "/d/deck",
+      "destination": "/d-deck.html"
+    },
+    {
+      "source": "/d/phone-talk",
+      "destination": "/d-phone-talk.html"
+    },
+    {
+      "source": "/((?!api/)(?!.*\\.).*)",
+      "destination": "/index.html"
+    }
   ]
 }
