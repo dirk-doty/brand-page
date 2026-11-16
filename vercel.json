@@ -4,6 +4,11 @@
       "source": "/assessment",
       "destination": "https://dirk-fvqi8bgi.scoreapp.com",
       "permanent": false
+    },
+    {
+      "source": "/whatsyourdadscore",
+      "destination": "https://dirk-fvqi8bgi.scoreapp.com",
+      "permanent": false
     }
   ],
   "rewrites": [
