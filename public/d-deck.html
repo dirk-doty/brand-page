@@ -92,255 +92,151 @@ p:last-child{margin-bottom:0}
   .stage{height:min(820px,calc(100dvh - 150px))}
   h1{font-size:34px} h1.big{font-size:42px} p{font-size:19px} .say{font-size:20px} .move span{font-size:21px}
 }
+
+/* audio cards, 16 Nov */
+.toc{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--border)}
+.toc li{border-bottom:1px solid var(--border)}
+.toc button{display:flex;align-items:baseline;gap:12px;width:100%;background:none;border:0;color:var(--ink);padding:13px 2px;font:400 16px/1.35 var(--sans);text-align:left;cursor:pointer;min-height:48px}
+.toc .n{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:20px;font-variant-numeric:tabular-nums}
+.toc .t{flex:1}
+.toc .d{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.toc .ck{color:var(--meadow);font-size:12px;min-width:12px}
+.steps{margin:6px 0 0;padding:0 0 0 20px}.steps li{font-size:clamp(16px,4.3vw,18px);line-height:1.5;color:var(--ink-2);margin:0 0 10px}
+.player{position:sticky;top:-28px;z-index:2;background:var(--surface);margin:0 -24px 6px;padding:10px 24px 12px;border-bottom:1px solid var(--border)}
+.prow{display:flex;gap:10px;align-items:stretch}
+.prow .play{flex:1}
+.skip{flex:0 0 56px;border:1px solid var(--border-strong);background:transparent;color:var(--ink);font:500 12px var(--mono);letter-spacing:.04em;cursor:pointer;min-height:48px}
+.aprog{height:14px;background:none;margin:8px 0 0;position:relative;cursor:pointer;touch-action:none;overflow:visible}
+.aprog::before{content:"";position:absolute;left:0;right:0;top:5px;height:4px;background:var(--border)}
+.aprog i{position:absolute;left:0;top:5px;height:4px;width:0;background:var(--sunrise)}
+.atime{margin-top:2px}
+.barr{display:flex;align-items:center;gap:14px}
+.all{background:none;border:0;padding:6px 0;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.play .ico .pa{display:none}.play.playing .ico .pl{display:none}.play.playing .ico .pa{display:block}
+.read p{color:var(--ink-2)}
+.read .next{font-family:var(--serif);font-style:italic;color:var(--accent);margin:22px 0 18px}
+.read .mv{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--meadow);margin:22px 0 6px}
+.read .mvp{color:var(--ink)}
+
 </style>
 </head>
 <body>
-<div class="bar"><div class="brand" id="brand">Dad of the Year</div><div class="count" id="count"></div></div>
+<div class="bar"><div class="brand" id="brand">Dad of the Year</div><div class="barr"><button type="button" id="all" class="all" hidden>All cards</button><div class="count" id="count"></div></div></div>
 <div class="dots" id="dots"></div>
 <div class="stage" id="stage"><div class="track" id="track"></div></div>
 <div class="nav"><button id="prev">Back</button><button id="next" class="next">Next</button></div>
 
 <script>
-/* ============================================================
-   DECK DATA — replace this object per product. Card types:
-   cover   {type:'cover', kicker, title, body}
-   text    {type:'text', kicker, title, body:[...], say?, not?, move?}
-   audio   {type:'audio', kicker, title, body, src, duration}
-   end     {type:'end', kicker, title, body, links:[{label,href,style}]}
-   Placeholder copy below is STRUCTURE ONLY — not in voice yet.
-   ============================================================ */
-const DECK = {
- "brand": "Dad of the Year",
- "title": "Dad Shift",
- "slug": "deck",
- "cards": [
-  {
-   "type": "cover",
-   "kicker": "Dad Shift",
-   "title": "You've got five minutes. Start here.",
-   "body": "Twelve cards. One at a time. Read them once tonight, then come back the next time you need them."
-  },
-  {
-   "type": "text",
-   "kicker": "1 of 12",
-   "title": "Read this one first",
-   "body": [
-    "Every dad loses it sometimes. The research on parents and kids says they're out of step with each other most of the time. What matters is what happens next. You go back and fix it, and your kid learns that things can be fixed. That's what these cards are for.",
-    "One thing before you start. These are for a normal house on a bad night. If there's more going on than that, call or text 988 or talk to your doctor. There's no shame in it. That's a dad doing his job."
-   ],
-   "audio": "/audio/deck/d01.mp3",
-   "source": "Tronick & Gold, The Power of Discord (2020); Tronick & DiCorcia 2015, Children Australia. The 988 line is the Suicide and Crisis Lifeline; the card points there for anything beyond a normal house."
-  },
-  {
-   "type": "text",
-   "kicker": "2 of 12",
-   "title": "Stop talking",
-   "body": [
-    "Put the phone down. Put the spoon down. Don't say another word yet, because the next one won't be better than the last one. Your body is still going. The stress chemicals peak twenty to forty minutes after whatever set you off. You're not going to feel calm for a while, and you don't need to. You need quiet and about five minutes."
-   ],
-   "audio": "/audio/deck/d02.mp3",
-   "source": "Dickerson & Kemeny 2004, Psychological Bulletin (cortisol peaks 21 to 40 minutes after a stressor). The 20-minute reset is Gottman's clinical rule, not a trial."
-  },
-  {
-   "type": "text",
-   "kicker": "3 of 12",
-   "title": "The breath",
-   "body": [
-    "Two short breaths in through your nose. Then one long breath out through your mouth, like you're fogging a window. Do it three times. Stanford tested this against meditation and it did more for mood and for slowing the body down. It takes about twenty seconds, and nobody has to know you're doing it."
-   ],
-   "audio": "/audio/deck/d03.mp3",
-   "source": "Balban et al. 2023, Cell Reports Medicine (cyclic sighing, five minutes a day for a month; tested as a daily practice, not as a rescue, so this card asks for three rounds and doesn't promise more)."
-  },
-  {
-   "type": "text",
-   "kicker": "4 of 12",
-   "title": "Say what it is",
-   "body": [
-    "Say it in your head or under your breath. I'm angry. I'm tired. I'm embarrassed I yelled. Putting the feeling into a word turns the alarm in your brain down, and it only takes the word. You don't have to fix the feeling. You have to name it so it stops running you."
-   ],
-   "audio": "/audio/deck/d04.mp3",
-   "source": "Lieberman et al. 2007, Psychological Science (affect labeling lowers amygdala activity; one adult fMRI study, the basis for Siegel and Bryson's 'name it to tame it')."
-  },
-  {
-   "type": "text",
-   "kicker": "5 of 12",
-   "title": "The turn",
-   "body": [
-    "Now think about one thing in this house you're grateful for. The kid you yelled at counts. The research says gratitude lifts your mood over days, not seconds, so this isn't a trick. It's a reminder of what you're about to go fix, and why. Most dads find the anger has somewhere to go once they remember that."
-   ],
-   "audio": "/audio/deck/d05.mp3",
-   "source": "Emmons & McCullough 2003, Journal of Personality and Social Psychology (gratitude and positive affect over time). The 'most dads' line is ours, from dads, not from a study."
-  },
-  {
-   "type": "text",
-   "kicker": "6 of 12",
-   "title": "Go find him",
-   "body": [
-    "He's probably in his room or behind the couch. Go to him. Get down to his level, sit on the floor or the edge of the bed, and get your eyes where his are. Don't start with the lesson. Start with him. The connection comes first and the correction comes after, and if you get them backwards he hears none of it."
-   ],
-   "audio": "/audio/deck/d06.mp3",
-   "source": "Siegel & Bryson, No-Drama Discipline (2014), 'connect and redirect'; Tronick on repair as the part that teaches."
-  },
-  {
-   "type": "text",
-   "kicker": "7 of 12",
-   "title": "The apology",
-   "body": [
-    "Three parts, no excuses. Say what you did. Say it was wrong. Say you're sorry. \"I yelled at you about the shoes. That was wrong. I'm sorry.\" Then stop. Don't add \"but you kept ignoring me.\" The research is blunt about this: an apology with an excuse in it did the kid no more good than no apology at all.",
-    "For a four-year-old, those three sentences and your arms open. For a ten-year-old, the same three, and then ask him what it was like for him. Then listen."
-   ],
-   "audio": "/audio/deck/d07.mp3",
-   "source": "Robichaud, Mageau et al. 2025, Journal of Experimental Child Psychology (victim-centered apologies met teens' needs; defensive ones were no better than none); Ruckstaetter et al. 2017, Journal of Counseling & Development."
-  },
-  {
-   "type": "text",
-   "kicker": "8 of 12",
-   "title": "The squeeze",
-   "body": [
-    "Give him a big squeeze, the real kind. A hug after a hard moment lowers the stress hormone and raises the one that makes him feel safe, and it works fast. If he's not ready, don't force it. Sit next to him and wait. Most kids come in on their own inside a minute, and the ones who don't still want you there."
-   ],
-   "audio": "/audio/deck/d08.mp3",
-   "source": "Seltzer, Ziegler & Pollak 2010, Proceedings of the Royal Society B (comfort from a parent after stress lowered cortisol and raised oxytocin in kids 7 to 12); Murphy et al. 2018, PLOS ONE (a hug on conflict days, adults)."
-  },
-  {
-   "type": "text",
-   "kicker": "9 of 12",
-   "title": "The new rule, together",
-   "body": [
-    "Now the thing that started it. Make one rule, and make it with him. \"New rule. Dog water stays in the bowl till after dinner. Deal?\" Shake on it. Kids who help make the rule and hear the reason keep it. Kids who hear it handed down don't, and that's true at four and at twelve. One rule. Not a list."
-   ],
-   "audio": "/audio/deck/d09.mp3",
-   "source": "Bjelland et al. 2015, BMC Public Health (rules delivered in an autonomy-supportive way worked better than controlling delivery, 3,325 kids aged 10 to 12)."
-  },
-  {
-   "type": "text",
-   "kicker": "10 of 12",
-   "title": "Something fun",
-   "body": [
-    "End it with something light. \"Cool, now let's go start our show.\" Race him to the kitchen. Let him stir the pan. The night isn't over, and the last thing he remembers should be the two of you doing something, not the yelling. That's the whole point of the five minutes. He learns that things can be fixed, because he watched you fix one."
-   ],
-   "audio": "/audio/deck/d10.mp3",
-   "source": "Tronick (2024 interview, Norland Educare Research Journal): moving from stressed back to calm is what teaches the child that problems can be fixed; Cummings et al. 1991, Developmental Psychology (kids' distress tracked how unresolved the anger was)."
-  },
-  {
-   "type": "text",
-   "kicker": "11 of 12",
-   "title": "Before bed, not tomorrow",
-   "body": [
-    "If you missed the five minutes, you haven't missed the night. Do it before he sleeps. In one study, kids who watched adults argue calmed down when the adults made up. When they didn't, the kids stayed upset. And sleep locks in whatever feeling the day ended on. So change the ending. Sit on the bed and run cards six through ten. It takes four minutes."
-   ],
-   "audio": "/audio/deck/d11.mp3",
-   "source": "Cummings et al. 1991, Developmental Psychology; Walker & van der Helm 2009, Psychological Bulletin (sleep consolidates emotional memory). No study compares same-hour with next-day repair, so this card rests on the two together."
-  },
-  {
-   "type": "text",
-   "kicker": "12 of 12",
-   "title": "The five hours before",
-   "body": [
-    "It will happen again, and the goal is rarer, not never. Most of it happens before you walk in. Sit in the driveway for two minutes. Phone in the glove box. Then go in and be Dad.",
-    "And know this. He's watching how you handle yourself more than he's listening to what you tell him. Kids copy what they see, down to the words. A dad who gets quiet, comes back and says sorry is teaching the lesson that matters, and he's teaching it every time."
-   ],
-   "audio": "/audio/deck/d12.mp3",
-   "source": "Bandura, Ross & Ross 1961 (kids copy adult aggression, including the words); Morris et al. 2007, Social Development (kids learn regulation by watching parents); Adams-Clark et al. 2022 (a parent's own composure is the gate to a good apology)."
-  },
-  {
-   "type": "end",
-   "kicker": "Done",
-   "title": "That's Dad Shift.",
-   "body": "Keep it on your phone. It's here the next time, and there's always a next time.",
-   "links": [
-    {
-     "label": "Add The Phone Talk, $19",
-     "href": "https://buy.stripe.com/28E9AV7dcaSJ8RB6o1es001",
-     "style": "gold"
-    },
-    {
-     "label": "Send the assessment to a dad",
-     "href": "https://doty.media/assessment",
-     "style": "line"
-    }
-   ]
-  }
- ]
-};
-
-/* ---------- render ---------- */
-const track = document.getElementById('track'), dots = document.getElementById('dots');
+/* Dad Shift, thirteen audio cards. Built 16 Nov 2026 by doty/site/build/build_dadshift.py from round11/sessions13_v3.json. */
+const SLUG = 'deck';
+const CARDS = [{"k": "c01", "title": "After you yell", "src": "/audio/dadshift/c01.mp3", "dur": 144, "paras": ["It's 7:10pm on a Tuesday and bath time is running late. His trucks are all over the living room floor, a whole construction site from the couch to the hallway. You ask him to pick them up. He ignores you and keeps pushing the dump truck. You ask again from the sink while scrubbing dishes. He makes a beeping sound and backs the truck up. The third time, your voice climbs. The fourth time you roar at full volume. \"PICK. THEM. UP!\"", "He jumps. The truck drops out of his hand and hits the floor. The room goes totally silent. He stands by the couch with his shoulders up near his ears and stares at his feet. His bottom lip starts to shake. Your heart pounds. Your face burns. Then your stomach drops.", "Here's what you do next...", "Steady first. Don't say anything yet. Turn to the counter for a second. Put both hands flat on it. Relax your jaw. Take a deep breath in for a 5 count. Then out for a 5 count. Do that twice. Drop your shoulders. Feel the tension leave your body.", "Get on their side. Relax the expression on your face. Walk over and get low, lower than him if you can. He might back up. Let him. \"Hey, bud. That was loud, wasn't it? Did I scare you?\" Then wait. He may nod, or he may not look at you. Stay quiet and give him time.", "Circle back. Tell him what you did, that it was on you, and what you'll do next time. \"I'm sorry, buddy. I yelled, and that was wrong. I got frustrated, and that's no excuse. It wasn't your fault. Next time I'll walk over and help you get started.\" Leave out \"but you didn't listen.\" Don't ask if he forgives you, and don't ask if you two are okay. Open your arms and let him come to you. When he does, give him a big squeeze. Hold on a beat longer than normal.", "Hold the line. The trucks still need to go in the bin. Be the leader of the house and do it with him. \"Okay. Trucks, then bath. I'll grab the big ones, you grab the little ones.\" Hand him one to get started. Lighten the mood if you can. Make the dump truck noise if that's your thing.", "Tonight, after he's down, reflect for a few minutes. Go easy on yourself. You went back and made it right. Then think about what you were doing when your voice went up. Your jaw was tight. You were scrubbing dishes with your back to him. Watch out for that next time. When your jaw gets tight, stop what you're doing and take a deep breath."]}, {"k": "c02", "title": "Screens off", "src": "/audio/dadshift/c02.mp3", "dur": 133, "paras": ["It's 5:40pm and dinner is almost ready. He's on the couch with the tablet. You give him a warning. \"Five more minutes, bud.\" He says okay and doesn't look up. Five minutes pass. You walk over and tell him time's up. He ignores you and keeps playing. You say it again, louder. He hugs the tablet to his chest and screams, \"NO! I'm not DONE!\"", "He turns away and won't look at you. Your chest gets tight. Blood pressure rises. Jaw clenches.", "You feel like grabbing it out of his hands.", "Here's what you do next...", "Steady first. Keep your hands at your sides. Take one step back from the couch. Relax your jaw. Take a deep breath and smile. Feel your chest loosen.", "Get on their side. Walk back over and kneel down. \"You're frustrated game time is over?\" He might yell, \"It's not FAIR! I was almost DONE!\" Don't argue with it. Ask him one more. \"You wanted to finish your game?\" Wait until he's done.", "Hold the line. Stay down there with him and keep your voice steady. \"I know, bud. The tablet's done for today.\" He may yell again. Don't explain and don't argue. Say it one more time. \"The tablet's done for today.\" Then let him turn it off. \"You press the button.\" If he won't, tell him what you're about to do. \"I'm going to take the tablet now.\" Take it gently and put it out of reach. He may cry. Stay close until it passes. Then give him a job right away, and keep it light. \"Come help me set the table. I'll let you do the placemats.\"", "Circle back. If you lost it before you caught yourself, go back once things are calm. Sit down next to him and tell him what you did. \"Hey, bud. I yelled, and that was wrong. I shouldn't do that. I'm sorry. Next time I'll take a deep breath first.\" Then wrap your arms around him for a big squeeze.", "After he's in bed, go easy on yourself if it got loud. Think about what your body did when he screamed. Your chest got tight and your jaw clenched. When you feel that again, keep your hands at your sides and take a deep breath. Before he picks up the tablet next time, agree on a stopping point. \"One game, then dinner. Sound good?\" When the game ends, hold him to it."]}, {"k": "c03", "title": "Sibling fights", "src": "/audio/dadshift/c03.mp3", "dur": 161, "paras": ["It's 9:20am on a Saturday and you're in the garage pumping up bike tires. Through the wall you hear your kids arguing. \"It's MY turn!\" \"No! I had it first!\" You keep pumping and hope they sort it out. They get louder, and your shoulders tense up. Then you hear \"Give it BACK!\" and a smack. Your son yells, \"OW!\"", "You walk inside. Your son is holding the remote control car over his head. A red mark is coming up on his arm. His little sister is jumping for the car with tears running down her face. They both yell at once. \"She HIT me!\" \"He took it! He started it!\" \"SHE started it!\" Then they both stop and look at you. Your face gets hot. Your fists tighten.", "You feel like yelling, grabbing the car and sending them both to their rooms.", "Here's what you do next...", "Steady first. Step between them. Hold out your hand for the car. Take it and set it on the floor behind you. Then put a hand on each of their shoulders. Don't say a word yet. Take a deep breath in for a 5 count, then out for a 5 count. Feel your shoulders drop.", "Get on their side. Get low, right between them. \"One of you talks and the other one listens. Then you switch.\" Start with your youngest. \"What happened?\" If she's crying too hard to talk at first, wait for her. When she's done, ask her one more. \"You're mad he took the car?\" She nods. \"I had it first.\" If her brother cuts in, tell him, \"Hold on, buddy. You're next.\" Then it's his turn. \"You were waiting for your turn?\" \"She had it forever.\" \"Did it hurt when she hit you?\" He rubs his arm and nods. Don't decide who started it. Don't take a side.", "Hold the line. Say the house rule once. \"In this house, nobody hits.\" Then ask them both. \"You both want the car. How can you both get a turn?\" Give them time. Their first ideas might not be fair. Let them keep going. If they have a plan, have some fun with it. \"Okay, show me how fast this thing goes.\"", "If they can't agree, put the car up on a shelf for the rest of the day. Don't lecture. Later, when your daughter isn't around, talk to your son. \"Hey, bud, you're her big brother, and she watches everything you do. I'm counting on you to look out for her.\"", "Circle back. If you came in yelling, go back to both of them once things are calm. \"Hey, you two. I came in yelling, and that was wrong. That's on me. I'm sorry. Next time I'll calm down before I walk in.\" Then open your arms and give them both a big hug.", "Once they're in bed, reflect for a few minutes. Go easy on yourself and on them. When you hear them through the wall and your shoulders tense up, stop at the door. Take a deep breath before you open it."]}, {"k": "c04", "title": "The meltdown in public", "src": "/audio/dadshift/c04.mp3", "dur": 135, "paras": ["It's 5:15pm and you're in a packed grocery store with your three year old daughter. She's tired and hungry. She's already asked for cookies and a balloon, and you've said no both times. In the cereal aisle she pulls a box of dinosaur cereal off the shelf. You say, \"Not today, sweetheart,\" and put it back. She throws herself on the floor and kicks the cart with both feet. Then she screams, \"I WANT it!\"", "Her face turns bright red. An older couple stops to watch, and a man with a basket steps around her. The back of your neck gets hot. Your heart pounds. You squeeze the cart handle.", "You feel like pulling her up by one arm and dragging her out of the store.", "Here's what you do next...", "Steady first. Let go of the cart and leave it there. Ignore the people staring. Take a deep breath in for a 5 count, then out for a 5 count. Feel your neck cool down.", "Get on their side. Pick her up and carry her to the end of the aisle. Don't talk on the way. If she kicks or arches her back, hold her gently and keep walking. Put her down and get on one knee. \"You're mad we put the cereal back?\" She might cry harder. Let her get it out. Then ask her one more. \"You wanted the dinosaur one?\" She sniffs and says, \"Yeah.\"", "Hold the line. Keep it short. \"I know, sweetheart. We're not buying that one today.\" Don't give her a reason, and don't promise her a treat if she stops. When the crying slows down, pick her up and hug her until it stops. Then give her a job. \"I need a helper. Want to help me push the cart?\" Walk back to your cart together.", "If she screams again, say it one more time. \"We're not buying that one today.\" Stay beside her until she settles down.", "Circle back. If you grabbed her arm or yelled, make it right once she's calm. Get down where she can see your face. \"Hey, sweetheart. I was too rough with you, and that was wrong. I'm sorry. Next time I'll pick you up gently.\" Then scoop her up for a big squeeze.", "Tonight, go easy on yourself. Before the next trip, give her a snack. Tell her the plan before you go in. \"We're getting groceries. You get to help push the cart.\" When the back of your neck gets hot, let go of the cart and take a deep breath."]}, {"k": "c05", "title": "You've asked five times", "src": "/audio/dadshift/c05.mp3", "dur": 133, "paras": ["It's 7:30pm and it's time to get ready for bed. Your son is on the living room floor building a Lego garage. You call from the kitchen while you wipe down the counter. \"Can you go brush your teeth, bud?\" He says, \"Okay,\" and adds another brick. You ask again from the hallway. \"Okay.\" He doesn't look up. You ask two more times from the bathroom door. You get louder each time, and he stops answering.", "The fifth time, you almost shout it. He doesn't even turn his head. He's on his stomach, trying to get a window to fit. Your jaw tightens. You grip the door frame.", "You feel like yelling and taking the Legos away for a week.", "Here's what you do next...", "Steady first. Stop before you say it a sixth time. Let go of the door frame. Take a deep breath in for a 5 count, then out for a 5 count. Feel your jaw relax.", "Get on their side. Walk over and sit down on the floor beside him. Rest a hand on his shoulder and say his name once. He may keep building for a second. Wait until he looks up at you. \"It's hard to stop when you're building, isn't it?\" He nods. \"I need to get this window in.\" Then ask, \"You wanted to finish it tonight?\" He says, \"Yeah.\"", "Hold the line. Don't ask him this time. Tell him, and give him one job. \"It's time to brush your teeth.\" Stay beside him until he moves. Once he's brushing, thank him and give him the next job. \"Thanks, bud. Pajamas are next.\" Then give him something to look forward to. \"You can finish it in the morning. I'll leave it right where it is.\"", "If he doesn't move, say it one more time. \"It's time to brush your teeth.\" Then walk him to the bathroom and help him get started. Put the toothpaste on his brush and hand it to him.", "Circle back. If you yelled before you walked over, make it right when you tuck him in. \"Hey, buddy. I yelled at you from across the house tonight. That was wrong, and I'm sorry. Next time I'll walk over and tell you once.\" Then hold out your fist for knuckles.", "After he's asleep, reflect for a few minutes. Go easy on yourself. Then think about where you were when you got loud. You were calling from another room, and your jaw was tight. Next time, walk over and tell him once. When your jaw gets tight, stop and take a deep breath."]}, {"k": "c06", "title": "Back talk", "src": "/audio/dadshift/c06.mp3", "dur": 147, "paras": ["It's 6:50pm and you're still at the table after dinner. Your daughter is eleven, and she's been quiet since she got home from school. You ask her to take her plate to the sink. It's her job every night. She ignores you and stays in her chair. You ask again, louder this time. She crosses her arms, rolls her eyes and says, \"You can't MAKE me.\"", "She stares at you and waits. Your face gets hot. You grip the edge of the table. You lean toward her.", "You feel like yelling, \"Don't you DARE talk to me like that!\"", "Here's what you do next...", "Steady first. Let go of the table and sit back in your chair. Don't answer her yet. Take a deep breath in for a 5 count, then out for a 5 count. Relax your shoulders. Feel your face cool down.", "Get on their side. Turn toward her and keep your voice low. \"You've been quiet since school. Did something happen today?\" She may shrug and stare at her plate. Give her time. She might say, \"Nobody saved me a seat at lunch.\" Ask her one more. \"You ate by yourself?\" She nods. Don't try to fix it, and leave the plate alone for now.", "Hold the line. Once she's done talking, go back to the way she spoke to you. Keep the same quiet voice. \"That's no way to talk to me. Try again.\" If she mumbles, \"Sorry,\" take it. Then ask for the plate once more. \"Plate in the sink, please.\" She may stomp the whole way. Let her. Tell her, \"Thank you.\" Then lighten the mood if you can. \"Want to pick the music while we clean up?\"", "If she won't, don't argue and don't threaten her. Say it one more time. \"Your plate goes in the sink before you leave the table.\" Then stay in your chair and wait.", "Circle back. If you yelled at dinner, go to her room before bedtime. Knock first. Sit down beside her. \"Hey, kiddo. I yelled at you at dinner, and I shouldn't have. I'm sorry. Next time I'll ask what's wrong first.\" Then stay a few minutes in case she wants to talk.", "Before you go to bed, reflect for a few minutes. Go easy on yourself, and go easy on her. Think back to dinner. Your face got hot and you leaned toward her. When you catch yourself leaning in again, sit back and take a deep breath. Later this week, when you're both calm, give her better words to use. \"It's okay to be mad. Next time tell me, 'Dad, I had a bad day. I need a few minutes.'\""]}, {"k": "c07", "title": "Dinner fights", "src": "/audio/dadshift/c07.mp3", "dur": 131, "paras": ["It's 6:00pm and you've been cooking for an hour. Dinner is chicken, rice and broccoli. Your son takes one look at his plate and pushes it away. \"I don't WANT broccoli!\" Last week he ate it all. He gets up on his knees. You tell him, \"Sit on your bottom and eat, please.\" He slides off his chair, then climbs back up. You tell him again, and your shoulders tense up. Then he holds a piece of broccoli out over the floor and stares at you. He lets go.", "The broccoli lands by your foot. He watches your face. Your jaw clenches. Your hand tightens around your fork.", "You feel like slamming your hand on the table and making him eat every bite.", "Here's what you do next...", "Steady first. Put your fork down and open your hand. Take a deep breath in for a 5 count, then out for a 5 count. Relax your face. Feel your shoulders drop.", "Get on their side. Turn to face him and talk quieter than normal. \"You don't feel like broccoli tonight?\" He shakes his head. \"It's yucky.\" Ask him one more. \"You wanted something else for dinner?\" \"I wanted noodles.\" Don't remind him he ate it last week. Say, \"Okay,\" and leave it there.", "Hold the line. Tell him once. \"You don't have to eat it. This is what we're having tonight. Food stays on your plate.\" Don't make him noodles. Then eat your own dinner and talk about something else. Ask him who he played with today. Don't count his bites, and don't offer a treat for eating. If he stays in his chair, let him fill up on the rice. \"If you want more rice, bud, you can scoop it yourself.\" If he tries a piece of broccoli, don't point it out.", "If he drops food again, dinner is over for him. Keep your voice calm. \"Food stays on your plate. You can hop down.\" Don't fix him another meal later.", "Circle back. If you yelled or hit the table, find him right after dinner. Sit down next to him. \"Hey, buddy. I got mad and yelled at dinner, and I shouldn't have. I'm sorry. Next time I'll calm down first.\" Then pull him into your lap for a big hug.", "Later tonight, go easy on yourself. Put broccoli on the table again next week, with a food he likes next to it. When your hand tightens around your fork, put it down and take a deep breath."]}, {"k": "c08", "title": "Out the door", "src": "/audio/dadshift/c08.mp3", "dur": 136, "paras": ["It's 7:40am and you have to leave for school in five minutes. Your son is on his back on the hallway floor. He's tossing a ball at the ceiling and catching it. You tell him to put his shoes on. \"Okay,\" he says. He doesn't move.", "You pack his lunch in his backpack and set his shoes and jacket down next to him. You look at the clock and your stomach gets tight. You've asked him six times now, and he's still tossing the ball. You yell, \"ENOUGH! Get your shoes on NOW!\"", "The ball drops and rolls down the hall. He stares up at you with his mouth open and doesn't touch his shoes. Your heart races. Your breathing gets fast.", "You feel like yelling again and shoving his shoes on his feet yourself.", "Here's what you do next...", "Steady first. Stop where you are. Don't say anything yet. Take a deep breath in for a 5 count, then out for a 5 count. Relax your shoulders. Feel your heart slow down.", "Get on their side. Kneel beside him. \"Hey, buddy. That was loud, wasn't it?\" He nods. Then ask him one more. \"You didn't want to stop playing?\" He shakes his head. \"No.\"", "Hold the line. Tell him, \"I know. We still have to go.\" Give him one job at a time, and let him pick the order. \"Which one first, shoes or jacket?\" When he finishes the first one, thank him and point to the next. Then give him something to look forward to. \"Two more minutes, then we're out the door. I'll let you lock up.\"", "If he argues or goes back to the ball, don't argue back. Say it one more time. \"We still have to go.\" Then hand him a shoe.", "Circle back. Apologize on the way to school. \"Hey, bud. I yelled at you this morning, and that was wrong. I was in a rush, and that's no excuse. I'm sorry. Next time I'll ask you once and help you get started.\" Before he goes in, give him a hug. \"I love you. Have a great day.\"", "Tonight, go easy on yourself. Before his bedtime, make a morning chart with him. It has four things on it: clothes, breakfast, teeth and shoes. Let him draw the pictures. After he's down, pack his lunch and put his shoes by the door. In the morning, point to the chart and ask, \"What's next?\" When you look at the clock and your stomach gets tight, stop where you are and take a deep breath."]}, {"k": "c09", "title": "The bad day you bring home", "src": "/audio/dadshift/c09.mp3", "dur": 125, "paras": ["It's 5:45pm and you're pulling into the driveway after a hard day at work. Your boss blamed you for a missed deadline in front of the whole team. You thought about it the whole drive home.", "You put the car in park and hear your kids inside. Your daughter runs past the front window with your son right behind her. He yells, \"I'm gonna GET you!\" She shrieks, and they both laugh. Then your phone buzzes. It's your boss again. Your neck is stiff. You're still gripping the wheel.", "You feel like telling them to knock it off and going straight to your room.", "Here's what you do next...", "Steady first. Stay in the car. Turn off the engine and put your phone in the cup holder. Take your hands off the wheel. Take a deep breath in for a 5 count. Then out for a 5 count. Do that twice. Now think about who's in that house. Your kids run to the door when they hear you. Feel your neck loosen.", "Get on their side. Leave your phone in the car and walk in with a big smile. \"There they are! I missed you two.\" Kneel down when they come running. Your daughter gets to you first. Ask her, \"What was the best part of your day?\" \"I lost my TOOTH at lunch!\" She pulls down her lip to show you. Then ask your son. \"What about you, bud?\" He grins. \"I scored two goals at recess.\" They may talk over each other. Let them.", "Hold the line. Your phone stays in the car until the kids are in bed. If you need a few minutes to change, tell them when you'll be back, and be back on time. Give them something to look forward to. \"I'm going to change. I'll be back in five minutes, and then you two pick the game.\"", "Circle back. If you were short with them on the way in, go back to both of them once things are calm. \"Hey, you two. I was grumpy when I got home, and that was wrong. I had a hard day at work, and that's no excuse. You did nothing wrong. I'm sorry. Next time I'll calm down before I walk in.\" Then give them both a big hug.", "After they're in bed, go easy on yourself if you were short with them. Think about the drive home. Your neck was stiff, and you gripped the wheel. When you feel that again, stay in the car and take two deep breaths before you go in."]}, {"k": "c10", "title": "Bedtime stalling", "src": "/audio/dadshift/c10.mp3", "dur": 146, "paras": ["It's 8:40pm and you put her to bed ten minutes ago. You read two books, kissed her forehead and left her door open a crack. You finally sit down on the couch. Then you hear her bedroom door open. She comes down the hallway in her pajamas, hugging her blanket. \"Daddy, I'm thirsty.\" You get her a drink and walk her back. A few minutes later she's out again. \"I need to tell you something.\" The third time she says, \"I heard a noise.\" You walk her back again, and your jaw clenches.", "You sit back down, and her door opens a fourth time. She walks up behind the couch. \"Daddy?\" Your shoulders get tight. Your head starts to pound.", "You feel like yelling at her to get back in bed.", "Here's what you do next...", "Steady first. Stay on the couch and don't turn around yet. Take a deep breath in for a 5 count, then out for a 5 count. Relax your jaw. Feel your shoulders drop.", "Get on their side. Get up, walk around the couch and kneel down in front of her. Keep your voice low. \"Is it hard to fall asleep tonight?\" She nods and rubs her eyes. Ask her one more. \"Did the noise scare you?\" She might say yes, or she might say, \"I want you to stay.\" Wait until she's done.", "Hold the line. Take her hand and walk her back to her room. \"I know, sweetheart. I'm right down the hall. It's time to sleep.\" Tuck her blanket in tight and kiss her forehead. Leave her door open a crack.", "If she comes out again, walk her back the same way and say the same words. \"I'm right down the hall. It's time to sleep.\" Do that every time her door opens.", "Circle back. If you yelled tonight, go to her room while she's still awake. Sit down on her bed. \"Hey, sweetheart. I yelled at you, and that was wrong. I'm sorry. You're not in trouble. Next time I'll take a deep breath first.\" Then rub her back for a few minutes.", "Once she's asleep, go easy on yourself and on her. When her door opens and your shoulders get tight, stay where you are and take a deep breath before you turn around. Before the next bedtime, make a bedtime pass with her. Use an index card and let her decorate it. When you tuck her in, hand it to her. \"You get one trip out of your room tonight. You can use it for a drink, a hug or one more thing to tell me.\" When she uses it, give her what she needs. Once she's used the pass, skip the words and walk her back to bed."]}, {"k": "c11", "title": "Homework standoff", "src": "/audio/dadshift/c11.mp3", "dur": 146, "paras": ["It's 6:30pm and your daughter is at the kitchen table doing long division. The worksheet has twelve problems. She's been at it forty minutes and she's on number five. You sit down across from her and show her how to do it. She shakes her head. You show her again on scratch paper. \"I don't GET it,\" she says. \"That's not how my teacher does it.\" You explain it a third time, and your voice gets loud.", "She presses down so hard her pencil snaps. Her eyes fill with tears. She shoves the worksheet away and cries into her hands. Your chest gets tight. Your jaw tightens.", "You feel like taking the worksheet and finishing it yourself.", "Here's what you do next...", "Steady first. Stop explaining. Put your pencil down and turn the worksheet over. \"Okay, kiddo. Break time. We'll come back in ten minutes.\" Leave the table together. Make her a snack or take a walk around the block. Talk about anything but math. Feel your chest loosen.", "Get on their side. When the ten minutes are up, pull your chair around and sit next to her. \"This is frustrating, isn't it?\" She shrugs, then nods. \"I hate division.\" Don't argue with it. Ask her one more. \"Which part gets you stuck?\" She turns the worksheet over and points at number five. \"Here. I don't know what's next.\" Hand her a new pencil.", "Hold the line. She does the work herself. Don't do it for her. Give her a say in it. \"Four more and we'll call it a night. You pick which four.\" Let her do it her teacher's way. When she gets stuck, ask a question and keep the answer to yourself. \"How does your teacher start these?\" Then count to ten in your head while she thinks. When she gets one right, tell her what she did. \"You stuck with it and you got it.\"", "If she gets one wrong, don't fix it for her. Give her a hint. \"Check your second step.\" If she cries again, call another break. After the fourth one, she's done for the night. Write her teacher a note that the worksheet took an hour.", "Circle back. If you yelled at the table, make it right before she goes to bed. \"Hey, kiddo. I got impatient and I yelled. That was wrong, and I'm sorry. You're not in trouble for getting stuck. Next time I'll call a break sooner.\" Then put your arm around her.", "After she's asleep, go easy on yourself. Think about the third time you explained it. Your voice got loud and your chest got tight. When your chest gets tight again, turn the worksheet over and call a break."]}, {"k": "c12", "title": "Spills and messes", "src": "/audio/dadshift/c12.mp3", "dur": 130, "paras": ["It's 6:45pm and you've been up since 5:00am. You're cleaning up the kitchen after dinner. Your daughter is at the table eating crackers. She's called you over three times since you started. The last time she wanted more juice, and you filled her cup to the top.", "She reaches for another cracker and bumps the cup with her elbow. The cup tips over and grape juice runs across the table. It drips off the edge and makes a puddle on the floor you mopped yesterday.", "She sits frozen with a cracker in her hand. She looks at the puddle, then up at you, and bites her lip. You clench your teeth. Your shoulders go stiff.", "You feel like yelling, \"Why can't you be more CAREFUL!?\"", "Here's what you do next...", "Steady first. Stay quiet for a second. Look at the spill before you look at her. Take a deep breath in for a 5 count, then out for a 5 count. Turn to the sink and grab two towels. Lower your shoulders. Feel your jaw relax.", "Get on their side. Now turn to her. She's watching your face. Walk over and get low next to her. \"Whoa, that was a big spill. Did that scare you?\" She nods. \"I didn't mean to.\" Then ask, \"Are you worried you're in trouble?\" Her eyes fill with tears and she nods again. \"You're not in trouble, sweetheart. It was an accident.\"", "Hold the line. She still helps with the mess. Hand her a towel. Don't blame her. \"Okay. Let's clean it up. You take the table and I'll take the floor.\" She may miss a few spots. Let her finish, and get the rest later. Then keep it light. \"Nice work! Want some more juice?\" Set her cup in the middle of the table this time.", "Circle back. If you did yell, go back once things are calm. Get down next to her. \"Hey, sweetheart. I yelled, and that was wrong. I'm sorry. Everybody spills, even Dad. Next time I'll take a deep breath and hand you a towel.\" Then give her a big hug.", "After she's asleep, go easy on yourself. When the cup tipped over, you clenched your teeth and your shoulders went stiff. Next time you feel that, keep your eyes on the mess. Take a deep breath before you look at her."]}, {"k": "c13", "title": "The ride home after a loss", "src": "/audio/dadshift/c13.mp3", "dur": 130, "paras": ["It's 11:30am on a Saturday, the last minute of your daughter's soccer game. Her team is down by one. She gets the ball right in front of the goal with nobody near her. You hold your breath. She passes to a teammate, and a defender takes it away. Then the whistle blows.", "She walks to the car with her head down. She gets in the back seat with her shin guards still on. Neither of you says a word as you pull out of the parking lot. You look in the mirror. Her forehead is against the window and her eyes look red. Your hands tighten on the wheel. Your jaw clenches.", "You feel like asking her why she didn't take the shot.", "Here's what you do next...", "Steady first. Don't ask her. Let it be quiet in the car. Loosen your grip on the wheel. Take a deep breath in for a 5 count, then out for a 5 count. Feel your jaw relax.", "Get on their side. Give it a few minutes. Then tell her, \"I love watching you play.\" Leave it there, and let her be quiet if she wants to. If she says, \"I should've taken the shot,\" don't argue with it. Ask her, \"You're mad at yourself?\" She nods. \"We lost because of me.\" Ask her one more. \"You feel like you let them down?\" She wipes her eyes with her sleeve. \"Yeah.\" Let her finish.", "Hold the line. Don't coach her on the ride home. If she brings up the game, let her talk, and tell her what you saw her do well. \"You ran back on defense every single time, even when you were tired.\" Leave the pass for another day. Then lighten the mood if you can. \"Want to stop for a slushie? You pick the music.\"", "If she doesn't want to talk, leave it alone. Let the car be quiet the whole way home.", "Circle back. If you brought up the pass on the ride home, go back once things are calm. Knock on her door. \"Hey, kiddo. I got on you about that pass, and I shouldn't have. I'm sorry. Next time I'll leave the game alone unless you bring it up.\" Then give her a hug.", "Tonight, go easy on yourself if you said too much. Before the next game, ask her, \"After a loss, do you want to talk or do you want quiet?\" Then do what she picks. On the next ride home, when your hands tighten on the wheel, loosen your grip and take a deep breath."]}];
+const MOVES = ['Steady first.','Get on their side.','Hold the line.','Circle back.'];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const paras = b => (Array.isArray(b) ? b : [b]).map(x => `<p>${esc(x)}</p>`).join('');
-function card(c, i){
-  const pine = c.type === 'cover' || c.type === 'audio' || c.type === 'end';
-  let h = `<div class="card"><div class="inner ${pine ? 'pine' : ''}">`;
-  if (c.kicker) h += `<div class="kicker">${esc(c.kicker)}</div>`;
-  if (c.type === 'cover'){
-    h += `<img class="mark" src="/images/mono-sunrise.svg" alt=""><h1 class="big">${esc(c.title)}</h1>${paras(c.body)}<div class="hint">Swipe left, or tap Next</div>`;
-  } else if (c.type === 'text'){
-    h += `<h1>${esc(c.title)}</h1>${paras(c.body)}`;
-    if (c.say) h += `<div class="say">${esc(c.say)}</div>`;
-    if (c.not) h += `<div class="not"><b>Not this</b>${esc(c.not)}</div>`;
-    if (c.move) h += `<div class="move"><b>The move</b><span>${esc(c.move)}</span></div>`;
-    if (c.audio) h += `<div class="audio card-audio"><button class="play" data-src="${esc(c.audio)}"><span class="ico"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg></span><span class="lbl">Hear it</span></button><div class="aprog"><i></i></div><div class="atime"><span class="cur">0:00</span><span></span></div></div>`;
-    if (c.source) h += `<details class="src"><summary>Where this comes from</summary><p>${esc(c.source)}</p></details>`;
-  } else if (c.type === 'audio'){
-    h += `<h1>${esc(c.title)}</h1>${paras(c.body)}
-      <div class="audio"><button class="play" data-src="${esc(c.src)}"><span class="ico"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg></span><span class="lbl">Play</span></button>
-      <div class="aprog"><i></i></div><div class="atime"><span class="cur">0:00</span><span>${esc(c.duration || '')}</span></div></div>`;
-  } else if (c.type === 'end'){
-    h += `<h1 class="big">${esc(c.title)}</h1>${paras(c.body)}<div class="not"><b>Keep it on your phone</b>iPhone: the share button, then Add to Home Screen. Android: the menu, then Add to Home screen.</div><div style="margin-top:auto">` +
-      (c.links || []).map(l => `<a class="btn ${l.style || 'line'}" href="${esc(l.href)}">${esc(l.label)}</a>`).join('') + `</div>`;
-  }
-  return h + `</div></div>`;
-}
-track.innerHTML = DECK.cards.map(card).join('');
-dots.innerHTML = DECK.cards.map(() => '<i></i>').join('');
-document.getElementById('brand').textContent = DECK.brand;
-document.title = DECK.title + ' — ' + DECK.brand;
+const mmss = t => { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
+let heard = {}; try { heard = JSON.parse(localStorage.getItem('doty-dadshift-heard') || '{}') || {}; } catch (e) {}
 
-/* ---------- navigation ---------- */
-let i = 0; const n = DECK.cards.length;
+function para(p){
+  if (p.startsWith("Here's what you do next")) return `<p class="next">${esc(p)}</p>`;
+  for (const m of MOVES) if (p.startsWith(m)) return `<span class="mv">${esc(m.slice(0, -1))}</span><p class="mvp">${esc(p.slice(m.length).trim())}</p>`;
+  return `<p>${esc(p)}</p>`;
+}
+function cover(){
+  return `<div class="card"><div class="inner pine"><div class="kicker">Thirteen audio cards</div>
+    <img class="mark" src="/images/mono-sunrise.svg" alt=""><h1 class="big" style="margin-top:0">Dad Shift</h1>
+    <p>Dad Shift is audio coaching to keep you calm and in command when it counts.</p>
+    <ul class="toc">` + CARDS.map((c, j) => `<li><button type="button" data-go="${j + 1}"><span class="n">${j + 1}</span><span class="t">${esc(c.title)}</span><span class="ck" data-ck="${c.k}">${heard[c.k] ? '&#10003;' : ''}</span><span class="d">${mmss(c.dur)}</span></button></li>`).join('') + `</ul>
+    <div class="kicker" style="margin:26px 0 10px">How to use it</div>
+    <ol class="steps"><li>Today, listen to two or three audio cards. Pick the situations you see most at your house.</li><li>This week, drill them while things are calm.</li><li>When it gets tense with your kids, get steady first. Open the card that fits if you need it. Then go talk to them.</li></ol>
+  </div></div>`;
+}
+function audioCard(c, j){
+  return `<div class="card"><div class="inner pine" data-k="${c.k}"><div class="kicker">${j + 1} of ${CARDS.length}</div>
+    <h1>${esc(c.title)}</h1>
+    <div class="player"><div class="prow"><button type="button" class="skip" data-skip="-15" aria-label="Back 15 seconds">&minus;15</button><button type="button" class="play" data-src="${esc(c.src)}" data-title="${esc(c.title)}"><span class="ico"><svg class="pl" viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg><svg class="pa" viewBox="0 0 12 12"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg></span><span class="lbl">Play</span></button><button type="button" class="skip" data-skip="15" aria-label="Forward 15 seconds">+15</button></div>
+    <div class="aprog" role="slider" aria-label="Position"><i></i></div><div class="atime"><span class="cur">0:00</span><span>${mmss(c.dur)}</span></div></div>
+    <div class="read">${c.paras.map(para).join('')}</div>
+  </div></div>`;
+}
+function endCard(){
+  return `<div class="card"><div class="inner pine"><div class="kicker">Keep it on your phone</div>
+    <h1 class="big" style="margin-top:0">Add Dad Shift to your home screen</h1>
+    <p>Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen.</p>
+    <div style="margin-top:auto"><button type="button" class="btn line" data-go="0" style="width:100%;background:none;cursor:pointer">Back to all thirteen</button></div>
+  </div></div>`;
+}
+const track = document.getElementById('track'), dots = document.getElementById('dots');
+track.innerHTML = cover() + CARDS.map(audioCard).join('') + endCard();
+const n = CARDS.length + 2;
+dots.innerHTML = Array.from({length: n}, () => '<i></i>').join('');
+document.title = 'Dad Shift';
+
 /* open ping: the welcome email links here with ?s=<Kit subscriber id>; /api/open tags him as opened */
-try { const sid = new URLSearchParams(location.search).get('s'); if (sid && /^\d+$/.test(sid)) { try { localStorage.setItem('doty_sid', sid); } catch(e){} fetch('/api/open?s=' + sid + '&d=' + (DECK.slug || 'deck'), {keepalive:true}).catch(()=>{}); } else { let saved=null; try { saved = localStorage.getItem('doty_sid'); } catch(e){} if (saved) fetch('/api/open?s=' + saved + '&d=' + (DECK.slug || 'deck'), {keepalive:true}).catch(()=>{}); } } catch(e){}
+try { const sid = new URLSearchParams(location.search).get('s'); if (sid && /^\d+$/.test(sid)) { try { localStorage.setItem('doty_sid', sid); } catch(e){} fetch('/api/open?s=' + sid + '&d=' + SLUG, {keepalive:true}).catch(()=>{}); } else { let saved=null; try { saved = localStorage.getItem('doty_sid'); } catch(e){} if (saved) fetch('/api/open?s=' + saved + '&d=' + SLUG, {keepalive:true}).catch(()=>{}); } } catch(e){}
+
+/* navigation */
+let i = 0;
 const prev = document.getElementById('prev'), next = document.getElementById('next'), count = document.getElementById('count');
 function go(k){
+  const was = i;
   i = Math.max(0, Math.min(n - 1, k));
+  if (was !== i) stopAudio();
   track.style.transform = `translateX(-${i * 100}%)`;
   [...dots.children].forEach((d, j) => { d.className = j === i ? 'on' : (j < i ? 'done' : ''); });
-  count.textContent = `${i + 1} / ${n}`;
-  prev.disabled = i === 0; next.textContent = i === n - 1 ? 'Done' : 'Next';
-  try { localStorage.setItem('doty-deck-' + DECK.title, i); } catch (e) {}
+  count.textContent = (i >= 1 && i <= CARDS.length) ? `${i} / ${CARDS.length}` : '';
+  document.getElementById('all').hidden = i === 0;
+  prev.disabled = i === 0; next.textContent = i === 0 ? 'Start with card 1' : (i === n - 1 ? 'Done' : 'Next');
 }
 prev.onclick = () => go(i - 1);
-next.onclick = () => { if (i < n - 1) go(i + 1); };
+next.onclick = () => { go(i < n - 1 ? i + 1 : 0); };
+document.getElementById('all').onclick = () => { go(0); };
 document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(i + 1); if (e.key === 'ArrowLeft') go(i - 1); });
+track.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) { go(parseInt(b.dataset.go, 10)); const inner = track.children[i].querySelector('.inner'); if (inner) inner.scrollTop = 0; } });
 
 /* swipe */
-let sx = 0, sy = 0, dx = 0, dragging = false;
+let sx = 0, sy = 0, dx = 0, dragging = false, locked = false;
 const stage = document.getElementById('stage');
-stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; dx = 0; dragging = true; track.classList.add('drag'); }, {passive:true});
+stage.addEventListener('touchstart', e => { if (e.target.closest('.aprog')) { dragging = false; return; } sx = e.touches[0].clientX; sy = e.touches[0].clientY; dx = 0; dragging = true; locked = false; }, {passive:true});
 stage.addEventListener('touchmove', e => {
   if (!dragging) return;
   const mx = e.touches[0].clientX - sx, my = e.touches[0].clientY - sy;
-  if (Math.abs(my) > Math.abs(mx)) return;
+  if (!locked) { if (Math.abs(mx) < 12 && Math.abs(my) < 12) return; if (Math.abs(my) > Math.abs(mx)) { dragging = false; return; } locked = true; track.classList.add('drag'); }
   dx = mx; track.style.transform = `translateX(calc(-${i * 100}% + ${dx}px))`;
 }, {passive:true});
 stage.addEventListener('touchend', () => {
+  if (!dragging) return;
   dragging = false; track.classList.remove('drag');
   if (dx < -60) go(i + 1); else if (dx > 60) go(i - 1); else go(i);
+  dx = 0;
 });
 
-/* audio */
-let audio = null;
-document.querySelectorAll('.play').forEach(btn => {
-  const wrap = btn.parentElement, bar = wrap.querySelector('.aprog i'), cur = wrap.querySelector('.cur'), lbl = btn.querySelector('.lbl');
-  btn.onclick = () => {
-    if (!btn.dataset.src) { lbl.textContent = 'Audio coming'; return; }
-    if (!audio || audio.src !== new URL(btn.dataset.src, location.href).href) { if (audio) audio.pause(); audio = new Audio(btn.dataset.src); audio.onerror = () => { lbl.textContent = 'Audio coming'; btn.classList.remove('playing'); }; audio.ontimeupdate = () => { bar.style.width = (audio.currentTime / audio.duration * 100) + '%'; const m = Math.floor(audio.currentTime / 60), s = Math.floor(audio.currentTime % 60); cur.textContent = `${m}:${String(s).padStart(2,'0')}`; }; audio.onended = () => { btn.classList.remove('playing'); lbl.textContent = 'Play again'; }; }
-    if (audio.paused) { audio.play(); btn.classList.add('playing'); lbl.textContent = 'Playing'; } else { audio.pause(); btn.classList.remove('playing'); lbl.textContent = 'Resume'; }
-  };
+/* audio: one player at a time, tap or drag the bar to move, 15 seconds either way */
+let audio = null, live = null;
+function ui(btn){ const p = btn.closest('.player'); return { p, bar: p.querySelector('.aprog i'), prog: p.querySelector('.aprog'), cur: p.querySelector('.cur'), lbl: btn.querySelector('.lbl') }; }
+function stopAudio(){ if (audio && !audio.paused) { audio.pause(); if (live) { live.classList.remove('playing'); ui(live).lbl.textContent = 'Resume'; } } }
+function load(btn){
+  if (audio && live === btn) return;
+  if (audio) { audio.pause(); if (live) { live.classList.remove('playing'); ui(live).lbl.textContent = 'Play'; } }
+  const u = ui(btn); live = btn; audio = new Audio(btn.dataset.src); audio.preload = 'metadata';
+  audio.onerror = () => { u.lbl.textContent = 'Audio did not load. Tap to try again'; btn.classList.remove('playing'); audio = null; live = null; };
+  audio.ontimeupdate = () => { if (!audio || !audio.duration) return; u.bar.style.width = (audio.currentTime / audio.duration * 100) + '%'; u.cur.textContent = mmss(audio.currentTime); };
+  audio.onended = () => { btn.classList.remove('playing'); u.lbl.textContent = 'Play again';
+    const k = btn.closest('.inner').dataset.k; heard[k] = 1; try { localStorage.setItem('doty-dadshift-heard', JSON.stringify(heard)); } catch (e) {}
+    const ck = document.querySelector(`[data-ck="${k}"]`); if (ck) ck.innerHTML = '&#10003;'; };
+  if ('mediaSession' in navigator) { try { navigator.mediaSession.metadata = new MediaMetadata({ title: btn.dataset.title, artist: 'Dad Shift', album: 'Dad of the Year' }); } catch (e) {} }
+}
+track.addEventListener('click', e => {
+  const btn = e.target.closest('.play');
+  if (btn) { load(btn); const u = ui(btn);
+    if (audio.paused) { audio.play().then(() => { btn.classList.add('playing'); u.lbl.textContent = 'Pause'; }).catch(() => { u.lbl.textContent = 'Tap to play'; }); }
+    else { audio.pause(); btn.classList.remove('playing'); u.lbl.textContent = 'Resume'; }
+    return; }
+  const sk = e.target.closest('.skip');
+  if (sk) { const b = sk.closest('.player').querySelector('.play'); if (audio && live === b && audio.duration) audio.currentTime = Math.max(0, Math.min(audio.duration - 0.2, audio.currentTime + parseInt(sk.dataset.skip, 10))); }
 });
+function seek(prog, clientX){ const b = prog.closest('.player').querySelector('.play'); if (!audio || live !== b || !audio.duration) return; const r = prog.getBoundingClientRect(); audio.currentTime = Math.max(0, Math.min(1, (clientX - r.left) / r.width)) * (audio.duration - 0.2); }
+track.addEventListener('pointerdown', e => { const pr = e.target.closest('.aprog'); if (!pr) return; seek(pr, e.clientX); const mv = ev => seek(pr, ev.clientX); const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); }; window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); });
 
-let start = 0; try { start = parseInt(localStorage.getItem('doty-deck-' + DECK.title) || '0', 10) || 0; } catch (e) {}
-go(start);
+go(0);
 </script>
 </body>
 </html>
