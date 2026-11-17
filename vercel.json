@@ -29,6 +29,14 @@
       "destination": "/d-phone-talk.html"
     },
     {
+      "source": "/share",
+      "destination": "/share.html"
+    },
+    {
+      "source": "/d/52",
+      "destination": "/d-52.html"
+    },
+    {
       "source": "/((?!api/)(?!.*\\.).*)",
       "destination": "/index.html"
     }

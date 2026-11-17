@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#022822">
+<title>52 Saturday Mornings</title>
+<link rel="icon" type="image/svg+xml" href="/images/mono-pine.svg">
+<link rel="apple-touch-icon" href="/images/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="52 Saturdays">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{--pine:#022822;--canvas:#F5F6E1;--sunrise:#FFB413;--campfire:#FF6B01;--woodland:#006C4C;--meadow:#40CF77;--serif:'Libre Baskerville',Georgia,serif;--sans:Inter,system-ui,sans-serif;--mono:'DM Mono',monospace}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:var(--sans);color:var(--pine);background:var(--canvas);-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+header{background:var(--pine);color:var(--canvas);border:8px solid var(--sunrise);padding:26px 0 30px}
+header img{height:38px;display:block;margin-bottom:22px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sunrise);margin:0 0 12px}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,8vw,44px);line-height:1.1;margin:0 0 14px}
+h1 em{color:var(--sunrise);font-style:italic}
+header p{margin:0;font-size:17px;line-height:1.55;color:rgba(245,246,225,.86);max-width:30em}
+.tools{position:sticky;top:0;z-index:5;background:var(--canvas);border-bottom:1px solid rgba(2,40,34,.14)}
+.tools .wrap{display:flex;align-items:center;gap:6px;padding-top:10px;padding-bottom:10px}
+.chip{flex:0 0 auto;font:500 13px var(--sans);color:var(--pine);background:transparent;border:1px solid rgba(2,40,34,.3);padding:9px 10px;text-decoration:none;cursor:pointer;min-height:40px;display:inline-flex;align-items:center}
+.count{margin-left:auto;flex:0 0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--woodland);white-space:nowrap}
+.hbtn{display:inline-flex;align-items:center;min-height:46px;margin-top:22px;padding:12px 20px;font:600 15px var(--sans);color:var(--canvas);background:transparent;border:2px solid var(--canvas);cursor:pointer}
+h2{font-family:var(--serif);font-weight:700;font-size:26px;margin:34px 0 4px;scroll-margin-top:70px}
+.wk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--woodland);margin:0 0 12px}
+ul{list-style:none;margin:0;padding:0}
+li.idea{display:grid;grid-template-columns:24px 1fr 40px;gap:10px;align-items:start;background:#fff;border:1px solid rgba(2,40,34,.12);border-left:4px solid var(--sunrise);padding:16px 12px 16px 14px;margin:0 0 10px}
+li.idea.done{border-left-color:var(--meadow);background:rgba(64,207,119,.10)}
+.n{font-family:var(--mono);font-size:12px;color:var(--woodland);padding-top:4px;font-variant-numeric:tabular-nums}
+.t{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.3;margin:0 0 6px}
+.x{font-size:16px;line-height:1.5;margin:0;color:rgba(2,40,34,.86)}
+.box{width:40px;height:40px;border:2px solid var(--pine);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.box svg{width:20px;height:20px;display:none}
+li.done .box{background:var(--meadow);border-color:var(--meadow)} li.done .box svg{display:block}
+.extra{background:var(--pine);color:var(--canvas);padding:22px 20px;margin:34px 0 0;border-top:5px solid var(--sunrise)}
+.extra .t{color:var(--canvas)} .extra .x{color:rgba(245,246,225,.86)}
+footer{padding:34px 0 60px;font-size:14px;color:rgba(2,40,34,.7)}
+footer a{color:var(--pine)}
+.fridge{display:none}
+@media print{
+  @page{size:letter portrait;margin:.45in}
+  header,.tools,main,footer{display:none!important}
+  body{background:#fff}
+  .fridge{display:block;color:#022822}
+  .fridge h1{font-size:31px;margin:0 0 5px;color:#022822}.fridge h1 em{color:#022822}
+  .fridge .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 16px}
+  .fridge .cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 34px}
+  .fridge h3{font-family:var(--serif);font-size:18px;margin:10px 0 4px;border-bottom:2.5px solid #022822;padding-bottom:5px}
+  .fridge ol{list-style:none;margin:0;padding:0}
+  .fridge li{display:flex;gap:9px;align-items:baseline;font-size:13px;line-height:1.25;padding:4.9px 0;border-bottom:.5px solid rgba(2,40,34,.3)}
+  .fridge li i{flex:0 0 12px;height:12px;border:1.4px solid #022822;display:inline-block;transform:translateY(1px)}
+  .fridge li b{flex:0 0 18px;font-family:var(--mono);font-weight:400;font-size:10px}
+  .fridge .foot{margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <img src="/images/logo-canvas.svg" alt="Dad of the Year">
+  <p class="eyebrow">A gift from Dad of the Year</p>
+  <h1>52 Saturday Mornings <em>That Will Live Forever</em></h1>
+  <p>One Saturday morning a week, for a year. Tap the box when you've done one.</p>
+  <button class="hbtn" type="button" id="print">Print the fridge page</button>
+</div></header>
+<div class="tools"><div class="wrap">
+  <a class="chip" href="#winter">Winter</a><a class="chip" href="#spring">Spring</a><a class="chip" href="#summer">Summer</a><a class="chip" href="#fall">Fall</a>
+  <span class="count" id="count"></span>
+</div></div>
+<main><div class="wrap">
+  <div id="list"></div>
+  <div class="extra"><p class="eyebrow">An extra idea for the whole year</p><p class="t">One photo every Saturday</p><p class="x">Take one photo each Saturday in the same pose. Print all 52 next December and hang them on one wall.</p></div>
+</div></main>
+<footer><div class="wrap">Dad of the Year · <a href="https://doty.media/whatsyourdadscore">doty.media/whatsyourdadscore</a></div></footer>
+<section class="fridge" id="fridge"></section>
+<script>
+/* 52 Saturday Mornings That Will Live Forever. Built by doty/gift52/build_gift.py from the approved list. */
+const IDEAS = [{"n": 1, "s": "Winter", "t": "Cut your own tree", "x": "They pick the tree and do the sawing. You carry the heavy end."}, {"n": 2, "s": "Winter", "t": "Sunrise summit", "x": "Hike up in the dark with headlamps. Drink hot chocolate at the top while the sun comes up."}, {"n": 3, "s": "Winter", "t": "Make slingshots", "x": "Cut a forked branch for each of them and make slingshots. Line up a row of cans and take turns shooting."}, {"n": 4, "s": "Winter", "t": "First pocketknife", "x": "Give them their first knife and teach them the rules. Then they whittle a marshmallow stick with it."}, {"n": 5, "s": "Winter", "t": "New Year's: the polar plunge", "x": "Jump into cold water together on the first Saturday of the year. You go first."}, {"n": 6, "s": "Winter", "t": "Build a sled run", "x": "Pack a track with banked turns and a jump. Race it until lunch."}, {"n": 7, "s": "Winter", "t": "Breakfast in an igloo", "x": "Build a snow shelter big enough for everybody. Eat breakfast inside it."}, {"n": 8, "s": "Winter", "t": "Ice fishing", "x": "Drill a hole and drop a line. Fry what you catch."}, {"n": 9, "s": "Winter", "t": "Build their workbench", "x": "Build a workbench at their height. Hang their own hammer on it."}, {"n": 10, "s": "Winter", "t": "The teardown", "x": "Buy a broken lawn mower or an old radio. Take it apart together, down to the last screw."}, {"n": 11, "s": "Winter", "t": "Follow the tracks", "x": "After fresh snow, find a set of animal tracks. Follow them as far as they go."}, {"n": 12, "s": "Winter", "t": "Beginners together", "x": "Pick something none of you has ever done. Be bad at it together."}, {"n": 13, "s": "Winter", "t": "The dart trip", "x": "Throw a dart at a map of your state. Drive to where it lands and eat breakfast there."}, {"n": 14, "s": "Spring", "t": "Build an owl box", "x": "Build a nest box for owls and mount it up high. Check it together every season."}, {"n": 15, "s": "Spring", "t": "Plant their tree", "x": "Plant a tree for each kid. Take a photo of them next to it every year."}, {"n": 16, "s": "Spring", "t": "The rain hike", "x": "Wait for a downpour and go hiking anyway. Stomp in every puddle."}, {"n": 17, "s": "Spring", "t": "The big ride", "x": "Ride bikes farther than they've ever gone. Eat breakfast in the next town."}, {"n": 18, "s": "Spring", "t": "Change a tire", "x": "They jack up the car and change the tire. You hand them the tools."}, {"n": 19, "s": "Spring", "t": "Fossil hunt", "x": "Hunt for fossils in a creek bed. The best find goes on their shelf."}, {"n": 20, "s": "Spring", "t": "Climb the tree", "x": "Pick a big tree. They climb it and tie a ribbon as high as they dare."}, {"n": 21, "s": "Spring", "t": "Bury a time capsule", "x": "Each of you writes a letter. Bury the letters and pick the day you'll dig them up."}, {"n": 22, "s": "Spring", "t": "Record the old stories", "x": "Take them to breakfast with the oldest person in your family. Ask about the old days and record it on your phone."}, {"n": 23, "s": "Spring", "t": "Where you grew up", "x": "Drive them to your old street. Walk your route to school and tell them the stories."}, {"n": 24, "s": "Spring", "t": "The one match fire", "x": "They gather the wood and build the fire. They get one match to light it."}, {"n": 25, "s": "Spring", "t": "The navigator", "x": "Hand them a paper map and follow where they lead. Don't correct them."}, {"n": 26, "s": "Spring", "t": "First fish", "x": "They bait the hook, cast the line and land the fish. You take the picture."}, {"n": 27, "s": "Summer", "t": "Creek expedition", "x": "Follow a creek upstream as far as you can go. Build a dam where you stop."}, {"n": 28, "s": "Summer", "t": "Night under the stars", "x": "Sleep outside with no tent on Friday night. Wake up with the sun on Saturday."}, {"n": 29, "s": "Summer", "t": "Rope swing", "x": "Hang a rope swing from the biggest branch you can find. You test it first."}, {"n": 30, "s": "Summer", "t": "Dawn paddle", "x": "Put a canoe on the water before sunrise. Paddle until the sun is all the way up."}, {"n": 31, "s": "Summer", "t": "Fourth of July: rocket launch", "x": "Build model rockets together. Launch them and chase them down."}, {"n": 32, "s": "Summer", "t": "Start the tree fort", "x": "Pick the tree and build the platform. Add to it all summer."}, {"n": 33, "s": "Summer", "t": "Jump off the rock", "x": "Find a swimming hole with a big rock over the water. Jump in together on the count of three."}, {"n": 34, "s": "Summer", "t": "Build a raft", "x": "Lash a raft together from logs and rope. Float it with everybody on board."}, {"n": 35, "s": "Summer", "t": "Bike ramp", "x": "Build a ramp out of scrap wood. Measure every jump with a tape measure."}, {"n": 36, "s": "Summer", "t": "The 100 foot slip and slide", "x": "Roll 100 feet of tarp down a hill and soap it up. Turn on the hose and slide down with them."}, {"n": 37, "s": "Summer", "t": "Meteor shower", "x": "Wake them at 4:00am in August. Lie on a blanket and count shooting stars."}, {"n": 38, "s": "Summer", "t": "Build a go-kart", "x": "Build a go-kart or a soapbox racer. Race it down the street."}, {"n": 39, "s": "Summer", "t": "Two dads, one fire", "x": "Call another dad. Bring all the kids and cook breakfast over one fire."}, {"n": 40, "s": "Fall", "t": "Build a catapult", "x": "Build a catapult that can throw a water balloon across the yard. Take turns trying to catch one."}, {"n": 41, "s": "Fall", "t": "Forage and eat it", "x": "Pick a bucket of wild berries or apples. Make pancakes with them when you get home."}, {"n": 42, "s": "Fall", "t": "First shot", "x": "Set up a target. Teach them to shoot a bow or a BB gun."}, {"n": 43, "s": "Fall", "t": "First time driving", "x": "Find an empty parking lot. Let them steer."}, {"n": 44, "s": "Fall", "t": "Build the fire pit", "x": "Dig the pit and ring it with stone. Light the first fire that night."}, {"n": 45, "s": "Fall", "t": "They cook breakfast", "x": "They cook the whole breakfast over a fire. You eat whatever they make."}, {"n": 46, "s": "Fall", "t": "The $20 morning", "x": "Hand them $20. They plan the whole morning and you go along with it."}, {"n": 47, "s": "Fall", "t": "Set a trail camera", "x": "Strap a trail camera to a tree in the woods. Come back next Saturday and see what walked by."}, {"n": 48, "s": "Fall", "t": "Halloween: power tool pumpkins", "x": "Carve pumpkins with a drill and a jigsaw. They run the tools."}, {"n": 49, "s": "Fall", "t": "Teach your thing", "x": "Pick the one thing you do best. Spend the morning teaching it to your kids."}, {"n": 50, "s": "Fall", "t": "Their first business", "x": "They make something and sell it at the end of the driveway. They keep the money."}, {"n": 51, "s": "Fall", "t": "Dads against kids", "x": "Get a few dads together and play all the kids in a full game of soccer or kickball. The winners keep the trophy for a year."}, {"n": 52, "s": "Fall", "t": "Thanksgiving: the Turkey Bowl", "x": "Start a family football game on Thanksgiving weekend. Play it every year from now on."}];
+const WEEKS = {Winter:'Weeks 1 to 13',Spring:'Weeks 14 to 26',Summer:'Weeks 27 to 39',Fall:'Weeks 40 to 52'};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let done = {}; try { done = JSON.parse(localStorage.getItem('doty-52-done') || '{}') || {}; } catch (e) {}
+const CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="#022822" stroke-width="3"><path d="M4 10.5l4 4 8-9"/></svg>';
+function render(){
+  let h = '', s = '';
+  for (const it of IDEAS) {
+    if (it.s !== s) { if (s) h += '</ul>'; s = it.s; h += `<h2 id="${s.toLowerCase()}">${s}</h2><p class="wk">${WEEKS[s]}</p><ul>`; }
+    h += `<li class="idea${done[it.n] ? ' done' : ''}" data-n="${it.n}"><span class="n">${it.n}</span><div><p class="t">${esc(it.t)}</p><p class="x">${esc(it.x)}</p></div><button class="box" type="button" aria-pressed="${!!done[it.n]}" aria-label="Done: ${esc(it.t)}">${CHECK}</button></li>`;
+  }
+  document.getElementById('list').innerHTML = h + '</ul>';
+  const k = IDEAS.filter(i => done[i.n]).length;
+  document.getElementById('count').textContent = k + ' of 52 done';
+}
+document.getElementById('list').addEventListener('click', e => {
+  const b = e.target.closest('.box'); if (!b) return;
+  const n = b.closest('li').dataset.n; if (done[n]) delete done[n]; else done[n] = 1;
+  try { localStorage.setItem('doty-52-done', JSON.stringify(done)); } catch (e2) {}
+  render();
+});
+(function fridge(){
+  let h = '<h1>52 Saturday Mornings <em>That Will Live Forever</em></h1><p class="sub">' + esc("One a week. Check it off when you've done it.") + '</p><div class="cols">';
+  for (const s of ['Winter','Spring','Summer','Fall']) h += `<div><h3>${s}</h3><ol>` + IDEAS.filter(i => i.s === s).map(i => `<li><i></i><b>${i.n}</b><span>${esc(i.t)}</span></li>`).join('') + '</ol></div>';
+  document.getElementById('fridge').innerHTML = h + '</div><div class="foot"><span>Dad of the Year</span><span>doty.media/whatsyourdadscore</span></div>';
+})();
+document.getElementById('print').onclick = () => window.print();
+try { const sid = new URLSearchParams(location.search).get('s'); if (sid && /^\d+$/.test(sid)) fetch('/api/open?s=' + sid + '&d=gift', {keepalive:true}).catch(()=>{}); } catch(e){}
+render();
+</script>
+</body>
+</html>
