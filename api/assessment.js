@@ -74,13 +74,8 @@ function lowestTitle(d) {
   return low ? low.t : undefined;
 }
 
-// Short-lived, nothing personal in it: what the last few calls looked like. Read with GET ?debug=1.
-const LAST = [];
-function note(rec) { LAST.unshift({ at: new Date().toISOString(), ...rec }); LAST.length = Math.min(LAST.length, 8); }
-
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
-  if (req.method === 'GET' && req.query && req.query.debug) return res.status(200).json({ last: LAST });
   if (req.method !== 'POST') return res.status(405).end();
   const key = process.env.KIT_API_KEY;
   const token = process.env.ASSESSMENT_HOOK_TOKEN;
@@ -91,15 +86,7 @@ export default async function handler(req, res) {
   const d = (body && body.data && typeof body.data === 'object') ? body.data : (body || {});
   const event = String((body && body.event_name) || '').toUpperCase();
   const email = (typeof d.email === 'string' && d.email.includes('@')) ? d.email.trim().toLowerCase() : findEmail(body);
-  const rec = {
-    event, ct: String(req.headers['content-type'] || ''), bodyType: typeof req.body,
-    keys: Object.keys(body || {}).slice(0, 12), dataKeys: Object.keys(d || {}).slice(0, 40),
-    hasEmail: !!email, hasScore: !!(d.total_score), tier: d.total_score ? typeof d.total_score.tier : null,
-  };
-  if (!email || email === 'scoreapp.testing@gmail.com') {
-    note({ ...rec, skipped: 'no-email-or-test' });
-    return res.status(200).json({ skipped: 'no-email-or-test' });
-  }
+  if (!email || email === 'scoreapp.testing@gmail.com') return res.status(200).json({ skipped: 'no-email-or-test' });
   const first_name = (typeof d.first_name === 'string' && d.first_name.trim()) ? d.first_name.trim().slice(0, 40) : undefined;
 
   const out = { event };
@@ -127,7 +114,6 @@ export default async function handler(req, res) {
     out.sequence = (await kit('POST', `/sequences/${SEQUENCE}/subscribers`, key, { email_address: email })).status;
   }
 
-  note({ ...rec, out });
   const codes = [out.subscriber, out.fields, out.tag, out.sequence].filter((c) => typeof c === 'number');
   // Kit down, throttled or refusing the key: answer with an error so ScoreApp tries again (it retries up to 5 times).
   if (codes.some((c) => c >= 500 || c === 429 || c === 401)) return res.status(502).json(out);
