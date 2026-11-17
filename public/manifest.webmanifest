@@ -2,7 +2,7 @@
   "name": "Dad Shift",
   "short_name": "Dad Shift",
   "start_url": "/d/deck",
-  "scope": "/d/",
+  "scope": "/d/deck",
   "display": "standalone",
   "background_color": "#022822",
   "theme_color": "#022822",
@@ -17,5 +17,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "id": "/d/deck"
 }

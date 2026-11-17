@@ -11,6 +11,7 @@ const PRICES = {
 };
 const TAGS = { deck: 25434786, phone: 25434787, reset: 25434788 };
 const WELCOME_SEQUENCE = 2958112; // Dad Shift welcome
+const PHONE_TALK_SEQUENCE = 2974405; // The Phone Talk welcome, for a dad who bought only The Phone Talk
 
 async function kit(path, key, body) {
   const r = await fetch(`https://api.kit.com/v4${path}`, {
@@ -42,7 +43,8 @@ export default async function handler(req, res) {
   });
   if (!sr.ok) return res.status(200).json({ skipped: 'stripe', status: sr.status });
   const session = await sr.json();
-  if (session.payment_status !== 'paid') return res.status(200).json({ skipped: 'unpaid' });
+  // 'no_payment_required' is an order made free by a 100 percent off promotion code (our test orders).
+  if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') return res.status(200).json({ skipped: 'unpaid' });
   const email = session.customer_details?.email || session.customer_email;
   if (!email) return res.status(200).json({ skipped: 'no-email' });
   const name = (session.customer_details?.name || '').split(' ')[0] || undefined;
@@ -61,8 +63,13 @@ export default async function handler(req, res) {
     const t = await kit(`/tags/${TAGS[k]}/subscribers`, kitKey, { email_address: email });
     out.tags[k] = t.status;
   }
+  // The Dad Shift welcome email also carries The Phone Talk link for anyone tagged phone-talk-buyer,
+  // so a dad who bought both gets one email. Only a Phone Talk only buyer gets the Phone Talk welcome.
   if (bought.has('deck')) {
     const q = await kit(`/sequences/${WELCOME_SEQUENCE}/subscribers`, kitKey, { email_address: email });
+    out.sequence = q.status;
+  } else if (bought.has('phone')) {
+    const q = await kit(`/sequences/${PHONE_TALK_SEQUENCE}/subscribers`, kitKey, { email_address: email });
     out.sequence = q.status;
   }
   return res.status(200).json(out);
