@@ -8,6 +8,7 @@ const PRICES = {
   price_1UUtpoRSkOmNEmoxmnO1G44Z: 'deck',   // Dad Shift $29
   price_1UUtpxRSkOmNEmoxjumeVMCo: 'phone',  // The Phone Talk $19
   price_1UVdfQRSkOmNEmoxE3vxHq7a: 'reset',  // The Reset $149
+  price_1Uccm1RSkOmNEmoxXwJRoG9D: 'both',   // Dad Shift and The Phone Talk $39 (the bundle tile)
 };
 const TAGS = { deck: 25434786, phone: 25434787, reset: 25434788 };
 const WELCOME_SEQUENCE = 2958112; // Dad Shift welcome
@@ -51,7 +52,8 @@ export default async function handler(req, res) {
   const bought = new Set();
   for (const li of session.line_items?.data || []) {
     const k = PRICES[li.price?.id];
-    if (k) bought.add(k);
+    if (k === 'both') { bought.add('deck'); bought.add('phone'); }
+    else if (k) bought.add(k);
   }
   if (!bought.size) return res.status(200).json({ skipped: 'no-known-product' });
 
