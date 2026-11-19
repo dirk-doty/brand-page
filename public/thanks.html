@@ -11,17 +11,15 @@
 .hero.ty{padding-block:clamp(32px,4vw,44px) clamp(36px,4.4vw,52px)}
 .ty h1{font-size:clamp(40px,5vw,60px);line-height:1.05}
 .ty .lede{margin:14px 0 0;font-size:clamp(19px,1.9vw,22px);color:#F5F6E1;max-width:none}
-.steps{list-style:none;margin:clamp(22px,2.6vw,30px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
-.steps li{display:flex;flex-direction:column;gap:10px;padding:clamp(16px,1.8vw,22px);color:#022822;font-size:16px;line-height:1.45}
-.steps li b{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(34px,3.4vw,44px);line-height:1}
-.steps .st1{background:#FFB413}
-.steps .st2{background:#BFF3D3}
-.steps .st3{background:#F6C85F}
+.steps{list-style:none;margin:clamp(18px,2.2vw,24px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(245,246,225,.3);border-bottom:1px solid rgba(245,246,225,.3)}
+.steps li{display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:14px 18px 14px 0;color:rgba(245,246,225,.92);font-family:'DM Mono',ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.6}
+.steps li+li{border-left:1px solid rgba(245,246,225,.3);padding-left:18px}
+.steps li b{flex:none;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;background:#FFB413;color:#022822;font:500 13px 'DM Mono',ui-monospace,monospace;letter-spacing:0}
 .ty .ty-note{margin:14px 0 0;font-size:14px;line-height:1.5;font-style:italic;color:rgba(245,246,225,.72);max-width:none}
 .ty-gift{margin-top:clamp(28px,3.4vw,40px)}
 .ty-gift h2{font-size:clamp(26px,2.8vw,36px);line-height:1.12;color:#F5F6E1}
 .ty-gift p{margin:10px 0 0;font-size:18px;line-height:1.5;color:#F5F6E1;max-width:none}
-@media (max-width:640px){.steps{grid-template-columns:1fr}.steps li{flex-direction:row;align-items:center;gap:16px}.steps li b{flex:none;width:34px}}
+@media (max-width:640px){.steps{grid-template-columns:1fr}.steps li{padding:12px 0}.steps li+li{border-left:0;padding-left:0;border-top:1px solid rgba(245,246,225,.3)}}
 .share{background:#F5F6E1;text-align:left;padding:0}
 .share-grid{--gw:min(50vw,960px);display:grid;grid-template-columns:var(--gw) minmax(0,1fr);align-items:stretch}
 .gift-photo{position:relative;overflow:hidden;background:#022822;color:#F5F6E1;min-height:calc(var(--gw)*.617 + 400px)}
@@ -88,7 +86,7 @@
       </ol>
       <p class="ty-note">If the email isn't there in a few minutes, check your spam folder. If it's not there either, reply to your receipt and we'll send it again.</p>
       <div class="ty-gift">
-        <h2>You also get a <em>gift</em></h2>
+        <h2>You also get a <em>free gift</em></h2>
         <p id="pb">Your order comes with 52 Saturday Mornings That Will Live Forever. The link is in the same email.</p>
       </div>
     </div>
