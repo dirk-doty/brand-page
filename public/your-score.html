@@ -113,7 +113,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .tile .price s{opacity:.55;font-size:22px}
 .tile .line{font-size:15px;line-height:1.5;flex:1}
 .tile .go{background:#FF6B01;color:#fff;font-weight:600;padding:14px 18px;text-align:center}
-.refund{margin:0;width:100%;max-width:640px;align-self:center;text-align:center;font-size:13px;line-height:1.5;color:rgba(245,246,225,.72)}
+.refund{margin:0;width:100%;max-width:640px;align-self:center;text-align:center;font-size:15px;line-height:1.5;color:rgba(245,246,225,.78)}
 .more{margin:0;text-align:center;font-size:15px}
 .more a{color:#FFB413;font-weight:600}
 
@@ -185,7 +185,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .frow.bad input{border-color:#B03A0B;background:#fff}
 .sendbtn{display:block;width:100%;height:58px;margin:16px 0 0;border:0;border-radius:0;background:#FF6B01;color:#fff;font:600 18px Inter,system-ui,sans-serif;cursor:pointer;transition:background .15s}
 .sendbtn:hover{background:#B03A0B}
-.sendnote{margin:12px 0 0;font-size:13px;line-height:1.5;color:rgba(2,40,34,.7);max-width:none}
+.sendnote{margin:12px 0 0;font-size:15px;line-height:1.5;color:rgba(2,40,34,.7);max-width:none}
 .is-sent .frow b{background:#006C4C;color:#fff}
 .is-sent .sendbtn{background:#006C4C}
 .share .copied{min-height:0;margin:10px 0 0;font-size:14px;color:#B03A0B;text-align:left}
@@ -498,6 +498,20 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
     } else mountPay();
   }
 })();
+</script>
+<script>
+/* Dirk's rule: a headline never ends with one word alone on its last line. Glue the last two words. */
+function dotyNoOrphan(root) {
+  (root || document).querySelectorAll('h1,h2,h3,.gift-title').forEach(function (h) {
+    var w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), n, last = null, prev = null;
+    while ((n = w.nextNode())) { if (n.textContent.trim()) { prev = last; last = n; } }
+    if (!last) return;
+    var s = last.textContent.replace(/\s+$/, ''), i = s.lastIndexOf(' ');
+    if (i > 0) last.textContent = s.slice(0, i) + '\u00A0' + s.slice(i + 1) + last.textContent.slice(s.length);
+    else if (prev && /\s$/.test(prev.textContent)) prev.textContent = prev.textContent.replace(/\s+$/, '\u00A0');
+  });
+}
+dotyNoOrphan();
 </script>
 </body>
 </html>
