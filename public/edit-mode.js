@@ -51,10 +51,26 @@
     el.setAttribute('spellcheck', 'true');
     list.push(el);
   }
-  Object.keys(edits).forEach(function (id) {
-    var el = list[+id], e = edits[id];
-    if (el && e && e.o === el.__orig && typeof e.h === 'string') { el.innerHTML = e.h; el.classList.add('doty-edited'); }
+  /* Put saved edits back by matching the original words, so they survive changes elsewhere on the page.
+     An edit whose line is gone is kept in dotySalesOrphans, never dropped. */
+  var OKEY = 'dotySalesOrphans', saved = edits, claimed = {}, orphans = load(OKEY, []);
+  edits = {};
+  Object.keys(saved).forEach(function (id) {
+    var e = saved[id], el = null, q;
+    if (!e || typeof e.o !== 'string') return;
+    if (list[+id] && list[+id].__orig === e.o && !claimed[id]) el = list[+id];
+    for (q = 0; !el && q < list.length; q++) { if (!claimed[String(q)] && list[q].__orig === e.o) el = list[q]; }
+    if (el) {
+      var nid = el.getAttribute('data-eid'); claimed[nid] = 1; edits[nid] = e;
+      if (typeof e.h === 'string') el.innerHTML = e.h;
+      el.classList.add('doty-edited');
+    } else {
+      var done = false;
+      for (q = 0; q < list.length; q++) { if (list[q].__orig === e.t) { done = true; break; } }
+      if (!done) orphans.push(e);
+    }
   });
+  store(KEY, edits); store(OKEY, orphans);
 
   var bar = document.createElement('div');
   bar.id = 'doty-bar';
@@ -108,6 +124,6 @@
     last.innerHTML = last.__origHTML; saveEl(last);
   });
   noteBtn.addEventListener('click', function () { bar.classList.toggle('open'); count(); if (bar.classList.contains('open')) notesEl.focus(); });
-  window.__dotyEdits = function () { return { edits: edits, notes: notesEl.value, blocks: list.length }; };
+  window.__dotyEdits = function () { return { edits: edits, notes: notesEl.value, blocks: list.length, orphans: orphans }; };
   count();
 })();
