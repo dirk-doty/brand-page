@@ -92,7 +92,11 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .btn{display:inline-block;background:#FF6B01;color:#fff;text-decoration:none;font-weight:600;font-size:16px;padding:16px 22px}
 
 /* 3. The row of options */
-.buy{background:#022822;color:#F5F6E1;padding-top:72px;padding-bottom:64px}
+.buy{position:relative;overflow:hidden;background:#022822;color:#F5F6E1;padding-top:72px;padding-bottom:64px}
+.buy-bg{position:absolute;top:0;left:0;width:150%;height:100%;max-width:none;object-fit:cover;object-position:50% 38%}
+.buy::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,16,13,.62) 0%,rgba(8,16,13,.4) 36%,rgba(8,16,13,.5) 68%,rgba(2,40,34,.86) 88%,#022822 100%)}
+.buy>.wrap{position:relative;z-index:2}
+@media (max-width:1099px){.buy-bg{width:270%;object-position:0% 40%}}
 .buy-in{display:flex;flex-direction:column;gap:28px}
 .badge{width:112px;height:112px;border-radius:50%;border:2px solid #FFB413;color:#FFB413;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;align-self:center}
 .badge b{font-family:'Libre Baskerville',Georgia,serif;font-size:30px;line-height:1}
@@ -206,7 +210,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .hero[data-b="mid"] .hero-bg{object-position:30% 50%}
 .hero[data-b="top"] .hero-bg{object-position:46% 50%}.band2{margin-left:auto;margin-right:auto}
   .cards{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}
-  .secs{padding-top:40px}.rec{padding-bottom:48px}.share{padding-top:48px;padding-bottom:48px}.buy{padding-top:52px;padding-bottom:48px}
+  .secs{padding-top:40px}.rec{padding-bottom:48px}.buy{padding-top:52px;padding-bottom:48px}
 }
 @media (max-width:420px){.spots{gap:8px}.spot{font-size:14px;min-height:92px}}
 </style>
@@ -279,7 +283,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 
 
 
-<section class="buy" id="buy"><div class="wrap buy-in">
+<section class="buy" id="buy"><img class="buy-bg" src="/images/order-bg.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="wrap buy-in">
   <div class="badge"><b>30</b><span>day<br>guarantee</span></div>
   <h2>Your kids are watching. <em>Be the one they count on.</em></h2>
   <div class="ocard">
