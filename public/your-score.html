@@ -445,7 +445,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   /* The card form opens inside the offer box (Stripe embedded Checkout). /api/checkout opens the session.
      PK is Stripe's publishable key, which is public by design. With no key, or if the form can't load,
      the button stays and sends him to the Stripe page as before. */
-  var PK = '';
+  var PK = 'pk_live_51QbpzxRSkOmNEmox1rTmAqyBXmlkitOB95mKoYkFklYOS7EmQCvVQpTShwI9wlU6jiPQNBGrKZu6hPtSkpgwlAct003qsPQO4q';
   var paybox = document.getElementById('paybox'), ocard = paybox.parentNode, bumpLabel = bumpBox.parentNode;
   var payOn = false, busy = false, co = null, stripeObj = null;
   function loadStripe() {
