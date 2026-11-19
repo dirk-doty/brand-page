@@ -101,6 +101,39 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .more{margin:0;text-align:center;font-size:15px}
 .more a{color:#FFB413;font-weight:600}
 
+/* the selling, from the sales page */
+.rec p{margin:0;font-size:18px;line-height:1.6;max-width:640px}
+.sell{background:#022822;color:#F5F6E1;padding-top:64px;padding-bottom:64px}
+.sell .eyebrow{color:#FFB413;margin-bottom:12px}
+.sell h2{margin:0 0 16px;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(30px,4.2vw,40px);line-height:1.15}
+.sell h2 em{color:#FFB413;font-style:italic}
+.sell p{margin:0 0 12px;font-size:16px;line-height:1.6;max-width:640px;color:rgba(245,246,225,.8)}
+.sell p.lead{font-size:19px;color:#F5F6E1}
+.movesw{margin-top:28px;color:#022822}
+.sell p.pull{margin:28px 0 0;font-family:'Libre Baskerville',Georgia,serif;font-style:italic;font-size:22px;line-height:1.35;color:#FFB413}
+.proof{padding-top:64px;padding-bottom:56px}
+.proof h2{margin:0 0 24px;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(26px,3.8vw,38px);line-height:1.15}
+.proof h2 em{color:#006C4C;font-style:italic}
+.posts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.posts img{display:block;width:100%;height:auto;border:1px solid rgba(2,40,34,.15)}
+.proof .by{margin:24px 0 0;font-family:'Libre Baskerville',Georgia,serif;font-style:italic;font-size:19px;line-height:1.5;color:#006C4C;max-width:720px}
+.stakes{padding-bottom:72px}
+/* the offer: one stack, one button, one order bump */
+.ocard{background:#F5F6E1;color:#022822;width:100%;max-width:640px;align-self:center;padding:30px;display:flex;flex-direction:column;gap:16px}
+.otop{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:3px solid #022822;padding-bottom:12px}
+.oname{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:28px}
+.oprice{font-family:'Libre Baskerville',Georgia,serif;font-size:34px}
+.olabel{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B03A0B}
+.olist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.olist li{position:relative;padding-left:28px;font-size:16px;line-height:1.45}
+.olist li:before{content:"\2713";position:absolute;left:2px;top:0;color:#006C4C;font-weight:700}
+.ocard .go{display:block;background:#FF6B01;color:#fff;text-decoration:none;font-weight:600;font-size:18px;padding:18px;text-align:center;margin-top:4px}
+.bump{display:flex;gap:12px;align-items:flex-start;background:#fff;border:2px dashed #022822;padding:14px;font-size:15px;line-height:1.45;cursor:pointer}
+.bump input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:#FF6B01}
+.bump s{opacity:.6}
+@media (max-width:1180px){.l-mv4{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+@media (max-width:760px){.l-mv,.l-stk{grid-template-columns:1fr !important}.posts{grid-template-columns:1fr}.ocard{padding:22px}}
+
 /* no score in the address: the way in */
 .none{display:none;padding-top:8px}
 .no-score .none{display:block}
@@ -159,7 +192,44 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 
 <section class="rec"><div class="wrap">
   <h2>Work on this first: <em id="low"></em></h2>
-  <p>Most dads score lowest on their fuse. We built Dad Shift for that. It&rsquo;s audio coaching to keep you calm and in command when it counts.</p>
+  <p id="bridge">Your kids test your fuse in the same moments every week: screens off, sibling fights, the fifth time you&rsquo;ve asked. Dad Shift is audio coaching to keep you calm and in command when it counts.</p>
+  <a class="btn" href="#buy" style="margin-top:22px">Get Dad Shift for $29</a>
+</div></section>
+
+<section class="sell"><div class="wrap">
+  <div class="eyebrow">What it is</div>
+  <h2>What is <em>Dad Shift</em></h2>
+  <p class="lead">Dad Shift is thirteen audio cards that live on your phone. Each card helps you drill a common situation.</p>
+  <p>One card is for the minutes after you yell. Every card walks you through the same four moves: Steady first, Get on their side, Hold the line and Circle back. Press play and the audio talks you through it.</p>
+  <div class="movesw"><div class="l-mv l-mv4" style="display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0"><div style="background: #FFB413; padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 230px; container-type: inline-size"><div style="display: flex; justify-content: space-between; align-items: flex-start"><span style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 56px; line-height: 1">01</span><span style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; border: 1px solid rgba(2,40,34,0.5); padding: 4px 8px">Before</span></div><div style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 22px; font-size: min(22px, 10.8cqw); white-space: nowrap; margin-top: 22px">Steady first</div><div style="font-size: 15px; line-height: 1.55">Relax your jaw. Take a deep breath and smile.</div></div><div style="background: #BFF3D3; padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 230px; container-type: inline-size"><div style="display: flex; justify-content: space-between; align-items: flex-start"><span style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 56px; line-height: 1">02</span><span style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; border: 1px solid rgba(2,40,34,0.5); padding: 4px 8px">During</span></div><div style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 22px; font-size: min(22px, 10.8cqw); white-space: nowrap; margin-top: 22px">Get on their side</div><div style="font-size: 15px; line-height: 1.55">Kneel down. &ldquo;You&rsquo;re frustrated the show&rsquo;s over?&rdquo;</div></div><div style="background: #F6C85F; padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 230px; container-type: inline-size"><div style="display: flex; justify-content: space-between; align-items: flex-start"><span style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 56px; line-height: 1">03</span><span style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; border: 1px solid rgba(2,40,34,0.5); padding: 4px 8px">During</span></div><div style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 22px; font-size: min(22px, 10.8cqw); white-space: nowrap; margin-top: 22px">Hold the line</div><div style="font-size: 15px; line-height: 1.55">Stay down there with him and keep your voice steady. &ldquo;I know, bud. The tablet&rsquo;s done for today.&rdquo;</div></div><div style="background: #FF6B01; padding: 26px; display: flex; flex-direction: column; gap: 10px; min-height: 230px; container-type: inline-size"><div style="display: flex; justify-content: space-between; align-items: flex-start"><span style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 56px; line-height: 1">04</span><span style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; border: 1px solid rgba(2,40,34,0.5); padding: 4px 8px">After</span></div><div style="font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 22px; font-size: min(22px, 10.8cqw); white-space: nowrap; margin-top: 22px">Circle back</div><div style="font-size: 15px; line-height: 1.55">If you lost it before you caught yourself, go back once things are calm. &ldquo;Hey bud, I yelled and that was wrong. I&rsquo;m sorry.&rdquo; Then wrap your arms around him for a big squeeze.</div></div></div></div>
+  <p class="pull">When it counts, you fall to the level of your training.</p>
+</div></section>
+
+<section class="proof"><div class="wrap">
+  <h2>Every dad has moments like this. <em>You&rsquo;re not the only one.</em></h2>
+  <div class="posts"><img src="/images/xproof/x04.webp" width="920" height="385" loading="lazy" decoding="async" alt="A dad's post on X, name and photo blurred" style="display: block; width: 100%; height: auto; background: #FFFFFF; border: 1px solid rgba(2,40,34,0.14); box-shadow: 0 10px 28px rgba(2,40,34,0.16)"><img src="/images/xproof/x05.webp" width="920" height="385" loading="lazy" decoding="async" alt="A dad's post on X, name and photo blurred" style="display: block; width: 100%; height: auto; background: #FFFFFF; border: 1px solid rgba(2,40,34,0.14); box-shadow: 0 10px 28px rgba(2,40,34,0.16)"><img src="/images/xproof/x06.webp" width="920" height="385" loading="lazy" decoding="async" alt="A dad's post on X, name and photo blurred" style="display: block; width: 100%; height: auto; background: #FFFFFF; border: 1px solid rgba(2,40,34,0.14); box-shadow: 0 10px 28px rgba(2,40,34,0.16)"></div>
+  <p class="by">Built by dads. Dad Shift comes from thousands of real life experiences in the home and guidance from top experts.</p>
+</div></section>
+
+<section class="stakes"><div class="wrap">
+  <div class="eyebrow" style="color:#B03A0B;margin-bottom:14px">What&rsquo;s at stake</div>
+  <div class="l-stk" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0; margin-top: 6px"><img src="/images/stakes-dad-daughter.webp" width="1280" height="960" loading="lazy" decoding="async" alt="A dad kneels in a meadow, eye to eye with his young daughter." style="display: block; width: 100%; height: 100%; min-height: 300px; object-fit: cover; object-position: 50% 50%"><div style="background: #022822; color: #F5F6E1; padding: clamp(28px, 4vw, 48px); display: flex; align-items: center"><h2 style="margin: 0; font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: clamp(26px, 3vw, 36px); line-height: 1.25">Your kids are watching how dad handles pressure, and <em style="color: #FFB413">they learn it from you.</em></h2></div></div><div class="l-stk" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0"><div style="background: #FF6B01; color: #022822; padding: clamp(24px, 3.2vw, 36px); font-family: 'Libre Baskerville', Georgia, serif; font-size: clamp(19px, 2vw, 23px); line-height: 1.45">If they see you lose it and yell, that&rsquo;s what they&rsquo;ll do one day.</div><div style="background: #BFF3D3; color: #022822; padding: clamp(24px, 3.2vw, 36px); font-family: 'Libre Baskerville', Georgia, serif; font-size: clamp(19px, 2vw, 23px); line-height: 1.45">If they see you stay calm and collected, they&rsquo;ll do that instead.</div></div>
+</div></section>
+
+
+
+<section class="buy" id="buy"><div class="wrap buy-in">
+  <div class="badge"><b>30</b><span>day<br>guarantee</span></div>
+  <h2>Your kids are watching. <em>Be the one they count on.</em></h2>
+  <div class="ocard">
+    <div class="otop"><span class="oname">Dad Shift</span><span class="oprice">$29</span></div>
+    <div class="olabel">What you get</div>
+    <ul class="olist"><li>Thirteen audio cards, each for a different tough moment at home.</li><li>The same four moves on every card.</li><li>Under three minutes a card, half an hour for all thirteen.</li><li>On your phone, from a link we email you.</li><li>Our gift with your order: 52 Saturday Mornings That Will Live Forever.</li></ul>
+    <a class="go" id="go" href="https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a">Get Dad Shift for $29</a>
+    <label class="bump"><input type="checkbox" id="bump"><span>Add The Phone Talk, six audio cards for the day before they get their first phone. Both for <s>$48</s> $39.</span></label>
+  </div>
+  <p class="refund">If you want your money back within 30 days, for any reason, we&rsquo;ll refund you. We only want to keep your money if you&rsquo;re happy.</p>
+  <p class="more"><a href="/deck">See what&rsquo;s inside</a></p>
 </div></section>
 
 <section class="share"><div class="wrap">
@@ -168,18 +238,6 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   <div class="spots" id="spots"></div>
   <div class="copied" id="copied" aria-live="polite"></div>
   <div class="gift" id="gift" hidden><p>Thank you! Here&rsquo;s your gift.</p><a class="btn" href="/d/52">Open 52 Saturday Mornings</a></div>
-</div></section>
-
-<section class="buy" id="buy"><div class="wrap buy-in">
-  <div class="badge"><b>30</b><span>day<br>guarantee</span></div>
-  <h2>Your kids are watching. <em>Be the one they count on.</em></h2>
-  <div class="tiles">
-    <a class="tile is-feature" href="https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a"><div class="name">Dad Shift</div><div class="price">$29</div><div class="line">The twelve toughest moments with your kids, and how to handle each one.</div><div class="go">Get Dad Shift</div></a>
-    <a class="tile" href="https://buy.stripe.com/28E9AV7dcaSJ8RB6o1es001"><div class="name">The Phone Talk</div><div class="price">$19</div><div class="line">What to say when your kid gets a phone, and the rules that keep the peace.</div><div class="go">Get The Phone Talk</div></a>
-    <a class="tile is-best" href="https://buy.stripe.com/dRm7sNcxwf8Z4BlcMpes00b"><div class="tag">Best value</div><div class="name">Dad Shift + The Phone Talk</div><div class="price"><s>$48</s> $39</div><div class="line">For the hardest moments at home, and the day before they get their first phone.</div><div class="go">Get both</div></a>
-  </div>
-  <p class="refund">If you want your money back within 30 days, for any reason, we&rsquo;ll refund you. We only want to keep your money if you&rsquo;re happy.</p>
-  <p class="more"><a href="/deck">See what&rsquo;s inside</a></p>
 </div></section>
 
 <footer class="sf"><div class="sf-in"><div class="sf-row">
@@ -227,6 +285,8 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
     if (!have.length) document.querySelector('.secs').style.display = 'none';
     var lowEl = document.getElementById('low');
     if (low) lowEl.textContent = names[low] + '.'; else lowEl.parentNode.textContent = 'Work on this first';
+    var BR = {"f": "Your kids test your fuse in the same moments every week: screens off, sibling fights, the fifth time you\u2019ve asked. Dad Shift is audio coaching to keep you calm and in command when it counts.", "m": "Start with the time you already have. One blowup at dinner can ruin the whole evening. Dad Shift is audio coaching to keep you calm and in command when it counts. Every order also comes with 52 Saturday Mornings That Will Live Forever, a plan for one morning a week with them.", "c": "A bad day is harder without a dad to text. Dad Shift is audio coaching to keep you calm and in command when it counts. Built by dads. Dad Shift comes from thousands of real life experiences in the home and guidance from top experts."};
+    if (low && BR[low]) document.getElementById('bridge').textContent = BR[low];
     if (fresh) { try { var tries = 0; (function w() { if (window.fbq) window.fbq('track', 'CompleteRegistration'); else if (++tries < 40) setTimeout(w, 250); })(); } catch (e) {} }
   }
 
@@ -265,9 +325,15 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   })(s);
   paint();
 
-  document.getElementById('buy').addEventListener('click', function (ev) {
-    var t = ev.target.closest && ev.target.closest('a.tile');
-    if (t && window.fbq) { try { window.fbq('track', 'InitiateCheckout', { content_name: t.querySelector('.name').textContent }); } catch (e) {} }
+  var go = document.getElementById('go'), bumpBox = document.getElementById('bump');
+  function offer() {
+    var both = bumpBox.checked;
+    go.href = both ? 'https://buy.stripe.com/dRm7sNcxwf8Z4BlcMpes00b' : 'https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a';
+    go.textContent = both ? 'Get both for $39' : 'Get Dad Shift for $29';
+  }
+  bumpBox.addEventListener('change', offer); offer();
+  go.addEventListener('click', function () {
+    if (window.fbq) { try { window.fbq('track', 'InitiateCheckout', { content_name: bumpBox.checked ? 'Dad Shift and The Phone Talk' : 'Dad Shift' }); } catch (e) {} }
   });
 })();
 </script>
