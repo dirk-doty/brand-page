@@ -55,19 +55,19 @@
 .share p{max-width:none}
 .share h2{text-align:left}
 @media (max-width:1180px){.frow{grid-template-columns:46px minmax(0,1fr)}.frow input{padding:0 12px}.frow input::placeholder{font-size:11.5px;letter-spacing:.05em}}
-@media (min-width:1000px){
-.share-grid{position:relative;overflow:hidden;background:#022822;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;min-height:clamp(620px,46vw,780px)}
-.gift-photo{position:static;overflow:visible;background:none;min-height:0;align-self:start}
-.gift-photo img{object-position:50% 22%}
-.gift-photo::after{background:linear-gradient(180deg,#022822 0%,rgba(2,40,34,.72) 16%,rgba(2,40,34,0) 46%),linear-gradient(90deg,rgba(2,40,34,.9) 0%,rgba(2,40,34,.66) 30%,rgba(2,40,34,.12) 56%,rgba(2,40,34,.18) 100%)}
-.gift-copy{position:relative;z-index:2;max-width:440px;padding:clamp(40px,4.4vw,60px) 0 0;margin-left:max(24px,calc((100vw - 1056px)/2));margin-right:auto}
-.form-wrap{position:relative;z-index:2;justify-content:center}
+@media (min-width:1220px){
+.share-grid{position:relative;overflow:hidden;background:#022822;grid-template-columns:minmax(0,400px) 420px;column-gap:40px;justify-content:start;align-items:start;min-height:clamp(600px,44vw,720px);padding:56px max(24px,calc((100vw - 1056px)/2)) 72px}
+.gift-photo{position:static;overflow:visible;background:none;min-height:0}
+.gift-photo img{object-position:50% 62%}
+.gift-photo::after{background:linear-gradient(180deg,#022822 0%,rgba(2,40,34,.6) 14%,rgba(2,40,34,0) 40%),linear-gradient(90deg,rgba(2,40,34,.93) 0%,rgba(2,40,34,.84) 38%,rgba(2,40,34,.5) 66%,rgba(2,40,34,.12) 100%)}
+.gift-copy{position:relative;z-index:2;max-width:none;padding:0;margin:0}
+.form-wrap{position:relative;z-index:2;display:block;padding:0}
 .form-side{max-width:420px;padding:clamp(24px,2.4vw,34px)}
 .form-side h2{font-size:clamp(26px,2.2vw,32px)}
 .form-side p.lede{font-size:16px;margin-bottom:20px}
 .frow{grid-template-columns:46px minmax(0,1fr)}.frow input{padding:0 12px}.frow input::placeholder{font-size:11.5px;letter-spacing:.05em}
 }
-@media (max-width:999px){.share-grid{grid-template-columns:1fr}.gift-photo{min-height:700px}.gift-copy{margin-left:0}.form-wrap{padding-right:calc(clamp(23px,5vw,72px) + 8px)}.form-side{box-shadow:8px 8px 0 #FFB413}}
+@media (max-width:1219px){.share-grid{grid-template-columns:1fr}.gift-photo{min-height:700px}.gift-copy{margin-left:0}.form-wrap{padding-right:calc(clamp(23px,5vw,72px) + 8px)}.form-side{box-shadow:8px 8px 0 #FFB413}}
 .sf{background:#0D3B2E}.sf-in{max-width:1280px;margin:0 auto;padding:36px 24px 32px}
 .sf-row{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:24px}
 .sf-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
@@ -105,7 +105,7 @@
   </header>
   <section class="share"><div class="share-grid">
   <div class="gift-photo">
-    <picture><source media="(min-width:1000px)" srcset="/images/gift-52-wide.webp"><img src="/images/gift-52-photo.webp" width="1000" height="1210" loading="lazy" decoding="async" alt="A dad and his kid sit on a rock above a valley"></picture>
+    <picture><source media="(min-width:1220px)" srcset="/images/thanks-gift-wide.webp"><img src="/images/gift-52-photo.webp" width="1000" height="1210" loading="lazy" decoding="async" alt="A dad and his kid sit on a rock above a valley"></picture>
     <div class="gift-copy">
       <div class="eyebrow">Your gift</div>
       <div class="gift-title">52 Saturday Mornings That Will Live <em>Forever</em></div>
