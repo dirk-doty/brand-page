@@ -147,6 +147,9 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .bump{display:flex;gap:12px;align-items:flex-start;background:#fff;border:2px dashed #022822;padding:14px;font-size:15px;line-height:1.45;cursor:pointer}
 .bump input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:#FF6B01}
 .bump s{opacity:.6}
+.oprice s{opacity:.55;font-size:.8em;margin-right:6px}
+.paybox{background:#fff;border:2px solid #022822;min-height:120px;padding:6px 0}
+.ocard .go.is-off{display:none}
 @media (max-width:1180px){.l-mv4{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
 @media (max-width:760px){.l-mv,.l-stk{grid-template-columns:1fr !important}.posts{grid-template-columns:1fr}.ocard{padding:22px}}
 
@@ -287,9 +290,10 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   <div class="badge"><b>30</b><span>day<br>guarantee</span></div>
   <h2>Your kids are watching. <em>Be the one they count on.</em></h2>
   <div class="ocard">
-    <div class="otop"><span class="oname">Dad Shift</span><span class="oprice">$29</span></div>
+    <div class="otop"><span class="oname" id="oname">Dad Shift</span><span class="oprice" id="oprice">$29</span></div>
     <div class="olabel">What you get</div>
     <ul class="olist"><li>Thirteen audio cards, each for a different tough moment at home.</li><li>The same four moves on every card.</li><li>Under three minutes a card, half an hour for all thirteen.</li><li>On your phone, from a link we email you.</li><li>Our gift with your order: 52 Saturday Mornings That Will Live Forever.</li></ul>
+    <div class="paybox" id="paybox" hidden><div id="pay"></div></div>
     <a class="go" id="go" href="https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a">Get Dad Shift for $29</a>
     <label class="bump"><input type="checkbox" id="bump"><span><b>Add The Phone Talk.</b> Six audio cards for the day before they get their first phone. What to say and the rules that keep the peace. Both for <s>$48</s> $39.</span></label>
   </div>
@@ -413,15 +417,62 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   paint();
 
   var go = document.getElementById('go'), bumpBox = document.getElementById('bump');
+  var oname = document.getElementById('oname'), oprice = document.getElementById('oprice');
   function offer() {
     var both = bumpBox.checked;
     go.href = both ? 'https://buy.stripe.com/dRm7sNcxwf8Z4BlcMpes00b' : 'https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a';
     go.textContent = both ? 'Get both for $39' : 'Get Dad Shift for $29';
+    oname.textContent = both ? 'Dad Shift + The Phone Talk' : 'Dad Shift';
+    oprice.innerHTML = both ? '<s>$48</s>$39' : '$29';
+    if (payOn) mountPay();
   }
-  bumpBox.addEventListener('change', offer); offer();
   go.addEventListener('click', function () {
     if (window.fbq) { try { window.fbq('track', 'InitiateCheckout', { content_name: bumpBox.checked ? 'Dad Shift and The Phone Talk' : 'Dad Shift' }); } catch (e) {} }
   });
+
+  /* The card form opens inside the offer box (Stripe embedded Checkout). /api/checkout opens the session.
+     PK is Stripe's publishable key, which is public by design. With no key, or if the form can't load,
+     the button stays and sends him to the Stripe page as before. */
+  var PK = '';
+  var paybox = document.getElementById('paybox'), ocard = paybox.parentNode, bumpLabel = bumpBox.parentNode;
+  var payOn = false, busy = false, co = null, stripeObj = null;
+  function loadStripe() {
+    return new Promise(function (ok, no) {
+      if (window.Stripe) return ok();
+      var s = document.createElement('script'); s.src = 'https://js.stripe.com/v3/'; s.onload = ok; s.onerror = no; document.head.appendChild(s);
+    });
+  }
+  function mountPay() {
+    if (!PK || busy) return;
+    busy = true;
+    var want = bumpBox.checked;
+    loadStripe().then(function () {
+      stripeObj = stripeObj || window.Stripe(PK);
+      if (co) { try { co.destroy(); } catch (e) {} co = null; }
+      return stripeObj.initEmbeddedCheckout({ fetchClientSecret: function () {
+        return fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bump: want }) })
+          .then(function (r) { if (!r.ok) throw new Error('checkout'); return r.json(); })
+          .then(function (j) { return j.clientSecret; });
+      } });
+    }).then(function (c) {
+      co = c;
+      ocard.insertBefore(bumpLabel, paybox);   /* the add on sits above the form, so he sees it before he pays */
+      paybox.hidden = false; go.classList.add('is-off');
+      c.mount('#pay');
+      if (!payOn && window.fbq) { try { window.fbq('track', 'InitiateCheckout', { content_name: 'Dad Shift' }); } catch (e) {} }
+      payOn = true; busy = false;
+      if (bumpBox.checked !== want) mountPay();
+    }).catch(function () {
+      busy = false; payOn = false; paybox.hidden = true; go.classList.remove('is-off');
+    });
+  }
+  bumpBox.addEventListener('change', offer); offer();
+  if (PK && sc.t != null) {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); mountPay(); } }, { rootMargin: '900px 0px' });
+      io.observe(ocard);
+    } else mountPay();
+  }
 })();
 </script>
 </body>
