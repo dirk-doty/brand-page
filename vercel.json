@@ -9,6 +9,11 @@
       "source": "/whatsyourdadscore",
       "destination": "https://dirk-fvqi8bgi.scoreapp.com",
       "permanent": false
+    },
+    {
+      "source": "/share",
+      "destination": "/your-score?go=share",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -27,10 +32,6 @@
     {
       "source": "/d/phone-talk",
       "destination": "/d-phone-talk.html"
-    },
-    {
-      "source": "/share",
-      "destination": "/share.html"
     },
     {
       "source": "/your-score",

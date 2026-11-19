@@ -310,7 +310,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   <p class="more"><a href="/deck">See what&rsquo;s inside</a></p>
 </div></section>
 
-<section class="share"><div class="share-grid">
+<section class="share" id="share"><div class="share-grid">
   <div class="gift-photo">
     <img src="/images/gift-52-photo.webp" width="1000" height="1210" loading="lazy" decoding="async" alt="A dad and his kid sit on a rock above a valley">
     <div class="gift-copy">
@@ -406,6 +406,11 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   }
   /* A dad who came in through a buddy's note (doty.media/from-a-dad sets the flag) has the playbook already:
      his gift is open, and the card asks him to pass it on. */
+  /* go=share: the Dad Score email and the old /share address open the page at the share card. */
+  if (q.get('go') === 'share') {
+    var toShare = function () { var s = document.getElementById('share'); if (s) s.scrollIntoView(); };
+    setTimeout(toShare, 250); window.addEventListener('load', function () { setTimeout(toShare, 120); });
+  }
   var gifted = get('doty-gifted') === '1' || q.get('view') === 'buddy'; /* view=buddy: our own look at the buddy view */
   if (gifted) {
     document.getElementById('giftopen').hidden = false;
