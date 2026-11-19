@@ -33,6 +33,10 @@
       "destination": "/share.html"
     },
     {
+      "source": "/your-score",
+      "destination": "/your-score.html"
+    },
+    {
       "source": "/d/52",
       "destination": "/d-52.html"
     },
