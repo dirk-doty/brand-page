@@ -12,7 +12,28 @@
 .ty .lede{margin-bottom:18px}
 .ty .body{font-size:17px;line-height:1.6;margin:0 0 16px}
 .ty .actions{margin-top:26px}
-.ty .copied{display:block;margin-top:10px;font-size:14px;min-height:1.2em}
+.pass{background:#F5F6E1;padding:clamp(48px,7vw,88px) clamp(23px,5vw,48px);display:flex;justify-content:center}
+.pass-card{width:100%;max-width:560px;background:#fff;color:#022822;border:2px solid #022822;box-shadow:14px 14px 0 #FFB413;padding:clamp(26px,3.4vw,48px)}
+.pass-label{font-family:'DM Mono',ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#B03A0B;margin:0 0 12px}
+.pass-card h2{margin:0 0 14px;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(28px,2.9vw,40px);line-height:1.12;text-wrap:balance}
+.pass-card h2 em{font-style:italic;color:#006C4C}
+.pass-line{margin:0 0 26px;font-size:18px;line-height:1.55;max-width:none}
+.fields{display:grid;gap:12px}
+.frow{display:grid;grid-template-columns:54px minmax(0,1fr);gap:0;align-items:stretch}
+.frow b{display:flex;align-items:center;justify-content:center;height:56px;background:#022822;color:#FFB413;font:500 16px 'DM Mono',ui-monospace,monospace}
+.frow input{width:100%;height:56px;padding:0 16px;border:2px solid #022822;border-left:0;border-radius:0;background:#F5F6E1;color:#022822;font:500 16px 'DM Mono',ui-monospace,monospace}
+.frow input::placeholder{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(2,40,34,.6);opacity:1}
+.frow input:focus{outline:3px solid #FFB413;outline-offset:0;background:#fff}
+.frow.bad b{background:#B03A0B;color:#fff}
+.frow.bad input{border-color:#B03A0B;background:#fff}
+.sendbtn{display:block;width:100%;height:58px;margin:16px 0 0;border:0;border-radius:0;background:#FF6B01;color:#fff;font:600 18px Inter,system-ui,sans-serif;cursor:pointer;transition:background .15s}
+.sendbtn:hover{background:#B03A0B}
+.sendnote{margin:12px 0 0;font-size:13px;line-height:1.5;color:rgba(2,40,34,.7);max-width:none}
+.is-sent .frow b{background:#006C4C;color:#fff}
+.is-sent .sendbtn{background:#006C4C}
+.pass .copied{margin:10px 0 0;font-size:14px;color:#B03A0B;min-height:0}
+@media (max-width:1180px){.frow{grid-template-columns:46px minmax(0,1fr)}.frow input{padding:0 12px}.frow input::placeholder{font-size:11.5px;letter-spacing:.05em}}
+@media (max-width:820px){.pass{padding-right:calc(clamp(23px,5vw,48px) + 8px)}.pass-card{box-shadow:8px 8px 0 #FFB413}}
 </style>
 <script src="/px.js" defer></script>
 </head>
@@ -33,13 +54,21 @@
       <p class="body" id="pb">Your order comes with 52 Saturday Mornings That Will Live Forever. The link is in the same email.</p>
       <p class="body" id="p2">Open it on your phone. Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen. Listen to two or three audio cards today.</p>
       <p class="body">If the email isn't there in a few minutes, check your spam folder. If it's not there either, reply to your receipt and we'll send it again.</p>
-      <p class="body">While you wait, text the free scorecard to a dad you know. He'll get his own Dad Score in under three minutes.</p>
-      <div class="actions">
-        <a class="btn primary" id="text" href="sms:?&body=I%20took%20this%20dad%20scorecard.%20Tell%20me%20what%20you%20get.%20doty.media%2Fwhatsyourdadscore">Text it to a dad</a>
-      </div>
-      <span class="copied" id="copied" aria-live="polite"></span>
     </div></div>
   </header>
+  <section class="pass">
+    <div class="pass-card">
+      <p class="pass-label">Pass it on</p>
+      <h2>Give 52 Saturday Mornings to <em>3 dads</em></h2>
+      <p class="pass-line">Share the Dad Score assessment. Each dad who takes it gets the playbook.</p>
+      <form id="shareform" novalidate>
+        <div class="fields" id="fields"></div>
+        <button type="submit" class="sendbtn" id="send">Share</button>
+        <p class="sendnote">Your email opens with a note already written. You hit send.</p>
+      </form>
+      <div class="copied" id="copied" aria-live="polite"></div>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -64,15 +93,33 @@
     set('p1', 'Dad Shift and The Phone Talk are on their way to your inbox.');
     set('p2', 'Open each one on your phone. Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen. Listen to two or three Dad Shift audio cards today.');
   }
-  /* On a computer a text link does nothing, so copy the message instead. */
-  var isPhone = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  var btn = document.getElementById('text');
-  if (!isPhone && btn) btn.addEventListener('click', function(e){
-    e.preventDefault();
-    var msg = 'I took this dad scorecard. Tell me what you get. doty.media/whatsyourdadscore';
-    var done = function(){ set('copied', 'Copied. Paste it into a text.'); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(msg).then(done, function(){ set('copied', msg); });
-    else set('copied', msg);
+  /* The share card for buyers: three emails and one button. The button opens HIS email with the note written.
+     Nothing he types is sent to us. Each dad who takes the scorecard from the note gets 52 Saturday Mornings. */
+  var MSG = "I took this dad scorecard. Tell me what you get. Finish it and they give you a playbook called 52 Saturday Mornings. It has a morning planned for you and your kids every Saturday. https://doty.media/from-a-dad";
+  var HOLD = ['Your best buddy\u2019s email', 'The grill master\u2019s email', 'The dad next door\u2019s email'];
+  var form = document.getElementById('shareform'), fields = document.getElementById('fields'), sendBtn = document.getElementById('send'), hint = document.getElementById('copied');
+  for (var s = 0; s < 3; s++) {
+    var row = document.createElement('div'); row.className = 'frow';
+    row.innerHTML = '<b>' + (s + 1) + '</b><input type="email" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Email for dad ' + (s + 1) + '">';
+    row.querySelector('input').placeholder = HOLD[s];
+    row.querySelector('input').addEventListener('input', function () { this.parentNode.classList.remove('bad'); hint.textContent = ''; });
+    fields.appendChild(row);
+  }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var to = [], first = null;
+    for (var k = 0; k < 3; k++) {
+      var r = fields.children[k], v = r.querySelector('input').value.trim(), ok = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(v);
+      r.classList.toggle('bad', !ok);
+      if (ok) to.push(encodeURIComponent(v)); else if (!first) first = r.querySelector('input');
+    }
+    if (first) { hint.textContent = 'Add three emails first.'; first.focus(); return; }
+    hint.textContent = '';
+    window.location.href = 'mailto:' + to.join(',') + '?subject=' + encodeURIComponent('What\u2019s your Dad Score?') + '&body=' + encodeURIComponent(MSG);
+    setTimeout(function () {
+      form.classList.add('is-sent'); sendBtn.textContent = 'Sent';
+      for (var k = 0; k < 3; k++) fields.children[k].querySelector('b').textContent = '\u2713';
+    }, 600);
   });
 })();
 </script>

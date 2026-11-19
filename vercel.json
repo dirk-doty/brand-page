@@ -45,6 +45,10 @@
       "destination": "/d52/:week.html"
     },
     {
+      "source": "/from-a-dad",
+      "destination": "/from-a-dad.html"
+    },
+    {
       "source": "/((?!api/)(?!.*\\.).*)",
       "destination": "/index.html"
     }
