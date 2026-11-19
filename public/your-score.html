@@ -144,7 +144,8 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .olist li{position:relative;padding-left:28px;font-size:16px;line-height:1.45}
 .olist li:before{content:"\2713";position:absolute;left:2px;top:0;color:#006C4C;font-weight:700}
 .ocard .go{display:block;background:#FF6B01;color:#fff;text-decoration:none;font-weight:600;font-size:18px;padding:18px;text-align:center;margin-top:4px}
-.bump{display:flex;gap:12px;align-items:flex-start;background:#fff;border:2px dashed #022822;padding:14px;font-size:15px;line-height:1.45;cursor:pointer}
+.bump{display:flex;gap:12px;align-items:center;background:#fff;border:2px dashed #022822;padding:12px 14px;font-size:13px;line-height:1.5;cursor:pointer}
+@media (max-width:640px){.bump{font-size:14.5px;align-items:flex-start}}
 .bump input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:#FF6B01}
 .bump s{opacity:.6}
 .oprice s{opacity:.55;font-size:.8em;margin-right:6px}
@@ -297,7 +298,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
     <ul class="olist"><li>Thirteen audio cards, each for a different tough moment at home.</li><li>The same four moves on every card.</li><li>Under three minutes a card, half an hour for all thirteen.</li><li>On your phone, from a link we email you.</li><li>Our gift with your order: 52 Saturday Mornings That Will Live Forever.</li></ul>
     <div class="paybox" id="paybox" hidden><div id="pay"></div></div>
     <a class="go" id="go" href="https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a">Get Dad Shift for $29</a>
-    <label class="bump"><input type="checkbox" id="bump"><span><b>Add The Phone Talk.</b> Six audio cards for the day before they get their first phone. What to say and the rules that keep the peace. Both for <s>$48</s> $39.</span></label>
+    <label class="bump"><input type="checkbox" id="bump"><span><b>Add The Phone Talk.</b> Both for <s>$48</s> $39. Six audio cards for the day before they get their first phone. What to say and the rules that keep the peace.</span></label>
   </div>
   <p class="refund">If you want your money back within 30 days, for any reason, we&rsquo;ll refund you. We only want to keep your money if you&rsquo;re happy.</p>
   <p class="more"><a href="/deck">See what&rsquo;s inside</a></p>
