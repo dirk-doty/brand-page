@@ -19,6 +19,8 @@
       : { value: 29, content_name: 'Dad Shift' };
     order.currency = 'USD';
     /* A reload of the thank-you page must not count as a second order. */
+    /* Links we open to check the page carry review=1 and are not orders. */
+    if (/[?&]review=1(&|$)/.test(location.search)) return;
     var key = 'doty_fb_purchase_' + (p || 'deck');
     try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) {}
     fbq('track', 'Purchase', order);

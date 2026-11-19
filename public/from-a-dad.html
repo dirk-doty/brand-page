@@ -65,7 +65,8 @@ h1 em{color:#FFB413;font-style:italic}
 </div></div><div class="sf-bar"></div></footer>
 <script>
 /* Mark this browser: a dad sent him. The results page reads it and opens the playbook after the scorecard. */
-try { localStorage.setItem('doty-gifted', '1'); } catch (e) {}
+/* review=1 is our own check of the page: leave the browser unmarked. */
+if (!/[?&]review=1(&|$)/.test(location.search)) { try { localStorage.setItem('doty-gifted', '1'); } catch (e) {} }
 </script>
 </body>
 </html>
