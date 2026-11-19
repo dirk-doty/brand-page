@@ -27,6 +27,7 @@ header p{margin:0;font-size:17px;line-height:1.55;color:rgba(245,246,225,.86);ma
 .tools .wrap{display:flex;align-items:center;gap:6px;padding-top:10px;padding-bottom:10px}
 .chip{flex:0 0 auto;font:500 13px var(--sans);color:var(--pine);background:transparent;border:1px solid rgba(2,40,34,.3);padding:9px 10px;text-decoration:none;cursor:pointer;min-height:40px;display:inline-flex;align-items:center}
 .count{margin-left:auto;flex:0 0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--woodland);white-space:nowrap}
+.hrow{display:flex;flex-wrap:wrap;gap:0 12px}a.hbtn{text-decoration:none}header p.pbnote{margin-top:14px;font-size:15px}a.go{display:block;color:inherit;text-decoration:none}
 .hbtn{display:inline-flex;align-items:center;min-height:46px;margin-top:22px;padding:12px 20px;font:600 15px var(--sans);color:var(--canvas);background:transparent;border:2px solid var(--canvas);cursor:pointer}
 h2{font-family:var(--serif);font-weight:700;font-size:26px;margin:34px 0 4px;scroll-margin-top:70px}
 .wk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--woodland);margin:0 0 12px}
@@ -66,8 +67,9 @@ footer a{color:var(--pine)}
   <img src="/images/logo-canvas.svg" alt="Dad of the Year">
   <p class="eyebrow">A gift from Dad of the Year</p>
   <h1>52 Saturday Mornings <em>That Will Live Forever</em></h1>
-  <p>One Saturday morning a week, for a year. Tap the box when you've done one.</p>
-  <button class="hbtn" type="button" id="print">Print the fridge page</button>
+  <p>One Saturday morning a week, for a year. Tap a morning for the full plan. Check the box when you've done it.</p>
+  <div class="hrow"><a class="hbtn" href="/downloads/DOTY_52-Saturday-Mornings_Playbook.pdf">Open the playbook</a><button class="hbtn" type="button" id="print">Print the fridge page</button></div>
+  <p class="pbnote">The playbook has all 52 mornings, one sheet each, ready to print.</p>
 </div></header>
 <div class="tools"><div class="wrap">
   <a class="chip" href="#winter">Winter</a><a class="chip" href="#spring">Spring</a><a class="chip" href="#summer">Summer</a><a class="chip" href="#fall">Fall</a>
@@ -90,7 +92,7 @@ function render(){
   let h = '', s = '';
   for (const it of IDEAS) {
     if (it.s !== s) { if (s) h += '</ul>'; s = it.s; h += `<h2 id="${s.toLowerCase()}">${s}</h2><p class="wk">${WEEKS[s]}</p><ul>`; }
-    h += `<li class="idea${done[it.n] ? ' done' : ''}" data-n="${it.n}"><span class="n">${it.n}</span><div><p class="t">${esc(it.t)}</p><p class="x">${esc(it.x)}</p></div><button class="box" type="button" aria-pressed="${!!done[it.n]}" aria-label="Done: ${esc(it.t)}">${CHECK}</button></li>`;
+    h += `<li class="idea${done[it.n] ? ' done' : ''}" data-n="${it.n}"><span class="n">${it.n}</span><a class="go" href="/d/52/${it.n}"><p class="t">${esc(it.t)}</p><p class="x">${esc(it.x)}</p></a><button class="box" type="button" aria-pressed="${!!done[it.n]}" aria-label="Done: ${esc(it.t)}">${CHECK}</button></li>`;
   }
   document.getElementById('list').innerHTML = h + '</ul>';
   const k = IDEAS.filter(i => done[i.n]).length;

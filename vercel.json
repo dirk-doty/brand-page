@@ -37,6 +37,10 @@
       "destination": "/d-52.html"
     },
     {
+      "source": "/d/52/:week(\\d+)",
+      "destination": "/d52/:week.html"
+    },
+    {
       "source": "/((?!api/)(?!.*\\.).*)",
       "destination": "/index.html"
     }
