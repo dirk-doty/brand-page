@@ -78,7 +78,7 @@
     var sent = [];
     try { sent = JSON.parse(get('doty-spots') || '[]') || []; } catch (e) { sent = []; }
     var spots = el('div', 'doty-spots'), copied = el('div', 'doty-copied'),
-        gift = el('div', 'doty-gift', '<p>Thank you! Here’s your gift.</p><a class="doty-btn" href="https://doty.media/d/52">Open 52 Saturday Mornings</a>');
+        gift = el('div', 'doty-gift', '<p>Thank you! Here’s your gift.</p><a class="doty-btn" href="https://doty.media/downloads/DOTY_52-Saturday-Mornings_Playbook.pdf" target="_blank" rel="noopener">Open 52 Saturday Mornings</a>');
     copied.setAttribute('aria-live', 'polite');
     function count() { var n = 0; for (var k = 0; k < 3; k++) if (sent[k]) n++; return n; }
     function paint() {
