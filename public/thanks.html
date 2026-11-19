@@ -8,10 +8,20 @@
 <link rel="icon" type="image/svg+xml" href="/images/mono-pine.svg">
 <link rel="stylesheet" href="/launch.css">
 <style>
-.ty p{max-width:34em}
-.ty .lede{margin-bottom:18px}
-.ty .body{font-size:17px;line-height:1.6;margin:0 0 16px}
-.ty .actions{margin-top:26px}
+.hero.ty{padding-block:clamp(32px,4vw,44px) clamp(36px,4.4vw,52px)}
+.ty h1{font-size:clamp(40px,5vw,60px);line-height:1.05}
+.ty .lede{margin:14px 0 0;font-size:clamp(19px,1.9vw,22px);color:#F5F6E1;max-width:none}
+.steps{list-style:none;margin:clamp(22px,2.6vw,30px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.steps li{display:flex;flex-direction:column;gap:10px;padding:clamp(16px,1.8vw,22px);color:#022822;font-size:16px;line-height:1.45}
+.steps li b{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(34px,3.4vw,44px);line-height:1}
+.steps .st1{background:#FFB413}
+.steps .st2{background:#BFF3D3}
+.steps .st3{background:#F6C85F}
+.ty .ty-note{margin:14px 0 0;font-size:14px;line-height:1.5;font-style:italic;color:rgba(245,246,225,.72);max-width:none}
+.ty-gift{margin-top:clamp(28px,3.4vw,40px)}
+.ty-gift h2{font-size:clamp(26px,2.8vw,36px);line-height:1.12;color:#F5F6E1}
+.ty-gift p{margin:10px 0 0;font-size:18px;line-height:1.5;color:#F5F6E1;max-width:none}
+@media (max-width:640px){.steps{grid-template-columns:1fr}.steps li{flex-direction:row;align-items:center;gap:16px}.steps li b{flex:none;width:34px}}
 .share{background:#F5F6E1;text-align:left;padding:0}
 .share-grid{--gw:min(50vw,960px);display:grid;grid-template-columns:var(--gw) minmax(0,1fr);align-items:stretch}
 .gift-photo{position:relative;overflow:hidden;background:#022822;color:#F5F6E1;min-height:calc(var(--gw)*.617 + 400px)}
@@ -67,14 +77,21 @@
 
 <main>
   <header class="hero feature on-feature ty">
-    <div class="wrap"><div class="inner">
+    <div class="wrap">
       <p class="eyebrow on-feature" id="eyebrow">Dad of the Year · Dad Shift</p>
       <h1>Thank <em>you!</em></h1>
       <p class="lede" id="p1">Dad Shift is on its way to your inbox.</p>
-      <p class="body" id="pb">Your order comes with 52 Saturday Mornings That Will Live Forever. The link is in the same email.</p>
-      <p class="body" id="p2">Open it on your phone. Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen. Listen to two or three audio cards today.</p>
-      <p class="body">If the email isn't there in a few minutes, check your spam folder. If it's not there either, reply to your receipt and we'll send it again.</p>
-    </div></div>
+      <ol class="steps">
+        <li class="st1"><b>1</b><span id="s1">Open it on your phone.</span></li>
+        <li class="st2"><b>2</b><span id="s2">Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen.</span></li>
+        <li class="st3"><b>3</b><span id="s3">Listen to two or three audio cards today.</span></li>
+      </ol>
+      <p class="ty-note">If the email isn't there in a few minutes, check your spam folder. If it's not there either, reply to your receipt and we'll send it again.</p>
+      <div class="ty-gift">
+        <h2>You also get a <em>gift</em></h2>
+        <p id="pb">Your order comes with 52 Saturday Mornings That Will Live Forever. The link is in the same email.</p>
+      </div>
+    </div>
   </header>
   <section class="share"><div class="share-grid">
   <div class="gift-photo">
@@ -111,11 +128,11 @@
   if (p === 'phone-talk') {
     set('tag', 'The Phone Talk'); set('eyebrow', 'Dad of the Year · The Phone Talk');
     set('p1', 'The Phone Talk is on its way to your inbox.');
-    set('p2', 'Open it on your phone. Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen. Listen to the first audio card today.');
+    set('s3', 'Listen to the first audio card today.');
   } else if (p === 'both') {
     set('tag', 'Dad Shift and The Phone Talk'); set('eyebrow', 'Dad of the Year · Dad Shift and The Phone Talk');
     set('p1', 'Dad Shift and The Phone Talk are on their way to your inbox.');
-    set('p2', 'Open each one on your phone. Tap the share button on an iPhone or the menu on an Android. Then tap Add to Home Screen. Listen to two or three Dad Shift audio cards today.');
+    set('s1', 'Open each one on your phone.'); set('s3', 'Listen to two or three Dad Shift audio cards today.');
   }
   /* The share card for buyers: three emails and one button. The button opens HIS email with the note written.
      Nothing he types is sent to us. Each dad who takes the scorecard from the note gets 52 Saturday Mornings. */
