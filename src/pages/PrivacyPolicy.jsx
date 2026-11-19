@@ -66,7 +66,7 @@ export default function PrivacyPolicy() {
         <p>
           You can stop receiving our emails at any time by clicking the unsubscribe link in any email we send. To
           review, correct, or delete the information we hold about you, email{' '}
-          <a href="mailto:dirk@doty.media">dirk@doty.media</a> and we&rsquo;ll take care of it.
+          <a href="mailto:howdy@doty.media">howdy@doty.media</a> and we&rsquo;ll take care of it.
         </p>
       </LegalSection>
 
@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
           personally identifiable information we collect through this site is your email address, which you
           provide voluntarily. We share it only with the service providers listed above, and only so they can
           perform services for us. You can review or request changes to your information by emailing{' '}
-          <a href="mailto:dirk@doty.media">dirk@doty.media</a>. We will notify you of material changes to this
+          <a href="mailto:howdy@doty.media">howdy@doty.media</a>. We will notify you of material changes to this
           policy as described below.
         </p>
         <p>
@@ -107,7 +107,7 @@ export default function PrivacyPolicy() {
 
       <LegalSection title="Contact">
         <p>
-          Questions about this policy? Email <a href="mailto:dirk@doty.media">dirk@doty.media</a>.
+          Questions about this policy? Email <a href="mailto:howdy@doty.media">howdy@doty.media</a>.
         </p>
       </LegalSection>
     </LegalLayout>

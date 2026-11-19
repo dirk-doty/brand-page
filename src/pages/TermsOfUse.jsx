@@ -70,7 +70,7 @@ export default function TermsOfUse() {
         <p>
           <strong>Informal resolution first.</strong> Before filing any claim, you and we each agree to try to
           resolve the dispute informally. The party raising the dispute must send written notice describing it
-          and the relief sought (to us at <a href="mailto:dirk@doty.media">dirk@doty.media</a>), and both parties
+          and the relief sought (to us at <a href="mailto:howdy@doty.media">howdy@doty.media</a>), and both parties
           will negotiate in good faith for at least 60 days after the notice is received. Any limitation period is
           paused during that time.
         </p>
@@ -95,7 +95,7 @@ export default function TermsOfUse() {
         </p>
         <p>
           <strong>Opt out.</strong> You may opt out of this arbitration agreement by emailing{' '}
-          <a href="mailto:dirk@doty.media?subject=Arbitration%20Opt-Out">dirk@doty.media</a> with the subject line
+          <a href="mailto:howdy@doty.media?subject=Arbitration%20Opt-Out">howdy@doty.media</a> with the subject line
           &ldquo;Arbitration Opt-Out&rdquo; and your name and email address within 30 days of first accepting these
           terms. Opting out does not affect any other part of these terms.
         </p>
@@ -138,7 +138,7 @@ export default function TermsOfUse() {
 
       <LegalSection title="Contact">
         <p>
-          Questions about these terms? Email <a href="mailto:dirk@doty.media">dirk@doty.media</a>.
+          Questions about these terms? Email <a href="mailto:howdy@doty.media">howdy@doty.media</a>.
         </p>
       </LegalSection>
     </LegalLayout>

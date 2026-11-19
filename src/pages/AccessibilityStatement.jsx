@@ -55,7 +55,7 @@ export default function AccessibilityStatement() {
         </p>
         <ul>
           <li>
-            Email: <a href="mailto:dirk@doty.media?subject=Accessibility">dirk@doty.media</a> (subject line
+            Email: <a href="mailto:howdy@doty.media?subject=Accessibility">howdy@doty.media</a> (subject line
             &ldquo;Accessibility&rdquo;)
           </li>
         </ul>

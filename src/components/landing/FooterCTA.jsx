@@ -49,7 +49,7 @@ export default function FooterCTA() {
       }
     } else {
       // Mailto fallback until Formspree endpoint is configured
-      window.location.href = `mailto:dirk@doty.media?subject=DOTY%20List%20Signup&body=Please%20add%20me%20to%20the%20list%3A%20${encodeURIComponent(email)}`;
+      window.location.href = `mailto:howdy@doty.media?subject=DOTY%20List%20Signup&body=Please%20add%20me%20to%20the%20list%3A%20${encodeURIComponent(email)}`;
       setSubmitted(true);
     }
   };
