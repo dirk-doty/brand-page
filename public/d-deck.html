@@ -142,7 +142,7 @@ function para(p){
   return `<p>${esc(p)}</p>`;
 }
 function cover(){
-  return `<div class="card"><div class="inner pine"><div class="kicker">Thirteen audio cards</div>
+  return `<div class="card"><div class="inner pine"><div class="kicker">Pick a moment and press play</div>
     <img class="mark" src="/images/logo-sunrise.svg" alt="Dad of the Year" width="1538" height="569"><h1 class="big" style="margin-top:0">Dad Shift</h1>
     <p>Dad Shift is audio coaching to keep you calm and in command when it counts.</p>
     <ul class="toc">` + CARDS.map((c, j) => `<li><button type="button" data-go="${j + 1}"><span class="n">${j + 1}</span><span class="t">${esc(c.title)}</span><span class="ck" data-ck="${c.k}">${heard[c.k] ? '&#10003;' : ''}</span><span class="d">${mmss(c.dur)}</span></button></li>`).join('') + `</ul>
