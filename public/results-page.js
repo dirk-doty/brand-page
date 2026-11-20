@@ -116,7 +116,7 @@
       '<div class="doty-badge"><b>30</b><span>day<br>guarantee</span></div>' +
       '<h2>Your kids are watching. <em>Be the one they count on.</em></h2>' +
       '<div class="doty-tiles">' +
-      tile('is-feature', LINKS.ds, '', 'Dad Shift', '$29', 'The twelve toughest moments with your kids, and how to handle each one.', 'Get Dad Shift') +
+      tile('is-feature', LINKS.ds, '', 'Dad Shift', '$29', 'Thirteen of the toughest moments with your kids, and how to handle each one.', 'Get Dad Shift') +
       tile('', LINKS.pt, '', 'The Phone Talk', '$19', 'What to say when your kid gets a phone, and the rules that keep the peace.', 'Get The Phone Talk') +
       tile('is-best', LINKS.both, 'Best value', 'Dad Shift + The Phone Talk', '<s>$48</s> $39', 'For the hardest moments at home, and the day before they get their first phone.', 'Get both') +
       '</div>' +
