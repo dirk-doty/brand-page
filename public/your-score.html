@@ -43,7 +43,8 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .hero-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;padding-top:48px;padding-bottom:56px}
 .hero .eyebrow{color:#FFB413;margin-bottom:16px}
 .band{margin:0;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(30px,4.6vw,50px);line-height:1.12}
-.band em{color:#FFB413;font-style:italic}
+.band em{color:#FFB413;font-style:italic;display:block}
+.hero-in>div{min-width:0}
 .band2{margin:18px 0 0;font-size:18px;line-height:1.55;color:rgba(245,246,225,.86);max-width:460px}
 .ring{position:relative;width:min(300px,70vw);aspect-ratio:1;justify-self:center}
 .ring svg{width:100%;height:100%;display:block;transform:rotate(-90deg)}
@@ -368,6 +369,16 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
     if (sc.t >= 85) { band.innerHTML = 'Dad of the Year <em>Territory</em>'; band2.hidden = true; }
     else if (sc.t >= 61) { band.innerHTML = 'You’re a good dad. <em>A few areas to improve.</em>'; band2.hidden = true; }
     else { band.innerHTML = 'Time to step up. <em>We believe you will!</em>'; band2.textContent = 'You wouldn’t have finished the scorecard if you didn’t want to.'; }
+    /* Dirk, 19 Nov: the yellow sentence sits on the second line, whole. Shrink the headline a little when it would not fit. */
+    var fitBand = function () {
+      var em = band.querySelector('em'); if (!em) return;
+      band.style.fontSize = ''; em.style.whiteSpace = 'nowrap';
+      var fs = parseFloat(getComputedStyle(band).fontSize), n = 0;
+      while (em.scrollWidth > band.clientWidth + 1 && fs > 22 && n < 40) { fs -= 1; band.style.fontSize = fs + 'px'; n++; }
+      if (em.scrollWidth > band.clientWidth + 1) em.style.whiteSpace = '';
+    };
+    fitBand(); addEventListener('resize', fitBand); addEventListener('load', fitBand);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBand);
     var arc = document.getElementById('arc'), n = document.getElementById('num'), C = 326.73;
     n.textContent = sc.t;
     requestAnimationFrame(function () { setTimeout(function () { arc.style.strokeDashoffset = String(C * (1 - sc.t / 100)); }, 60); });

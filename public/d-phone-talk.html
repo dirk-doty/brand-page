@@ -75,11 +75,12 @@ p:last-child{margin-bottom:0}
 .btn{display:flex;align-items:center;justify-content:center;min-height:48px;text-align:center;text-decoration:none;border-radius:0;padding:0 18px;font:500 14px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:10px}
 .btn.gold{background:var(--sunrise);color:var(--pine)}
 .btn.line{border:1px solid var(--border-strong);color:var(--ink)}
-.mark{width:72px;height:auto;margin:0 0 18px;display:block}
+.mark{width:148px;height:auto;margin:0 0 20px;display:block}
 
 /* nav */
 .nav{display:flex;gap:10px;padding:0 16px calc(env(safe-area-inset-bottom) + 14px)}
-.nav button{flex:1;border:1px solid var(--border-strong);border-radius:0;min-height:48px;padding:0 14px;font:500 15px var(--sans);cursor:pointer;background:transparent;color:var(--ink)}
+.nav button{flex:1;border:1px solid var(--border-strong);border-radius:0;min-height:48px;padding:0 14px;font:500 14px var(--mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink)}
+.nav #prev{flex:0 0 104px}
 .nav button.next{background:var(--sunrise);border-color:var(--sunrise);color:var(--pine)}
 .nav button:disabled{opacity:.3}
 @media (min-width:640px){
@@ -142,7 +143,7 @@ function para(p){
 }
 function cover(){
   return `<div class="card"><div class="inner pine"><div class="kicker">Six audio cards</div>
-    <img class="mark" src="/images/mono-sunrise.svg" alt=""><h1 class="big" style="margin-top:0">The Phone Talk</h1>
+    <img class="mark" src="/images/logo-sunrise.svg" alt="Dad of the Year" width="1538" height="569"><h1 class="big" style="margin-top:0">The Phone Talk</h1>
     <p>What to say when your kid gets a phone, and the rules that keep the peace.</p>
     <ul class="toc">` + CARDS.map((c, j) => `<li><button type="button" data-go="${j + 1}"><span class="n">${j + 1}</span><span class="t">${esc(c.title)}</span><span class="ck" data-ck="${c.k}">${heard[c.k] ? '&#10003;' : ''}</span><span class="d">${mmss(c.dur)}</span></button></li>`).join('') + `</ul>
     <div class="kicker" style="margin:26px 0 10px">How to use it</div>
