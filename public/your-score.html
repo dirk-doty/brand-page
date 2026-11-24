@@ -226,12 +226,29 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 @media (max-width:420px){.spots{gap:8px}.spot{font-size:14px;min-height:92px}}
 /* Buttons in the label font, capitals (Dirk, 19 Nov 2:37pm) */
 .btn,.go,.ocard .go,.tile .go,.sendbtn{font-family:'DM Mono',monospace;font-weight:500;font-size:15px;letter-spacing:.14em;text-transform:uppercase}
+
+/* v3 review: prescription, second offer box, sticky bar */
+.rx[hidden],.stick[hidden]{display:none!important}
+.rx{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin:0 0 16px;padding:12px 14px;background:#E7F1DA;border-left:4px solid #022822;font-family:'Libre Baskerville',Georgia,serif;font-size:15.5px;line-height:1.45}
+.rx .olabel{margin:0}
+.buy2{max-width:640px;margin:48px auto 0;text-align:center}
+.buy2 h2{margin:0 0 22px;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:clamp(26px,3.8vw,38px);line-height:1.15;color:#022822}
+.buy2 h2 em{color:#0E6B4F;font-style:italic}
+.ocard2{text-align:left;background:#fff;border:2px solid #022822;box-shadow:10px 10px 0 #FFB413}
+.buy2 .refund{max-width:640px;margin:22px auto 0;color:#022822;opacity:.8}
+.stick{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#022822;color:#F5F6E1;text-decoration:none;box-shadow:0 -6px 18px rgba(0,0,0,.18);transform:translateY(110%);transition:transform .25s}
+.stick.on{transform:none}
+.stick-n{font-family:'Libre Baskerville',Georgia,serif;font-size:16px}
+.stick-n b{color:#FFC52E;margin-left:6px}
+.stick-b{background:#FF6B01;color:#022822;font-family:'DM Mono',ui-monospace,monospace;font-weight:500;font-size:14px;letter-spacing:.14em;text-transform:uppercase;padding:11px 16px}
+@media(min-width:821px){.stick{display:none!important}}
 </style>
 <script src="/ph.js" defer></script>
 <script src="/px.js" defer></script>
 </head>
 <body>
 <div id="pg">
+<a class="stick" id="stick" href="#buy" hidden><span class="stick-n">Dad Shift <b>$29</b></span><span class="stick-b">Get Dad Shift</span></a>
 
 <section class="hero" id="hero"><img class="hero-bg" id="heroBg" alt="" aria-hidden="true"><div class="wrap">
   <div class="hero-top"><img src="/images/logo-canvas.svg" alt="Dad of the Year"><span class="chip">Your Dad Score</span></div>
@@ -272,6 +289,7 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   <h2>Your kids are watching. <em>Be the one they count on.</em></h2>
   <div class="ocard">
     <div class="otop"><span class="oname" id="oname">Dad Shift</span><span class="oprice" id="oprice">$29</span></div>
+    <div class="rx" id="rx" hidden><span class="olabel">Start with these three cards</span><span id="rxl"></span></div>
     <div class="olabel">What you get</div>
     <ul class="olist"><li>Thirteen audio cards, each for a different tough moment at home.</li><li>The same four moves on every card.</li><li>Under three minutes a card, half an hour for all thirteen.</li><li>On your phone, from a link we email you.</li><li>Our gift with your order: 52 Saturday Mornings That Will Live Forever.</li></ul>
     <div class="paybox" id="paybox" hidden><div id="pay"></div></div>
@@ -308,7 +326,15 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
   <div class="eyebrow" style="color:#B03A0B;margin-bottom:14px">What&rsquo;s at stake</div>
   <div class="l-stk" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0; margin-top: 6px"><img src="/images/stakes-dad-daughter.webp" width="1280" height="960" loading="lazy" decoding="async" alt="A dad kneels in a meadow, eye to eye with his young daughter." style="display: block; width: 100%; height: 100%; min-height: 300px; object-fit: cover; object-position: 50% 50%"><div style="background: #022822; color: #F5F6E1; padding: clamp(28px, 4vw, 48px); display: flex; align-items: center"><h2 style="margin: 0; font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: clamp(26px, 3vw, 36px); line-height: 1.25">Your kids are watching how dad handles pressure, and <em style="color: #FFB413">they learn it from you.</em></h2></div></div><div class="l-stk" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0"><div style="background: #FF6B01; color: #022822; padding: clamp(24px, 3.2vw, 36px); font-family: 'Libre Baskerville', Georgia, serif; font-size: clamp(19px, 2vw, 23px); line-height: 1.45">If they see you lose it and yell, that&rsquo;s what they&rsquo;ll do one day.</div><div style="background: #BFF3D3; color: #022822; padding: clamp(24px, 3.2vw, 36px); font-family: 'Libre Baskerville', Georgia, serif; font-size: clamp(19px, 2vw, 23px); line-height: 1.45">If they see you stay calm and collected, they&rsquo;ll do that instead.</div></div>
 
-  <p style="text-align:center;margin:40px 0 0"><a class="btn" href="#buy" data-cta="after-stakes">Get Dad Shift for $29</a></p>
+  <div class="buy2" id="buy2">
+    <h2>A bad moment doesn&rsquo;t make you a bad dad. <em>It&rsquo;s what you do next that counts.</em></h2>
+    <div class="ocard ocard2">
+      <div class="otop"><span class="oname" id="oname2">Dad Shift</span><span class="oprice" id="oprice2">$29</span></div>
+      <a class="go" id="go2" href="https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a" data-cta="after-stakes">Get Dad Shift for $29</a>
+      <label class="bump"><input type="checkbox" id="bump2"><span><span class="bump-top"><b>Add The Phone Talk.</b> <span class="bump-tag">Bundle for <s>$48</s> $39</span></span><span class="bump-l">Six audio cards for the day before they get their first phone.</span><span class="bump-l">What to say and the rules that keep the peace.</span></span></label>
+    </div>
+    <p class="refund">If you want your money back within 30 days, for any reason, we&rsquo;ll refund you. We only want to keep your money if you&rsquo;re happy.</p>
+  </div>
 </div></section>
 
 
@@ -531,6 +557,30 @@ dotyNoOrphan();
 <script>
 (function(){try{var seen={};var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var n=e.target.getAttribute('data-sec');if(seen[n])return;seen[n]=1;try{posthog.capture('results section seen',{section:n})}catch(x){}})},{threshold:0.25});
 [['secs','.secs'],['work on this first','.rec'],['offer','#buy'],['what is dad shift','.sell'],['proof','.proof'],['stakes','.stakes'],['share','#share']].forEach(function(p){var el=document.querySelector(p[1]);if(el){el.setAttribute('data-sec',p[0]);io.observe(el)}})}catch(e){}})();
+</script>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){
+  try{
+  var RX={f:['After you yell','Screens off','Sibling fights'],m:['Dinner fights','Out the door','Bedtime stalling'],c:['The bad day you bring home','After you yell','The ride home after a loss']};
+  var lowEl=document.getElementById('low'), names={'Your fuse.':'f','Your time.':'m','Your corner.':'c'};
+  var k=lowEl?names[lowEl.textContent.replace(/\u00a0/g,' ')]:null;
+  if(k){document.getElementById('rxl').textContent=RX[k].join(', ')+'.';document.getElementById('rx').hidden=false;}
+  var go2=document.getElementById('go2'),b2=document.getElementById('bump2'),n2=document.getElementById('oname2'),p2=document.getElementById('oprice2');
+  b2.addEventListener('change',function(){var both=b2.checked;
+    go2.href=both?'https://buy.stripe.com/dRm7sNcxwf8Z4BlcMpes00b':'https://buy.stripe.com/00w3cxdBAbWN4BlbIles00a';
+    go2.textContent=both?'Get both for $39':'Get Dad Shift for $29';
+    n2.textContent=both?'Dad Shift + The Phone Talk':'Dad Shift'; p2.innerHTML=both?'<s>$48</s>$39':'$29';});
+  go2.addEventListener('click',function(){if(window.fbq){try{window.fbq('track','InitiateCheckout',{content_name:b2.checked?'Dad Shift and The Phone Talk':'Dad Shift'});}catch(e){}}
+    if(window.posthog){try{window.posthog.capture('offer clicked',{box:'second'});}catch(e){}}});
+  var st=document.getElementById('stick'),buy=document.getElementById('buy'),buy2=document.getElementById('buy2');
+  if(!document.getElementById('band').textContent) return; /* no score: no bar */
+  st.hidden=false;
+  function vis(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;}
+  function tick(){var past=buy.getBoundingClientRect().bottom<0; st.classList.toggle('on',past&&!vis(buy2)&&!vis(document.getElementById('share')));}
+  addEventListener('scroll',tick,{passive:true}); tick();
+  }catch(e){}
+},50);});
 </script>
 </body>
 </html>
