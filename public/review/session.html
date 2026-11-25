@@ -34,7 +34,8 @@ const SETTLED={"6.1":"Settled Tue 24 Nov: the 12 days of Christmas, 13 to 24 Dec
 const KEY='doty-session-25nov';
 let S={};try{S=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 let tab=S._tab||'growth',sec=S._sec||0;
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};window.__dotyAnswers=S}
+let _st=null;function send(){try{fetch('/api/session-answers',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(S),keepalive:true})}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};window.__dotyAnswers=S;clearTimeout(_st);_st=setTimeout(send,1500)}
 function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function render(){
  const T=document.getElementById('tabs');T.innerHTML='';
@@ -70,5 +71,5 @@ function dictate(btn){
  rec.onend=()=>{rec=null;btn.classList.remove('rec');if(btn.textContent.startsWith('Listening'))btn.textContent='Speak'};
  rec.start();
 }
-window.__dotyAnswers=S;render();
+window.__dotyAnswers=S;render();if(Object.keys(S).length)send();
 </script></body></html>
