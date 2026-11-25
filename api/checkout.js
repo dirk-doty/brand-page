@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   p.set('line_items[0][price]', PRICE[cart]);
   p.set('line_items[0][quantity]', '1');
   p.set('allow_promotion_codes', 'true'); // the test orders use a 100 percent off code
-  p.set('return_url', 'https://doty.media/thanks' + (cart === 'both' ? '?p=both' : ''));
+  p.set('return_url', 'https://doty.media/thanks?' + (cart === 'both' ? 'p=both&' : '') + 'session_id={CHECKOUT_SESSION_ID}');
 
   let r, j = null;
   try {

@@ -3,6 +3,9 @@
 // we re-fetch the session from Stripe with our own key, so a forged post can't do anything.
 // Then: create or find the buyer in Kit, tag by product, and start the Dad Shift welcome sequence.
 // Needs in Vercel env: STRIPE_KEY (restricted key, read Checkout Sessions) and KIT_API_KEY.
+// Optional: META_CAPI_TOKEN (Events Manager > dataset > Conversions API token). When set, each paid order
+// is also sent to Meta as a server Purchase with event_id purchase_<session id>, matching the browser Pixel.
+import { createHash } from 'crypto';
 
 const PRICES = {
   price_1UUtpoRSkOmNEmoxmnO1G44Z: 'deck',   // Dad Shift $29
@@ -73,6 +76,30 @@ export default async function handler(req, res) {
   } else if (bought.has('phone')) {
     const q = await kit(`/sequences/${PHONE_TALK_SEQUENCE}/subscribers`, kitKey, { email_address: email });
     out.sequence = q.status;
+  }
+  // Server side Purchase for Meta. Free test orders (100 percent off code) are not sent.
+  const metaToken = process.env.META_CAPI_TOKEN;
+  if (metaToken && session.payment_status === 'paid') {
+    const h = (v) => createHash('sha256').update(String(v).trim().toLowerCase()).digest('hex');
+    const user = { em: [h(email)] };
+    if (name) user.fn = [h(name)];
+    const names = { deck: 'Dad Shift', phone: 'The Phone Talk', reset: 'The Reset' };
+    try {
+      const m = await fetch(`https://graph.facebook.com/v21.0/3008122299534568/events?access_token=${encodeURIComponent(metaToken)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: [{
+          event_name: 'Purchase',
+          event_time: Math.floor(Date.now() / 1000),
+          event_id: 'purchase_' + id,
+          action_source: 'website',
+          event_source_url: 'https://doty.media/thanks',
+          user_data: user,
+          custom_data: { currency: 'USD', value: (session.amount_total || 0) / 100, content_name: [...bought].map((k) => names[k]).join(' and ') },
+        }] }),
+      });
+      out.meta = m.status;
+    } catch (e) { out.meta = 'error'; }
   }
   return res.status(200).json(out);
 }

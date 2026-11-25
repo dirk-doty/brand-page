@@ -1,5 +1,5 @@
 /* DOTY: the Meta Pixel for doty.media (dataset "Dad of the Year", 3008122299534568).
-   PageView on every page that loads this file. ViewContent on the sales page. One Purchase per order on the thank-you page.
+   PageView on every page that loads this file. ViewContent on the sales page. One Purchase per order on the thank-you page, matched to the server Purchase by the Stripe session id.
    The scorecard on ScoreApp carries the same Pixel and sends Lead and CompleteRegistration from there. */
 (function () {
   if (window.fbq) return;
@@ -23,6 +23,9 @@
     if (/[?&]review=1(&|$)/.test(location.search)) return;
     var key = 'doty_fb_purchase_' + (p || 'deck');
     try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) {}
-    fbq('track', 'Purchase', order);
+    /* Same id as the server event from /api/stripe-webhook, so Meta counts the order once. */
+    var sid = new URLSearchParams(location.search).get('session_id');
+    if (sid && /^cs_[A-Za-z0-9_]+$/.test(sid)) fbq('track', 'Purchase', order, { eventID: 'purchase_' + sid });
+    else fbq('track', 'Purchase', order);
   }
 })();
