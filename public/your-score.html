@@ -242,6 +242,29 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 .stick-n b{color:#FFC52E;margin-left:6px}
 .stick-b{background:#FF6B01;color:#022822;font-family:'DM Mono',ui-monospace,monospace;font-weight:500;font-size:14px;letter-spacing:.14em;text-transform:uppercase;padding:11px 16px}
 @media(min-width:821px){.stick{display:none!important}}
+
+.no-score .fr,.no-score .first,.no-score .bridge{display:none}
+/* fold review: the offer sits beside the score, above the fold (Dirk, 26 Nov) */
+.hero-in.fold{grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:40px;align-items:center;padding-top:28px;padding-bottom:36px}
+.fold .srow{display:flex;gap:24px;align-items:center}
+.fold .ring{width:150px;flex:0 0 150px;justify-self:auto}
+.fold .ring .num b{font-size:50px}
+.fold .ring .num span{font-size:9px;letter-spacing:.14em}
+.fold .band{font-size:clamp(26px,3vw,38px)}
+.fold .band2{font-size:16.5px;margin-top:12px}
+.fold .first{margin:26px 0 0;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:21px;color:#F5F6E1}
+.fold .first em{color:#FFB413;font-style:italic}
+.fold .bridge{margin:8px 0 0;font-size:16.5px;line-height:1.55;color:rgba(245,246,225,.86);max-width:520px}
+.fold .ocard{max-width:none;padding:24px;gap:12px;box-shadow:10px 10px 0 #FFB413}
+.fold .refund{margin:16px 0 0;font-size:13.5px;line-height:1.5;color:rgba(245,246,225,.78)}
+@media (max-width:820px){
+  .hero-in.fold{grid-template-columns:1fr;gap:20px;padding-top:18px;padding-bottom:28px;text-align:left}
+  .fold .ring{width:104px;flex-basis:104px;order:0}
+  .fold .ring .num b{font-size:36px}.fold .ring .num span{display:none}
+  .fold .band{font-size:24px}.fold .band2,.fold .bridge{display:none}
+  .fold .first{margin-top:14px;font-size:18px}
+  .fold .ocard{padding:18px}
+}
 </style>
 <script src="/ph.js" defer></script>
 <script src="/px.js" defer></script>
@@ -251,8 +274,13 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
 
 <section class="hero" id="hero"><img class="hero-bg" id="heroBg" alt="" aria-hidden="true"><div class="wrap">
   <div class="hero-top"><img src="/images/logo-canvas.svg" alt="Dad of the Year"><span class="chip">Your Dad Score</span></div>
-  <div class="hero-in">
-    <div>
+  <div class="hero-in fold">
+  <div class="fl">
+    <div class="srow"><div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><circle class="disc" cx="60" cy="60" r="59"></circle><circle class="track" cx="60" cy="60" r="52"></circle><circle class="arc" id="arc" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73"></circle></svg>
+      <div class="num"><b id="num">0</b><span>out of 100</span></div>
+    </div>
+<div class="btxt">
       <h1 class="band has" id="band"></h1>
       <p class="band2 has" id="band2"></p>
       <div class="none">
@@ -261,31 +289,11 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
         <a class="btn" href="/whatsyourdadscore">Take the free scorecard</a>
       </div>
     </div>
-    <div class="ring" aria-hidden="true">
-      <svg viewBox="0 0 120 120"><circle class="disc" cx="60" cy="60" r="59"></circle><circle class="track" cx="60" cy="60" r="52"></circle><circle class="arc" id="arc" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73"></circle></svg>
-      <div class="num"><b id="num">0</b><span>out of 100</span></div>
     </div>
+    <p class="first">Work on this first: <em id="low"></em></p>
+    <p class="bridge" id="bridge"></p>
   </div>
-</div></section>
-
-<section class="secs"><div class="wrap">
-  <p class="intro">Your score is out of 100. Below it are your three sections. The lowest one is where to start this month.</p>
-  <div class="cards">
-    <div class="card c-f" data-k="f"><div class="card-top"><h3>Your fuse</h3><span class="pct"></span></div><div class="bar"><i></i></div><p>How steady you stay when they push every button.</p><span class="tier"></span></div>
-    <div class="card c-m" data-k="m"><div class="card-top"><h3>Your time</h3><span class="pct"></span></div><div class="bar"><i></i></div><p>How much of you your kids get.</p><span class="tier"></span></div>
-    <div class="card c-c" data-k="c"><div class="card-top"><h3>Your corner</h3><span class="pct"></span></div><div class="bar"><i></i></div><p>Who&rsquo;s in your corner, and who you&rsquo;re in it for.</p><span class="tier"></span></div>
-  </div>
-</div></section>
-
-<section class="rec"><div class="wrap">
-  <h2>Work on this first: <em id="low"></em></h2>
-  <p id="bridge">Your kids test your fuse in the same moments every week: screens off, sibling fights, the fifth time you&rsquo;ve asked. Dad Shift is audio coaching to keep you calm and in command when it counts.</p>
-  <h3>We recommend: <em>Dad Shift</em></h3>
-</div></section>
-
-<section class="buy" id="buy"><img class="buy-bg" src="/images/order-bg.webp" alt="" aria-hidden="true" decoding="async"><div class="wrap buy-in">
-  <div class="badge"><b>30</b><span>day<br>guarantee</span></div>
-  <h2>Your kids are watching. <em>Be the one they count on.</em></h2>
+  <div class="fr">
   <div class="ocard">
     <div class="otop"><span class="oname" id="oname">Dad Shift</span><span class="oprice" id="oprice">$29</span></div>
     <div class="rx" id="rx" hidden><span class="olabel">Start with these three cards</span><span id="rxl"></span></div>
@@ -296,7 +304,17 @@ body{margin:0;background:#F5F6E1;color:#022822;font-family:Inter,system-ui,sans-
     <label class="bump"><input type="checkbox" id="bump"><span><span class="bump-top"><b>Add The Phone Talk.</b> <span class="bump-tag">Bundle for <s>$48</s> $39</span></span><span class="bump-l">Six audio cards for the day before they get their first phone.</span><span class="bump-l">What to say and the rules that keep the peace.</span></span></label>
   </div>
   <p class="refund">If you want your money back within 30 days, for any reason, we&rsquo;ll refund you. We only want to keep your money if you&rsquo;re happy.</p>
-  <p class="more"><a href="/deck">See what&rsquo;s inside</a></p>
+  </div>
+</div>
+</div></section>
+
+<section class="secs"><div class="wrap">
+  <p class="intro">Your score is out of 100. Below it are your three sections. The lowest one is where to start this month.</p>
+  <div class="cards">
+    <div class="card c-f" data-k="f"><div class="card-top"><h3>Your fuse</h3><span class="pct"></span></div><div class="bar"><i></i></div><p>How steady you stay when they push every button.</p><span class="tier"></span></div>
+    <div class="card c-m" data-k="m"><div class="card-top"><h3>Your time</h3><span class="pct"></span></div><div class="bar"><i></i></div><p>How much of you your kids get.</p><span class="tier"></span></div>
+    <div class="card c-c" data-k="c"><div class="card-top"><h3>Your corner</h3><span class="pct"></span></div><div class="bar"><i></i></div><p>Who&rsquo;s in your corner, and who you&rsquo;re in it for.</p><span class="tier"></span></div>
+  </div>
 </div></section>
 
 <section class="share" id="share"><div class="share-grid">
